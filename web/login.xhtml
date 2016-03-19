@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        >
+    <h:head>
+        <title>Login Page </title>
+    </h:head>
+    <h:outputStylesheet library="primefaces-atlas-layout" name="theme.css" />
+
+    <f:facet name="last">
+        <link type="text/css" rel="stylesheet"
+              href="#{request.contextPath}/javax.faces.resources/primefaces-atlas-layout/teccura.css.xhtml"/>
+    </f:facet>
+    <body class="BlueBack">
+        <div class="Wid80 MarAuto">
+            <div class="Wid80 MarAuto WidAutoOnMobile TexAlCenter">
+                <div style="margin-top:10rem;"></div>
+                <!--<img src="/images/shared/logo.jpg" style="height:20px;"></img>-->
+                <span class="White Fs20 FontDosisRegular"><br />Welcome to login panel</span>
+                <div class="EmptyBox30"></div>
+                <div class="Wid60 MarAuto WidAutoOnMobile">
+                    <div class="Container100">
+                        <div class="Card ui-fluid">
+                            <div class="Container100">
+                                <div class="CardBigTopic TexAlCenter Purple">Login</div>
+                                <div class="Container100">
+                                    <p:inputText class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" value="#{loginBean.userName}" placeholder="Enter your username." />
+                                    <!--<input id="j_idt9" name="j_idt9" type="text" placeholder="User Name" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="j_idt9_s" type="text/javascript">PrimeFaces.cw("InputText","widget_j_idt9",{id:"j_idt9"});</script>-->
+                                </div>
+                                <div class="Container100">
+                                    <!--<input id="j_idt11" name="j_idt11" type="text" placeholder="Password" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="j_idt11_s" type="text/javascript">PrimeFaces.cw("InputText","widget_j_idt11",{id:"j_idt11"});</script>-->
+                                    <p:password class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" value="#{loginBean.password}" placeholder="Enter your password." />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</f:view>
+</html>
