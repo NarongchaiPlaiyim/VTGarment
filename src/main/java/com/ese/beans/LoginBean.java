@@ -8,6 +8,8 @@ import com.ese.utils.AttributeName;
 import com.ese.utils.FacesUtil;
 import com.ese.utils.MessageDialog;
 import com.ese.utils.Utils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-//@Getter
-//@Setter
+@Getter
+@Setter
 @ViewScoped
 @ManagedBean(name = "loginBean")
 public class LoginBean extends Bean{
@@ -92,21 +94,5 @@ public class LoginBean extends Bean{
             log.error("Exception : {}", e);
             return false;
         }
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
