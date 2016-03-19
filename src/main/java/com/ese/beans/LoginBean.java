@@ -1,6 +1,5 @@
 package com.ese.beans;
 
-import com.ese.model.db.StaffModel;
 import com.ese.service.LoginService;
 import com.ese.service.security.SimpleAuthenticationManager;
 import com.ese.service.security.UserDetail;
@@ -9,8 +8,6 @@ import com.ese.utils.AttributeName;
 import com.ese.utils.FacesUtil;
 import com.ese.utils.MessageDialog;
 import com.ese.utils.Utils;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-@Getter
-@Setter
+//@Getter
+//@Setter
 @ViewScoped
 @ManagedBean(name = "loginBean")
 public class LoginBean extends Bean{
@@ -60,13 +57,13 @@ public class LoginBean extends Bean{
         if(!Utils.isZero(userName.length()) && !Utils.isZero(password.length())) {
             setPassword(EncryptionService.encryption(password));
             if(loginService.isUserExist(getUserName(), getPassword())){
-                StaffModel staffModel = loginService.getStaffModel();
-                userDetail = new UserDetail(staffModel.getUsername(),
-                                            staffModel.getPassword(),
-                                            "USER",
-                                            staffModel.getMsTitleModel().getName(),
-                                            staffModel.getName());
-                userDetail.setId(Utils.parseInt(staffModel.getId(), 0));
+//                StaffModel staffModel = loginService.getStaffModel();
+//                userDetail = new UserDetail(staffModel.getUsername(),
+//                                            staffModel.getPassword(),
+//                                            "USER",
+//                                            staffModel.getMsTitleModel().getName(),
+//                                            staffModel.getName());
+//                userDetail.setId(Utils.parseInt(staffModel.getId(), 0));
                 HttpServletRequest httpServletRequest = FacesUtil.getRequest();
                 HttpServletResponse httpServletResponse = FacesUtil.getResponse();
                 UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(getUserDetail(), getPassword());
@@ -78,8 +75,8 @@ public class LoginBean extends Bean{
                 compositeSessionAuthenticationStrategy.onAuthentication(request, httpServletRequest, httpServletResponse);
                 HttpSession httpSession = FacesUtil.getSession();
                 httpSession.setAttribute(AttributeName.USER_DETAIL.getName(), getUserDetail());
-                httpSession.setAttribute(AttributeName.AUTHORIZE.getName(), loginService.getAuthorize());
-                httpSession.setAttribute(AttributeName.STAFF.getName(), staffModel.getId());
+//                httpSession.setAttribute(AttributeName.AUTHORIZE.getName(), loginService.getAuthorize());
+//                httpSession.setAttribute(AttributeName.STAFF.getName(), staffModel.getId());
                 log.debug("-- userDetail[{}]", userDetail.toString());
                 return "PASS";
             }
@@ -95,5 +92,21 @@ public class LoginBean extends Bean{
             log.error("Exception : {}", e);
             return false;
         }
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
