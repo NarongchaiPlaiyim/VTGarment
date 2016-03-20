@@ -21,6 +21,26 @@
                                  reflow="true"
                                  value="#{reworkBean.reworkTableViewList}"
                                  rowIndexVar="rowIndex">
+                        <!--<f:facet name="header">-->
+                            <!--#{msg.get('menu.main')}-->
+                        <!--</f:facet>-->
+
+                        <!--<p:columnGroup type="header">-->
+                            <!--<p:row>-->
+                                <!--<p:column colspan="1" headerText="% Rework" />-->
+                                <!--<p:column colspan="3" headerText="% Taget 5%" />-->
+                            <!--</p:row>-->
+                            <!--<p:row>-->
+                                <!--<p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
+                                <!--<p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
+                                <!--<p:column rowspan="1" headerText="111" />-->
+                                <!--<p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.percentOfToday')}" />-->
+                                <!--<p:column rowspan="1" headerText="2222" />-->
+
+                                <!--<p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.trends')}" />-->
+                            <!--</p:row>-->
+                        <!--</p:columnGroup>-->
+
                         <p:column headerText="#{msg.get('table.header.sutureLine')}" >
                            #{reworkTableView.sutureLine}
                         </p:column>
