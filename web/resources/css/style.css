@@ -1,9 +1,26 @@
 @media (max-width: 640px) {
-    .ui-datatable-reflow thead th, .ui-datatable-reflow tfoot td{
-        display: inline !important;
+    .ui-panel .ui-panel-content.ui-widget-content{
+        -webkit-transition: all 1s ease;
+        -moz-transition: 1s ease;
+        transition: 1s ease;
     }
-}
+    .ui-datatable-reflow thead th, .ui-datatable-reflow tfoot td{
+        display: table-cell;
+        font-size: 10px !important;
+    }
 
-.ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th{
-    color: #026890;
+    .ui-datatable-reflow .ui-datatable-data td{
+        display: table-cell;
+        float: none;
+        border: solid 1px #d9e3e8 !important;
+        font-size: 10px;
+    }
+
+    .ui-datatable-reflow .ui-datatable-data td img{
+        width: 20%;
+    }
+
+    .ui-datatable-reflow .ui-datatable-data td .ui-column-title{
+        display: none !important;
+    }
 }

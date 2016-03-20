@@ -7,11 +7,11 @@
         >
     <h:head>
         <title>#{msg.get('menu.main')}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <script type="text/javascript">if(window.PrimeFaces){}</script>
-        <!--<script type="/resources/css/style.css"></script>-->
-        <link href="resources/css/style.css" rel="stylesheet"/>
+        <link href="../resources/css/style.css" rel="stylesheet"/>
     </h:head>
     <h:body class="BlueBack">
         <p:panel style="border: 0">
@@ -50,6 +50,7 @@
                             <h:outputText value="#{reworkTableView.percentOfToday}" />
                         </p:column>
                         <p:column headerText="#{msg.get('table.header.trends')}" >
+                            <img src="../resources/images/Icon/up-01.png"/>
                             <h:outputText value="#{reworkTableView.trends}" />
                         </p:column>
                     </p:dataTable>
