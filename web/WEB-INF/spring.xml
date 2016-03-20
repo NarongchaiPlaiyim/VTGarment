@@ -24,10 +24,10 @@
     <util:properties id="message" location="classpath:message.properties"/>
 
     <context:annotation-config />
-    <context:component-scan base-package="com.ese.beans"/>
-    <context:component-scan base-package="com.ese.service"/>
-    <context:component-scan base-package="com.ese.model.dao"/>
-    <context:component-scan base-package="com.ese.transform"/>
+    <context:component-scan base-package="com.vtgarment.beans"/>
+    <context:component-scan base-package="com.vtgarment.service"/>
+    <context:component-scan base-package="com.vtgarment.model.dao"/>
+    <context:component-scan base-package="com.vtgarment.transform"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -40,7 +40,7 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.ese.model.db"/>
+        <property name="packagesToScan" value="com.vtgarment.model.db"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
@@ -60,12 +60,6 @@
     <!--Logger-->
     <bean id="log" class="org.slf4j.LoggerFactory" factory-method="getLogger">
         <constructor-arg index="0" value="#{config['log.normal']}"/>
-    </bean>
-    <bean id="moLogger" class="org.slf4j.LoggerFactory" factory-method="getLogger">
-        <constructor-arg index="0" value="#{config['log.mo']}"/>
-    </bean>
-    <bean id="mtLogger" class="org.slf4j.LoggerFactory" factory-method="getLogger">
-        <constructor-arg index="0" value="#{config['log.mt']}"/>
     </bean>
     <!--Logger-->
 
@@ -88,7 +82,7 @@
         <property name="invalidSessionStrategy" ref="jsfRedirectStrategy"/>
     </bean>
 
-    <bean id="jsfRedirectStrategy" class="com.ese.service.security.JSFRedirectionStrategy">
+    <bean id="jsfRedirectStrategy" class="com.vtgarment.service.security.JSFRedirectionStrategy">
         <property name="invalidSessionUrl" value="/login.xhtml"/>
     </bean>
 

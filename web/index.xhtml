@@ -3,23 +3,22 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
-<h:body>
-    <p:treeTable value="#{index.root}" var="document">
-        <f:facet name="header">
-            Document Viewer
-        </f:facet>
-        <p:column headerText="Name">
-            <h:outputText value="#{document.name}" />
-        </p:column>
-        <p:column headerText="Size">
-            <h:outputText value="#{document.size}" />
-        </p:column>
-        <p:column headerText="Type">
-            <h:outputText value="#{document.type}" />
-        </p:column>
-    </p:treeTable>
-</h:body>
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </h:head>
+    <h:body>
+        <p:dataTable id="barcodeRegisterTable"
+                     scrollable="true" scrollHeight="450"
+                     var="barcodeModel"
+                     resizableColumns="true"
+                     value="#{index.root}"
+                     rowIndexVar="rowIndex">
+            <p:column headerText="Item Code" style="min-width: 60px; width: 60px; max-width: 60px;" styleClass="center">
+                <h:outputText value="#{barcodeModel}"/>
+            </p:column>
+        </p:dataTable>
+    </h:body>
 </f:view>
 </html>
