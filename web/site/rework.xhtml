@@ -1,12 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title></title>
-</head>
-<body>
-    Rework
-</body>
+<!DOCTYPE html>
+<html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        >
+    <h:head>
+        <title>#{msg.get('menu.main')}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <script type="text/javascript">if(window.PrimeFaces){}</script>
+    </h:head>
+    <h:body class="BlueBack">
+        <p:panel style="border: 0">
+        <div class="Wid80 MarAuto">
+            <div class="Wid80 MarAuto WidAutoOnMobile TexAlCenter">
+
+                    <p:dataTable id="reworkTable"
+                                 var="reworkTableView"
+                                 reflow="true"
+                                 value="#{reworkBean.reworkTableViewList}"
+                                 rowIndexVar="rowIndex">
+                        <p:column headerText="#{msg.get('table.header.sutureLine')}" >
+                           #{reworkTableView.sutureLine}
+                        </p:column>
+                        <p:column headerText="#{msg.get('table.header.percentOfYesterday')}" >
+                            #{reworkTableView.percentOfYesterday}
+                        </p:column>
+                        <p:column headerText="#{msg.get('table.header.percentOfToday')}" >
+                            #{reworkTableView.percentOfToday}
+                        </p:column>
+                        <p:column headerText="#{msg.get('table.header.trends')}" >
+                            #{reworkTableView.trends}
+                        </p:column>
+                    </p:dataTable>
+
+            </div>
+        </div>
+        </p:panel>
+    </h:body>
+</f:view>
 </html>
