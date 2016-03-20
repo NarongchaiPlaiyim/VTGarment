@@ -15,8 +15,8 @@
     </h:head>
     <h:body class="BlueBack">
         <p:panel style="border: 0">
-        <div class="Wid80 MarAuto">
-            <div class="Wid80 MarAuto WidAutoOnMobile TexAlCenter">
+        <!--<div class="Wid80 MarAuto">-->
+            <!--<div class="Wid80 MarAuto WidAutoOnMobile TexAlCenter">-->
 
                     <p:dataTable id="reworkTable"
                                  var="reworkTableView"
@@ -27,38 +27,35 @@
                             <!--#{msg.get('menu.main')}-->
                         <!--</f:facet>-->
 
-                        <!--<p:columnGroup type="header">-->
-                            <!--<p:row>-->
-                                <!--<p:column colspan="1" headerText="% Rework" />-->
-                                <!--<p:column colspan="3" headerText="% Taget 5%" />-->
-                            <!--</p:row>-->
-                            <!--<p:row>-->
-                                <!--<p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
-                                <!--<p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
-                                <!--<p:column rowspan="1" headerText="111" />-->
-                                <!--<p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.percentOfToday')}" />-->
-                                <!--<p:column rowspan="1" headerText="2222" />-->
-
-                                <!--<p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.trends')}" />-->
-                            <!--</p:row>-->
-                        <!--</p:columnGroup>-->
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
+                                <p:column colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />
+                                <p:column colspan="1" headerText="#{msg.get('table.header.percentOfToday')}" />
+                                <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.trends')}" />
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1" headerText="29-11-15" />
+                                <p:column colspan="1" headerText="30-11-15" />
+                            </p:row>
+                        </p:columnGroup>
 
                         <p:column headerText="#{msg.get('table.header.sutureLine')}" >
-                           #{reworkTableView.sutureLine}
+                            <h:outputText value="#{reworkTableView.sutureLine}" />
                         </p:column>
                         <p:column headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                            #{reworkTableView.percentOfYesterday}
+                            <h:outputText value="#{reworkTableView.percentOfYesterday}" />
                         </p:column>
                         <p:column headerText="#{msg.get('table.header.percentOfToday')}" >
-                            #{reworkTableView.percentOfToday}
+                            <h:outputText value="#{reworkTableView.percentOfToday}" />
                         </p:column>
                         <p:column headerText="#{msg.get('table.header.trends')}" >
-                            #{reworkTableView.trends}
+                            <h:outputText value="#{reworkTableView.trends}" />
                         </p:column>
                     </p:dataTable>
 
-            </div>
-        </div>
+            <!--</div>-->
+        <!--</div>-->
         </p:panel>
     </h:body>
 </f:view>
