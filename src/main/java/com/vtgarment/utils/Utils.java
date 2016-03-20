@@ -111,48 +111,13 @@ public enum Utils {
        return getCalendar().getTime();
     }
 
-    public static String getBatchNo(){
-        return new SimpleDateFormat("yyyy-ww", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getBatchNo(Date date){
-        return new SimpleDateFormat("yyyy-ww", Locale.ENGLISH).format(date);
-    }
-
-    public static String getDocumentIn(){
-        return "IN"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentIou(){
-        return "OU"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentQr(){
-        return "QR"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentDomesticLoad(){
-        return "LOD-"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentOverSeaLoad(){
-        return "LOO-"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentOverseasLoad(){
-        return "LOO-"+new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentOverSeaOrder(){
-        return "PKO-" + new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentDomesticOrder(){
-        return "PKD-" + new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH).format(currentDate());
-    }
-
-    public static String getDocumentNo(){
-        return "TR" + new SimpleDateFormat("ddMMyyyyHHmmssSSS", Locale.ENGLISH).format(currentDate());
+    public static Date previousDate(){
+        Calendar c = Calendar.getInstance();
+        Date date = currentDate();
+        c.setTime(date);
+        c.add(Calendar.DATE, -1);
+        date = c.getTime();
+        return date;
     }
 
     public static boolean isTrue(int value) {
@@ -339,11 +304,6 @@ public enum Utils {
             return dateString;
         }
     }
-
-    public static String genReportName(String fileName){
-        return genDateReportStringDDMMYYYY(currentDate())+ fileName;
-    }
-
 
     public static String convertToStringYYYYMMDDHHmmss(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
