@@ -20,7 +20,6 @@
 
                     <p:dataTable id="reworkTable"
                                  var="reworkTableView"
-                                 reflow="true"
                                  value="#{reworkBean.reworkTableViewList}"
                                  rowIndexVar="rowIndex">
                         <!--<f:facet name="header">-->
@@ -28,6 +27,10 @@
                         <!--</f:facet>-->
 
                         <p:columnGroup type="header">
+                            <p:row>
+                                <p:column colspan="1" headerText="Rework" priority="10" />
+                                <p:column colspan="3" headerText="Taget" priority="10" />
+                            </p:row>
                             <p:row>
                                 <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
                                 <p:column colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />
