@@ -1,5 +1,6 @@
 package com.vtgarment.beans;
 
+import com.vtgarment.model.view.rework.ReworkTableView;
 import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.service.ReworkService;
 import lombok.Getter;
@@ -9,6 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -31,5 +35,27 @@ public class ReworkBean extends Bean {
         reworkView = new ReworkView();
     }
 
+    public int randInt(int min, int max) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(max - min) + min;
+        return randomNumber;
+    }
 
+    private List<ReworkTableView> reworkTableViewList;
+
+    public void update() {
+        log.debug("called");
+        List<ReworkTableView> reworkTableViewList = new ArrayList<>();
+        for (int i = 1; i < 23; i++) {
+            ReworkTableView reworkTableView = new ReworkTableView();
+            reworkTableView.setSutureLine("VSEW00"+String.valueOf(i));
+            int percentOfYesterday = randInt(0, 100);
+            reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
+            int percentOfToday = randInt(0, 100);
+            reworkTableView.setPercentOfToday(percentOfToday+"%");
+            reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
+            reworkTableViewList.add(reworkTableView);
+        }
+        this.reworkTableViewList = reworkTableViewList;
+    }
 }

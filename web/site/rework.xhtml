@@ -15,12 +15,21 @@
     </h:head>
     <h:body class="BlueBack">
         <p:panel style="border: 0">
+            <div class="CardBigTopic TexAlCenter Purple">
+                <h:outputText value="Date : " /><p:clock pattern="dd/MM/yyyy" />
+            </div>
+            <div class="CardBigTopic TexAlCenter Purple">
+                <h:outputText value="Time : " /><p:clock pattern="HH:mm:ss" />
+            </div>
+        </p:panel>
+        <h:form>
+        <p:panel style="border: 0">
+
             <p:dataTable id="reworkTable"
                          var="reworkTableView"
                          reflow="true"
-                         value="#{reworkBean.reworkView.reworkTableViewList}"
+                         value="#{reworkBean.reworkTableViewList}"
                          rowIndexVar="rowIndex">
-
                 <p:columnGroup type="header">
                     <p:row>
                         <p:column colspan="1" headerText="Rework" priority="10" />
@@ -54,6 +63,8 @@
                 </p:column>
             </p:dataTable>
         </p:panel>
+        <p:poll interval="#{config['time.recall']}" listener="#{reworkBean.update}" update="reworkTable" />
+        </h:form>
     </h:body>
 </f:view>
 </html>
