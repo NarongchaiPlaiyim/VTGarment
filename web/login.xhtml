@@ -23,36 +23,33 @@
         <link type="text/css" rel="stylesheet" href="/atlas/javax.faces.resource/css/atlas-layout.css.xhtml?ln=atlas-layout" />
         <link type="text/css" rel="stylesheet" href="/atlas/javax.faces.resource/css/atlas-font.css.xhtml?ln=atlas-layout" />
         <script type="text/javascript">if(window.PrimeFaces){}</script>
+        <link href="/test/resources/css/style.css" rel="stylesheet"/>
     </h:head>
-    <h:body class="BlueBack">
+    <h:body>
         <h:form id="frmLogin">
-            <div class="Wid80 MarAuto">
-                <div class="Wid80 MarAuto WidAutoOnMobile TexAlCenter">
-                    <p:panel style="border: 0">
-                        <div class="EmptyBox30"></div>
-                        <div class="Wid60 MarAuto WidAutoOnMobile">
-                            <div class="Container100">
-                                <div class="Card ui-fluid">
-                                    <div class="Container100">
-                                        <div class="CardBigTopic TexAlCenter Purple">Login</div>
-                                        <div class="Container100">
-                                            <p:inputText value="#{loginBean.userName}" placeholder="Enter your username." />
-                                        </div>
-                                        <div class="Container100">
-                                            <p:password value="#{loginBean.password}" placeholder="Enter your password." />
-                                        </div>
-                                        <div class="Container100">
-                                            <p:commandButton id="test1" value="#{msg.get('btn.name.login')}"
-                                                      onstart="PF('bui').block()"
-                                                      action="#{loginBean.login}"
-                                                      oncomplete="PF('bui').unblock()" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </p:panel>
+            <div style="text-align: center;">
+                <img src="/test/resources/images/shared/logo_2.png" width="50%"/>
+            </div>
+            <div class="ui-fluid div-box-login">
+                <div>
+                    <div style="text-align: center; padding: 15px; color: #ffffff">Login</div>
+                    <div style="padding-bottom: 10px; margin: 5px;">
+                        <p:inputText value="#{loginBean.userName}" placeholder="Enter your username." />
+                    </div>
+                    <div style="padding-bottom: 10px; margin: 5px;">
+                        <p:password value="#{loginBean.password}" placeholder="Enter your password." />
+                    </div>
+                    <div style="padding-bottom: 10px; margin: 5px;">
+                        <p:commandButton id="test1" value="#{msg.get('btn.name.login')}"
+                                         styleClass="btn-login"
+                                         onstart="PF('bui').block()"
+                                         action="#{loginBean.login}"
+                                         oncomplete="PF('bui').unblock()" />
+                    </div>
                 </div>
+            </div>
+            <div class="loginfooter">
+                <img src="/test/resources/images/shared/ESELogo608.png" width="20%"/>
             </div>
         </h:form>
     </h:body>
