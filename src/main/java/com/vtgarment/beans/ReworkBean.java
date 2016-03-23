@@ -5,6 +5,7 @@ import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.service.ReworkService;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.event.data.FilterEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +33,11 @@ public class ReworkBean extends Bean {
     public void onCreation(){
         log.debug("onCreation()");
         init();
+    }
+
+    public void filterListener(FilterEvent filterEvent) {
+        // your code here...
+        filterEvent.getFilters();
     }
 
     private void init(){

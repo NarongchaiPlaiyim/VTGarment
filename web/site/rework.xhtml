@@ -31,6 +31,7 @@
                          value="#{reworkBean.reworkTableViewList}"
                          filteredValue="#{reworkBean.filteredReworkTableViewList}"
                          rowIndexVar="rowIndex">
+                <p:ajax event="filter" listener="#{reworkBean.filterListener}"/>
                 <!--filterFunction="#{tableBean.filterByPrice}"-->
                 <f:facet name="header">
                     <!--<p:selectOneMenu onchange="PF('carsTable').filter()" >-->
@@ -49,10 +50,10 @@
                         <!--<f:selectItem itemLabel="L2" itemValue="L2" />-->
                         <!--<f:selectItem itemLabel="L3" itemValue="L3" />-->
                     <!--</p:selectOneMenu>-->
-                    <p:outputPanel>
-                        <h:outputText value="Search all fields:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-                    </p:outputPanel>
+                    <!--<p:outputPanel>-->
+                        <!--<h:outputText value="Search all fields:" />-->
+                        <!--<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>-->
+                    <!--</p:outputPanel>-->
                 </f:facet>
 
                 <p:columnGroup type="header">
@@ -73,6 +74,12 @@
                 </p:columnGroup>
 
                 <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
+                    <f:facet name="filter">
+                        <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
+                            <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
+                            <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
+                        </p:selectCheckboxMenu>
+                    </f:facet>
                     <h:outputText value="#{reworkTableView.country}" />
                 </p:column>
                 <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
