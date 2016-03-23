@@ -13,193 +13,253 @@
         <script type="text/javascript">if(window.PrimeFaces){}</script>
         <link href="../resources/css/style.css" rel="stylesheet"/>
     </h:head>
-    <h:body class="BlueBack">
-        <table>
-            <tr>
-                <td>
-                    <div class="div-home">
-                        <table class="table-home" >
-                            <tr>
-                                <td >
-                                    <img src="../resources/images/Icon/boat-01.png"/>
-                                </td>
-                                <td colspan="2" >
-                                    <p:outputLabel value="% OTP"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../resources/images/Icon/up-01.png" />
-                                    <p:outputLabel value="Trend" />
-                                </td>
-                                <td  colspan="2">
-                                    <p:outputLabel value="90%"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Best" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW003" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="105%" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Worst" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW008" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="40.7%" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td>
-                    <div class="div-home">
-                        <table class="table-home" >
-                            <tr>
-                                <td >
-                                    <img src="../resources/images/Icon/clothes-01.png"/>
-                                </td>
-                                <td colspan="2" >
-                                    <p:outputLabel value="% Rework"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../resources/images/Icon/down-01.png" />
-                                    <p:outputLabel value="Trend" />
-                                </td>
-                                <td  colspan="2">
-                                    <p:outputLabel value="90%"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Best" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW003" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="105%" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Worst" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW008" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="40.7%" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="div-home">
-                        <table class="table-home" >
-                            <tr>
-                                <td >
-                                    <img src="../resources/images/Icon/sewing-01.png"/>
-                                </td>
-                                <td colspan="2" >
-                                    <p:outputLabel value="% Break Down" style="font-size: 12px;"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../resources/images/Icon/Right-01.png" />
-                                    <p:outputLabel value="Trend" />
-                                </td>
-                                <td  colspan="2">
-                                    <p:outputLabel value="90%"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Best" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW003" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="105%" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Worst" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW008" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="40.7%" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td>
-                    <div class="div-home">
-                        <table class="table-home" >
-                            <tr>
-                                <td >
-                                    <img src="../resources/images/Icon/F-01.png"/>
-                                </td>
-                                <td colspan="2" >
-                                    <p:outputLabel value="% Break Down" style="font-size: 12px;"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../resources/images/Icon/Right-01.png" />
-                                    <p:outputLabel value="Trend" />
-                                </td>
-                                <td  colspan="2">
-                                    <p:outputLabel value="90%"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Best" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW003" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="105%" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p:outputLabel value="Worst" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW008" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="40.7%" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <h:body style="background-color: #0292c7">
+        <div class="div-home border-OTP" onclick="alert('OTP')">
+            <table class="table-home" >
+                <tr>
+                    <td >
+                        <img src="../resources/images/Icon/boat-01.png"/>
+                    </td>
+                    <td colspan="2" >
+                        <p:outputLabel value="% OTP" styleClass="font-OTP"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img src="../resources/images/Icon/up-01.png" />
+                        </div>
+                        <div>
+                            <p:outputLabel value="Trend" />
+
+                        </div>
+                    </td>
+                    <td  colspan="2">
+                        <p:outputLabel value="90%"/>
+                    </td>
+                </tr>
+                <tr class="font-Best">
+                    <td>
+                        <p:outputLabel value="Best" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW003" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="105%" />
+                    </td>
+                </tr>
+                <tr class="font-Worst">
+                    <td>
+                        <p:outputLabel value="Worst" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW008" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="40.7%" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="div-home border-Rework">
+            <table class="table-home" >
+                <tr>
+                    <td >
+                        <img src="../resources/images/Icon/clothes-01.png"/>
+                    </td>
+                    <td colspan="2" >
+                        <p:outputLabel value="% Rework" styleClass="font-Rework"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img src="../resources/images/Icon/up-01.png" />
+                        </div>
+                        <div>
+                            <p:outputLabel value="Trend" />
+
+                        </div>
+                    </td>
+                    <td  colspan="2">
+                        <p:outputLabel value="90%"/>
+                    </td>
+                </tr>
+                <tr class="font-Best">
+                    <td>
+                        <p:outputLabel value="Best" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW003" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="105%" />
+                    </td>
+                </tr>
+                <tr class="font-Worst">
+                    <td>
+                        <p:outputLabel value="Worst" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW008" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="40.7%" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="div-home border-Break-Down">
+            <table class="table-home" >
+                <tr>
+                    <td >
+                        <img src="../resources/images/Icon/sewing-01.png"/>
+                    </td>
+                    <td colspan="2" >
+                        <p:outputLabel value="% Breal Down" styleClass="font-Break-Down"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img src="../resources/images/Icon/up-01.png" />
+                        </div>
+                        <div>
+                            <p:outputLabel value="Trend" />
+
+                        </div>
+                    </td>
+                    <td  colspan="2">
+                        <p:outputLabel value="90%"/>
+                    </td>
+                </tr>
+                <tr class="font-Best">
+                    <td>
+                        <p:outputLabel value="Best" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW003" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="105%" />
+                    </td>
+                </tr>
+                <tr class="font-Worst">
+                    <td>
+                        <p:outputLabel value="Worst" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW008" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="40.7%" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="div-home border-Repair">
+            <table class="table-home" >
+                <tr>
+                    <td >
+                        <img src="../resources/images/Icon/F-01.png"/>
+                    </td>
+                    <td colspan="2" >
+                        <p:outputLabel value="ค้างซ่อม" styleClass="font-Repair"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img src="../resources/images/Icon/up-01.png" />
+                        </div>
+                        <div>
+                            <p:outputLabel value="Trend" />
+
+                        </div>
+                    </td>
+                    <td  colspan="2">
+                        <p:outputLabel value="90%"/>
+                    </td>
+                </tr>
+                <tr class="font-Best">
+                    <td>
+                        <p:outputLabel value="Best" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW003" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="105%" />
+                    </td>
+                </tr>
+                <tr class="font-Worst">
+                    <td>
+                        <p:outputLabel value="Worst" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="VSEW008" />
+                    </td>
+                    <td>
+                        <p:outputLabel value="40.7%" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <!--<div class="div-home">-->
+            <!--<div style="float: left">-->
+                <!--<img src="../resources/images/Icon/boat-01.png" style="width: 50%"/>-->
+            <!--</div>-->
+            <!--<table class="table-home" >-->
+                <!--<tr>-->
+                    <!--<td >-->
+                        <!--<img src="../resources/images/Icon/boat-01.png"/>-->
+                    <!--</td>-->
+                    <!--<td colspan="2" >-->
+                        <!--<p:outputLabel value="% OTP"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<img src="../resources/images/Icon/up-01.png" />-->
+                        <!--<p:outputLabel value="Trend" />-->
+                    <!--</td>-->
+                    <!--<td  colspan="2">-->
+                        <!--<p:outputLabel value="90%"/>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="Best" />-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="VSEW003" />-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="105%" />-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="Worst" />-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="VSEW008" />-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<p:outputLabel value="40.7%" />-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+
+
 
 
 
