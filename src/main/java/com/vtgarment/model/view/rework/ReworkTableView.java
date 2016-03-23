@@ -9,6 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReworkTableView extends View {
+    private String country;
+    private String factory;
+    private String line;
     private String sutureLine;
     private String percentOfYesterday;
     private String percentOfToday;

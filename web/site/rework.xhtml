@@ -16,20 +16,39 @@
     <h:body class="BlueBack">
         <p:panel style="border: 0">
             <div class="CardBigTopic TexAlCenter Purple">
-                <h:outputText value="Date : " /><p:clock pattern="dd/MM/yyyy" />
+                <h:outputText value="Date : " /><p:clock mode="server" pattern="dd/MM/yyyy" />
             </div>
             <div class="CardBigTopic TexAlCenter Purple">
-                <h:outputText value="Time : " /><p:clock pattern="HH:mm:ss" />
+                <h:outputText value="Time : " /><p:clock mode="server" pattern="HH:mm:ss" />
             </div>
         </p:panel>
         <h:form>
         <p:panel style="border: 0">
-
+            <!--filteredValue="AAAA"-->
             <p:dataTable id="reworkTable"
+                         widgetVar="carsTable"
                          var="reworkTableView"
-                         reflow="true"
                          value="#{reworkBean.reworkTableViewList}"
+                         filteredValue="#{reworkBean.filteredReworkTableViewList}"
                          rowIndexVar="rowIndex">
+
+                <f:facet name="header">
+                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
+                        <f:selectItem itemLabel="LO" itemValue="LO" noSelectionOption="true" />
+                        <f:selectItem itemLabel="TH" itemValue="TH" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
+                        <f:selectItem itemLabel="F1" itemValue="F1" />
+                        <f:selectItem itemLabel="F2" itemValue="F2" />
+                        <f:selectItem itemLabel="F3" itemValue="F3" />
+                    </p:selectOneMenu>
+                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
+                        <f:selectItem itemLabel="L1" itemValue="L1" />
+                        <f:selectItem itemLabel="L2" itemValue="L2" />
+                        <f:selectItem itemLabel="L3" itemValue="L3" />
+                    </p:selectOneMenu>
+                </f:facet>
+
                 <p:columnGroup type="header">
                     <p:row>
                         <p:column colspan="1" headerText="Rework" priority="10" />
@@ -48,22 +67,22 @@
                 </p:columnGroup>
 
                 <p:column headerText="#{msg.get('table.header.sutureLine')}" >
-                    <h:outputText value="#{reworkTableView.sutureLine}" />
+                    <h:outputText value="#{reworkTableView.country}" />
                 </p:column>
                 <p:column headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                    <h:outputText value="#{reworkTableView.percentOfYesterday}" />
+                    <h:outputText value="#{reworkTableView.factory}" />
                 </p:column>
                 <p:column headerText="#{msg.get('table.header.percentOfToday')}" >
-                    <h:outputText value="#{reworkTableView.percentOfToday}" />
+                    <h:outputText value="#{reworkTableView.line}" />
                 </p:column>
-                <p:column headerText="#{msg.get('table.header.trends')}" >
-                    <img src="../resources/images/Icon/up-01.png"/>
+                <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
+                    <!--<img src="../resources/images/Icon/up-01.png"/>-->
                     <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
                     <h:outputText value="#{reworkTableView.trends}" />
                 </p:column>
             </p:dataTable>
         </p:panel>
-        <p:poll interval="#{config['time.recall']}" listener="#{reworkBean.update}" update="reworkTable" />
+        <!--<p:poll interval="#{config['time.recall']}" listener="#{reworkBean.update}" update="reworkTable" />-->
         </h:form>
     </h:body>
 </f:view>
