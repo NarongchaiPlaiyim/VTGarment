@@ -254,6 +254,11 @@ public class ReworkBean extends Bean {
     private List<ReworkTableView> reworkTableViewList;
     private List<ReworkTableView> filteredReworkTableViewList;
 
+    public void onValueChange(){
+        filteredReworkTableViewList = reworkTableViewList;
+        filteredReworkTableViewList.remove(0);
+    }
+
     public void update() {
         log.debug("update");
 //        if (reworkTableViewList == null) {

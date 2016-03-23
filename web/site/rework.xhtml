@@ -31,22 +31,28 @@
                          value="#{reworkBean.reworkTableViewList}"
                          filteredValue="#{reworkBean.filteredReworkTableViewList}"
                          rowIndexVar="rowIndex">
-
+                <!--filterFunction="#{tableBean.filterByPrice}"-->
                 <f:facet name="header">
-                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                        <f:selectItem itemLabel="LO" itemValue="LO" noSelectionOption="true" />
-                        <f:selectItem itemLabel="TH" itemValue="TH" />
-                    </p:selectOneMenu>
-                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                        <f:selectItem itemLabel="F1" itemValue="F1" />
-                        <f:selectItem itemLabel="F2" itemValue="F2" />
-                        <f:selectItem itemLabel="F3" itemValue="F3" />
-                    </p:selectOneMenu>
-                    <p:selectOneMenu onchange="PF('carsTable').filter()" >
-                        <f:selectItem itemLabel="L1" itemValue="L1" />
-                        <f:selectItem itemLabel="L2" itemValue="L2" />
-                        <f:selectItem itemLabel="L3" itemValue="L3" />
-                    </p:selectOneMenu>
+                    <!--<p:selectOneMenu onchange="PF('carsTable').filter()" >-->
+                        <!--<f:selectItem itemLabel="LO" itemValue="LO"  />-->
+                        <!--<f:selectItem itemLabel="TH" itemValue="TH" />-->
+                        <!--&lt;!&ndash;<p:ajax event="onchange" listener="#{reworkBean.onValueChange()}"&ndash;&gt;-->
+                        <!--&lt;!&ndash;update="reworkTable"></p:ajax>&ndash;&gt;-->
+                    <!--</p:selectOneMenu>-->
+                    <!--<p:selectOneMenu onchange="PF('carsTable').filter()" >-->
+                        <!--<f:selectItem itemLabel="F1" itemValue="F1" />-->
+                        <!--<f:selectItem itemLabel="F2" itemValue="F2" />-->
+                        <!--<f:selectItem itemLabel="F3" itemValue="F3" />-->
+                    <!--</p:selectOneMenu>-->
+                    <!--<p:selectOneMenu onchange="PF('carsTable').filter()" >-->
+                        <!--<f:selectItem itemLabel="L1" itemValue="L1" />-->
+                        <!--<f:selectItem itemLabel="L2" itemValue="L2" />-->
+                        <!--<f:selectItem itemLabel="L3" itemValue="L3" />-->
+                    <!--</p:selectOneMenu>-->
+                    <p:outputPanel>
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
                 </f:facet>
 
                 <p:columnGroup type="header">
@@ -66,13 +72,13 @@
                     </p:row>
                 </p:columnGroup>
 
-                <p:column headerText="#{msg.get('table.header.sutureLine')}" >
+                <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
                     <h:outputText value="#{reworkTableView.country}" />
                 </p:column>
-                <p:column headerText="#{msg.get('table.header.percentOfYesterday')}" >
+                <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
                     <h:outputText value="#{reworkTableView.factory}" />
                 </p:column>
-                <p:column headerText="#{msg.get('table.header.percentOfToday')}" >
+                <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
                     <h:outputText value="#{reworkTableView.line}" />
                 </p:column>
                 <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
