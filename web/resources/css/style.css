@@ -6,11 +6,15 @@
     }
 
     .ui-datatable table tbody tr td{
-        font-size: 10px;
+        font-size: 10px !important;
     }
 
     .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th{
-        font-size: 10px;
+        font-size: 10px !important;
+    }
+
+    .test-font div.ui-datatable-tablewrapper table thead:first-child tr th{
+        font-size: 5px !important;
     }
 }
 
@@ -20,11 +24,11 @@
     }
 
     .ui-datatable table tbody tr td{
-        font-size: 18px;
+        font-size: 18px !important;
     }
 
     .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th{
-        font-size: 18px;
+        font-size: 18px !important;
     }
 }
 
