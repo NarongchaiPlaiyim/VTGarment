@@ -1,6 +1,5 @@
 package com.vtgarment.beans;
 
-import com.vtgarment.model.view.rework.ReworkTableView;
 import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.service.ReworkService;
 import lombok.Getter;
@@ -23,12 +22,6 @@ public class ReworkBean extends Bean {
     @ManagedProperty("#{reworkService}")
     private ReworkService reworkService;
 
-    @ManagedProperty("#{centralBean}")
-    private CentralBean centralBean;
-
-
-    private ReworkView reworkView;
-
     @PostConstruct
     public void onCreation(){
         log.debug("onCreation()");
@@ -42,104 +35,101 @@ public class ReworkBean extends Bean {
 
     private void init(){
         log.debug("init()");
-        reworkView = new ReworkView();
         reworkTableViewList = new ArrayList<>();
 
-        ReworkTableView reworkTableView = new ReworkTableView();
+        ReworkView reworkView;
         int percentOfYesterday = randInt(0, 100);
         int percentOfToday = randInt(0, 100);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("TH");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
-
-
+        reworkView = new ReworkView();
+        reworkView.setCountry("TH");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
 
 
@@ -150,104 +140,106 @@ public class ReworkBean extends Bean {
 
 
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F1");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F1");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F2");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L1");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L2");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F2");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 
-        reworkTableView = new ReworkTableView();
-        reworkTableView.setCountry("LO");
-        reworkTableView.setFactory("F3");
-        reworkTableView.setLine("L3");
-        reworkTableView.setSutureLine("VSEW00"+String.valueOf(3));
-        reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
-        reworkTableView.setPercentOfToday(percentOfToday+"%");
-        reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-        reworkTableViewList.add(reworkTableView);
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L1");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
+
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L2");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
+
+        reworkView = new ReworkView();
+        reworkView.setCountry("LO");
+        reworkView.setFactory("F3");
+        reworkView.setLine("L3");
+        reworkView.setSutureLine("VSEW00"+String.valueOf(3));
+        reworkView.setPercentOfYesterday(percentOfYesterday+"%");
+        reworkView.setPercentOfToday(percentOfToday+"%");
+        reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+        reworkTableViewList.add(reworkView);
 //        for (int i = 1; i < 23; i++) {
-//            reworkTableView = new ReworkTableView();
-//            reworkTableView.setSutureLine("VSEW00"+String.valueOf(i));
+//            reworkView = new ReworkView();
+//            reworkView.setSutureLine("VSEW00"+String.valueOf(i));
 //            int percentOfYesterday = randInt(0, 100);
-//            reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
+//            reworkView.setPercentOfYesterday(percentOfYesterday+"%");
 //            int percentOfToday = randInt(0, 100);
-//            reworkTableView.setPercentOfToday(percentOfToday+"%");
-//            reworkTableView.setTrends((percentOfYesterday - percentOfToday) +"%");
-//            reworkTableViewList.add(reworkTableView);
+//            reworkView.setPercentOfToday(percentOfToday+"%");
+//            reworkView.setTrends((percentOfYesterday - percentOfToday) +"%");
+//            reworkTableViewList.add(reworkView);
 //        }
     }
 
@@ -257,12 +249,12 @@ public class ReworkBean extends Bean {
         return randomNumber;
     }
 
-    private List<ReworkTableView> reworkTableViewList;
-    private List<ReworkTableView> filteredReworkTableViewList;
+    private List<ReworkView> reworkTableViewList;
+    private List<ReworkView> filteredReworkViewList;
 
     public void onValueChange(){
-        filteredReworkTableViewList = reworkTableViewList;
-        filteredReworkTableViewList.remove(0);
+        filteredReworkViewList = reworkTableViewList;
+        filteredReworkViewList.remove(0);
     }
 
     public void update() {
@@ -270,7 +262,7 @@ public class ReworkBean extends Bean {
 //        if (reworkTableViewList == null) {
             reworkTableViewList = new ArrayList<>();
             for (int i = 1; i < 23; i++) {
-                ReworkTableView reworkTableView = new ReworkTableView();
+                ReworkView reworkTableView = new ReworkView();
                 reworkTableView.setSutureLine("VSEW00"+String.valueOf(i));
                 int percentOfYesterday = randInt(0, 100);
                 reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");
@@ -281,7 +273,7 @@ public class ReworkBean extends Bean {
             }
 //        } else {
 //        this.reworkTableViewList = new ArrayList<>();
-//            List<ReworkTableView> reworkTableViewList = centralBean.getReworkTableViewList();
+//            List<ReworkView> reworkTableViewList = centralBean.getReworkViewList();
 //            if (reworkTableViewList != null) {
 //                this.reworkTableViewList = reworkTableViewList;
 //            }

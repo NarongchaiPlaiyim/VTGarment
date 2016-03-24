@@ -1,6 +1,5 @@
 package com.vtgarment.beans;
 
-import com.vtgarment.model.view.rework.ReworkTableView;
 import com.vtgarment.model.view.rework.ReworkView;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,14 +26,14 @@ public class TestFilterBean extends Bean{
         init();
     }
 
-    private List<ReworkTableView> reworkTableViewList;
-    private List<ReworkTableView> filter;
+    private List<ReworkView> reworkTableViewList;
+    private List<ReworkView> filter;
 
     private void init(){
         reworkView = new ReworkView();
-        List<ReworkTableView> reworkTableViewList = new ArrayList<>();
+        List<ReworkView> reworkTableViewList = new ArrayList<>();
         for (int i = 1; i < 23; i++) {
-            ReworkTableView reworkTableView = new ReworkTableView();
+            ReworkView reworkTableView = new ReworkView();
             reworkTableView.setSutureLine("VSEW00"+String.valueOf(i));
             int percentOfYesterday = randInt(0, 100);
             reworkTableView.setPercentOfYesterday(percentOfYesterday+"%");

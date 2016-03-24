@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @Getter
 @Setter
-@ApplicationScoped
+@ViewScoped
 @ManagedBean(name = "dateBean")
 public class DateBean {
     private String previousDate;
