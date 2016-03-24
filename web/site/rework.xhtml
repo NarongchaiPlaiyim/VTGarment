@@ -10,8 +10,9 @@
         <meta name="viewport" content="width=device-width"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <script type="text/javascript">if(window.PrimeFaces){}</script>
+        <!--<script type="text/javascript">if(window.PrimeFaces){}</script>-->
         <link href="../resources/css/style.css" rel="stylesheet"/>
+        <link href="../resources/primefaces-atlas-layout/theme.css" rel="stylesheet"/>
     </h:head>
     <h:body class="BlueBack">
         <p:panel style="border: 0">
@@ -23,6 +24,28 @@
             </div>
         </p:panel>
         <h:form>
+            <p:panel>
+                <div style="display: flex;">
+                    <div style="width: 33%; flex: 0 0 33%">
+                        <p:selectOneMenu  value="#{dropdownView.city}" style="width:38%">
+                            <f:selectItem itemLabel="Select City---------------" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div style="width: 33%; flex: 0 0 33%">
+                        <p:selectOneMenu  value="#{dropdownView.city}" style="width:38%">
+                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div style="width: 33%; flex: 0 0 33%">
+                        <p:selectOneMenu  value="#{dropdownView.city}" style="width:38%">
+                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </p:panel>
         <p:panel style="border: 0">
             <!--filteredValue="AAAA"-->
             <p:dataTable id="reworkTable"
@@ -40,6 +63,11 @@
                         <!--&lt;!&ndash;<p:ajax event="onchange" listener="#{reworkBean.onValueChange()}"&ndash;&gt;-->
                         <!--&lt;!&ndash;update="reworkTable"></p:ajax>&ndash;&gt;-->
                     <!--</p:selectOneMenu>-->
+
+                    <!--<p:outputPanel>-->
+                        <!--<h:outputText value="Search all fields:" />-->
+                        <!--<p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>-->
+                    <!--</p:outputPanel>-->
                     <!--<p:selectOneMenu onchange="PF('carsTable').filter()" >-->
                         <!--<f:selectItem itemLabel="F1" itemValue="F1" />-->
                         <!--<f:selectItem itemLabel="F2" itemValue="F2" />-->
