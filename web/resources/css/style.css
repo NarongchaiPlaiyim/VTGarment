@@ -1,21 +1,7 @@
-@media only screen and (max-width: 800px) {
-    .ui-panel .ui-panel-content.ui-widget-content{
-        -webkit-transition: all 1s ease;
-        -moz-transition: 1s ease;
-        transition: 1s ease;
-    }
-
-    .ui-datatable table tbody tr td{
-        font-size: 10px !important;
-    }
-
-    .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th{
-        font-size: 10px !important;
-    }
-
+@media only screen and (max-width: 520px) {
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr th,
     .break-down div.ui-datatable-tablewrapper table tbody tr td{
-        font-size: 10px !important;
+        font-size: 5px !important;
     }
 
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr:first-child th:first-child{
@@ -30,22 +16,56 @@
         font-size: 3px !important;
     }
 
+    .table-header-rotated th.rotate-45 > div{
+        position: relative;
+        top: 0px;
+        height: 100%;
+        overflow: hidden;
+    }
 
+    .table-header-rotated th.rotate-45 span {
+        -ms-transform:skew(45deg,-45deg) rotate(315deg);
+        -moz-transform:skew(45deg,-45deg) rotate(315deg);
+        -webkit-transform:skew(45deg,-45deg) rotate(315deg);
+        -o-transform:skew(45deg,-45deg) rotate(315deg);
+        transform:skew(45deg,-45deg) rotate(315deg);
+        left: 40%; /*Because it looked good, but there is probably a mathematical link here as well*/
+        display: flex;
+    }
 
+    .Container100{
+        width: 97% !important;
+    }
 
+    .ui-selectonemenu .ui-selectonemenu-label{
+        font-size: 10px;
+    }
 
+    .display-max-520{
+        display: table-row;
+    }
 
+    .display-over-520{
+        display: none;
+    }
+}
 
+@media only screen and (min-width: 521px) {
+    .display-max-520{
+        display: none;
+    }
 
+    .display-over-520{
+        display: table-row;
+    }
+}
 
-
-
-
-
-
-
-
-
+@media only screen and (max-width: 800px) {
+    .ui-panel .ui-panel-content.ui-widget-content{
+        -webkit-transition: all 1s ease;
+        -moz-transition: 1s ease;
+        transition: 1s ease;
+    }
 
     .table-header-rotated th.row-header{
         width: auto;
@@ -61,7 +81,7 @@
     }
 
     .table-header-rotated th.rotate-45{
-        height: 65px;
+        /*height: 65px;*/
         width: 40px;
         min-width: 40px;
         max-width: 40px;
@@ -69,45 +89,8 @@
         vertical-align: bottom;
         padding: 0;
         font-size: 12px;
-        line-height: 6;
+        line-height: 10;
     }
-
-    .table-header-rotated th.rotate-45 > div{
-        position: relative;
-        top: 0px;
-        /*left: 40px; *//* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
-        height: 100%;
-        /*-ms-transform:skew(-45deg,0deg);*/
-        /*-moz-transform:skew(-45deg,0deg);*/
-        /*-webkit-transform:skew(-45deg,0deg);*/
-        /*-o-transform:skew(-45deg,0deg);*/
-        /*transform:skew(-45deg,0deg);*/
-        overflow: hidden;
-        /*border-left: 1px solid #dddddd;*/
-        /*border-right: 1px solid #dddddd;*/
-        /*border-top: 1px solid #dddddd;*/
-    }
-
-    .table-header-rotated th.rotate-45 span {
-        -ms-transform:skew(45deg,-45deg) rotate(315deg);
-        -moz-transform:skew(45deg,-45deg) rotate(315deg);
-        -webkit-transform:skew(45deg,-45deg) rotate(315deg);
-        -o-transform:skew(45deg,-45deg) rotate(315deg);
-        transform:skew(45deg,-45deg) rotate(315deg);
-        /* position: absolute; */
-        /* bottom: 30px; */ /* 40 cos(45) = 28 with an additional 2px margin*/
-        left: 40%; /*Because it looked good, but there is probably a mathematical link here as well*/
-        display: flex;
-        /* width: 34px; */ /* 80 / cos(45) - 40 cos (45) = 85 where 80 is the height of the cell, 40 the width of the cell and 45 the transform angle*/
-        /* text-align: left; */
-    }
-
-
-
-
-
-
-
 }
 
 @media only screen and (min-width: 801px) and (max-width: 3000px) {
@@ -305,6 +288,9 @@
     color: #e65cd1;
 }
 
+.ui-clock{
+    background-color: transparent !important;
+}
 
 .border-Repair{
     border: 1px solid #5cb800;
