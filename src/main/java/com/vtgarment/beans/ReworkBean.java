@@ -42,7 +42,7 @@ public class ReworkBean extends Bean {
         int percentOfToday = randInt(0, 100);
 
         reworkView = new ReworkView();
-        reworkView.setCountry("TH");
+        reworkView.setCountry("VSEW001");
         reworkView.setFactory("F1");
         reworkView.setLine("L1");
         reworkView.setSutureLine("VSEW00"+String.valueOf(3));

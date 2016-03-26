@@ -46,11 +46,45 @@
                 </div>
             </p:panel>
             <p:panel style="border: 0">
+
+
+                <div class="scrollable-table">
+                    <table class="table table-striped table-header-rotated">
+                        <thead>
+                        <tr>
+                            <!-- First column header is not rotated -->
+                            <th></th>
+                            <!-- Following headers are rotated -->
+                            <th class="rotate-45"><div><span>Column header 1</span></div></th>
+                            <th class="rotate-45"><div><span>Column header 2</span></div></th>
+                            <th class="rotate-45"><div><span>Column header 3</span></div></th>
+                            <th class="rotate-45"><div><span>Column header 4</span></div></th>
+                            <th class="rotate-45"><div><span>Column header 5</span></div></th>
+                            <th class="rotate-45"><div><span>Column header 6</span></div></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th class="row-header">Row header 1</th>
+                            <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"/></td>
+                            <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"/></td>
+                            <td><input name="column3[]" type="radio" value="row1-column3"/></td>
+                            <td><input name="column4[]" type="radio" value="row1-column4"/></td>
+                            <td><input name="column5[]" type="radio" value="row1-column5"/></td>
+                            <td><input name="column6[]" type="radio" value="row1-column6"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
                 <!--filteredValue="AAAA"-->
                 <p:dataTable id="reworkTable"
                              widgetVar="carsTable"
                              var="reworkTableView"
-                             styleClass="test-font"
+                             styleClass="break-down table table-striped table-header-rotated"
+                             rowStyleClass="neutral"
                              value="#{reworkBean.reworkTableViewList}"
                              filteredValue="#{reworkBean.filteredReworkTableViewList}"
                              rowIndexVar="rowIndex">
@@ -59,27 +93,30 @@
                     <p:columnGroup type="header">
                         <p:row>
                             <p:column colspan="1" headerText="#{msg.get('menu.breakdown')}" priority="10" />
-                            <p:column colspan="11" headerText="#{msg.get('menu.target')}" priority="10" />
+                            <p:column colspan="12" headerText="#{msg.get('menu.target')}" priority="10" />
+                        </p:row>
+                        <!--<p:row>-->
+                            <!--<p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
+                            <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
+                            <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfToday')}" />-->
+                            <!--<p:column rowspan="3" colspan="2" headerText="#{msg.get('table.header.trends')}" />-->
+                        <!--</p:row>-->
+                        <p:row>
+                            <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
+                            <p:column             colspan="5" headerText="#{dateBean.previousDate}" />
+                            <p:column             colspan="5" headerText="#{dateBean.currentDate}" />
+                            <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.trends')}" />
                         </p:row>
                         <p:row>
-                            <p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
-                            <p:column             colspan="5" headerText="#{msg.get('table.header.percentOfYesterday')}" />
-                            <p:column             colspan="5" headerText="#{msg.get('table.header.percentOfToday')}" />
-                            <p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.trends')}" />
-                        </p:row>
-                        <p:row>
-                            <p:column rowspan="1" colspan="5" headerText="#{dateBean.previousDate}" />
-                            <p:column rowspan="1" colspan="5" headerText="#{dateBean.currentDate}" />
-                        </p:row>
-                        <p:row>
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
+                            <th class="rotate-45"><div><span>#{msg.get('table.header.person')}</span></div></th>
+                            <!--<p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />-->
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}" />
+                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}" />
+                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
                             <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
                         </p:row>
