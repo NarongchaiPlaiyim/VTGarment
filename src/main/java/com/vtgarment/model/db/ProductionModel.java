@@ -51,7 +51,7 @@ public class ProductionModel {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "shipment")
-    private Date shipment;
+    private Date shipmen;
 
     @Column(name = "sew_otp_target", nullable = true, insertable = true, updatable = true, precision = 8)
     private float sewOtpTarget;
