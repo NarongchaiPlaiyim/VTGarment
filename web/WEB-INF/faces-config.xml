@@ -16,7 +16,7 @@
         <navigation-case>
             <from-action>#{loginBean.login}</from-action>
             <from-outcome>PASS</from-outcome>
-            <to-view-id>/site/breakDown.xhtml</to-view-id>
+            <to-view-id>/site/overAll.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

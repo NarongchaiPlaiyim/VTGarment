@@ -1,3 +1,191 @@
+.title{
+    font-size: 2em;
+    color: #ffffff;
+}
+
+.fa-long-arrow-left:before {
+    content: "\f177";
+}
+
+.white span{
+    color: #ffffff;
+}
+
+/*---------------------------  CSS overAll.xhtml  ---------------------------------*/
+
+table.table-home tbody tr:nth-child(2) td:first-child div{
+    margin-left: -7px;
+}
+
+.table-home{
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+table.table-home tr:first-child td:first-child{
+    width: 25%;
+}
+
+table.table-home tr:first-child td:first-child img{
+    width: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+table.table-home tr:first-child,
+table.table-home tr:nth-child(2),
+table.table-home tr:nth-child(3),
+table.table-home tr:nth-child(4){
+    text-align: center;
+}
+
+table.table-home tr:nth-child(2) td:first-child label{
+    margin-left: 11px;
+}
+
+table.table-home tr:nth-child(2) td:nth-child(2){
+    text-align: center;
+}
+
+table.table-home tr:nth-child(2) td:first-child img{
+    width: 30%;
+    margin-left: 18px;
+    margin-top: -5px;
+}
+
+table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
+    margin-left: 10px;
+    font-size: 10px;
+}
+
+table.table-home tr:nth-child(3) td:nth-child(2) label,
+table.table-home tr:nth-child(3) td:nth-child(3) label,
+table.table-home tr:nth-child(4) td:nth-child(2) label,
+table.table-home tr:nth-child(4) td:nth-child(3) label{
+    font-size: 10px;
+}
+
+.div-home {
+    background-color: #ffffff;
+    border-radius: 15px;
+    margin-top: 10px;
+    float: left;
+}
+
+.div-home img:nth-child(2){
+    width: 30%;
+    margin-left: 18px;
+    margin-top: -5px;
+}
+
+@media only screen and (max-width: 370px){
+    .Container33 div:first-child{
+        width: 45% !important;
+    }
+
+    .ui-selectonemenu .ui-selectonemenu-label{
+        font-size: 0.7em !important;
+    }
+
+    .ui-outputlabel{
+        font-size: 0.7em !important;
+    }
+
+    .div-home {
+        width: 46% !important;
+        margin-left: 2% !important;
+    }
+}
+
+@media only screen and (min-width: 371px) and (max-width: 550px) {
+    .Container33 div:first-child{
+        width: 55% !important;
+    }
+
+    .ui-selectonemenu .ui-selectonemenu-label{
+        font-size: 0.9em !important;
+    }
+
+    .div-home {
+        width: 46% !important;
+        margin-left: 2% !important;
+    }
+
+    table.table-home tr:nth-child(3) td:nth-child(2) label,
+    table.table-home tr:nth-child(3) td:nth-child(3) label,
+    table.table-home tr:nth-child(4) td:nth-child(2) label,
+    table.table-home tr:nth-child(4) td:nth-child(3) label{
+        font-size: 0.8em !important;
+    }
+
+    table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
+        font-size: 0.8em !important;
+    }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 800px) {
+    .Container33 div:first-child{
+        width: 70% !important;
+    }
+
+    .ui-selectonemenu .ui-selectonemenu-label{
+        font-size: 0.9em !important;
+    }
+
+    table.table-home tbody tr:nth-child(2) td:first-child div:first-child{
+        margin-left: -7px;
+    }
+
+    .div-home {
+        width: 40% !important;
+        margin-left: 6% !important;
+    }
+
+    table.table-home tr:nth-child(3) td:nth-child(2) label,
+    table.table-home tr:nth-child(3) td:nth-child(3) label,
+    table.table-home tr:nth-child(4) td:nth-child(2) label,
+    table.table-home tr:nth-child(4) td:nth-child(3) label{
+        font-size: 1em !important;
+    }
+
+    table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
+        font-size: 1em !important;
+    }
+}
+
+@media only screen and (min-width: 801px)  {
+    .Container33 div:first-child{
+        width: 80% !important;
+    }
+
+    .ui-selectonemenu .ui-selectonemenu-label{
+        font-size: 15px !important;
+    }
+
+    table.table-home tbody tr:nth-child(2) td:first-child div:first-child{
+        margin-left: -7px;
+    }
+
+    .div-home {
+        width: 40% !important;
+        margin-left: 6% !important;
+    }
+
+    table.table-home tr:nth-child(3) td:nth-child(2) label,
+    table.table-home tr:nth-child(3) td:nth-child(3) label,
+    table.table-home tr:nth-child(4) td:nth-child(2) label,
+    table.table-home tr:nth-child(4) td:nth-child(3) label{
+        font-size: 1em !important;
+    }
+
+    table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
+        font-size: 1em !important;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+
+
+ /*---------------------------  CSS brealDown.xhtml  ---------------------------------*/
 @media only screen and (max-width: 520px) {
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr th,
     .break-down div.ui-datatable-tablewrapper table tbody tr td{
@@ -37,10 +225,6 @@
         width: 97% !important;
     }
 
-    .ui-selectonemenu .ui-selectonemenu-label{
-        font-size: 10px;
-    }
-
     .display-max-520{
         display: table-row;
     }
@@ -59,6 +243,7 @@
         display: table-row;
     }
 }
+ /*-------------------------------------------------------------------------------------------*/
 
 @media only screen and (max-width: 800px) {
     .ui-panel .ui-panel-content.ui-widget-content{
@@ -185,83 +370,7 @@
     }
 }
 
-@media only screen and (max-width: 550px) {
-    .div-home {
-        background-color: #ffffff;
-        border-radius: 15px;
-        width: 46%;
-        top: 10px;
-        margin-left: 2%;
-        margin-top: 10px;
-        float: left;
-    }
-}
 
-
-@media only screen and (min-width: 551px) and (max-width: 950px){
-    .div-home {
-        background-color: #ffffff;
-        border-radius: 15px;
-        width: 40%;
-        top: 10px;
-        margin-left: 8%;
-        margin-top: 10px;
-        float: left;
-    }
-}
-
-@media only screen and (min-width: 951px) and (max-width: 2200px) {
-    .div-home {
-        background-color: #ffffff;
-        border-radius: 30px;
-        width: 32%;
-        margin-left: 13%;
-        margin-top: 1%;
-        float: left;
-    }
-
-    table.table-home tr:first-child td:first-child{
-        width: 40% !important;
-    }
-
-    table.table-home tr:first-child td:first-child img{
-        width: 40% !important;
-        margin-left: 0px !important;
-        margin-top: 10px;
-    }
-
-    table.table-home tr:nth-child(2) td:first-child img{
-        width: 25% !important;
-        margin-left: 0 !important;;
-        margin-top: -5px;
-    }
-
-    table.table-home tr:nth-child(2) td:first-child label{
-        margin-left: 0 !important;
-    }
-
-    .ui-outputlabel{
-        font-size: 20px;
-    }
-
-    table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
-        margin-left: 0 !important;
-        font-size: 15px !important;
-    }
-
-    table.table-home tr:nth-child(3) td:nth-child(2) label,
-    table.table-home tr:nth-child(3) td:nth-child(3) label,
-    table.table-home tr:nth-child(4) td:nth-child(2) label,
-    table.table-home tr:nth-child(4) td:nth-child(3) label{
-        font-size: 15px !important;
-    }
-
-    table.table-home tr:nth-child(3),
-    table.table-home tr:nth-child(4){
-        line-height: 25px;
-    }
-
-}
 
 .border-OTP{
     border: 1px solid #2580c2;
@@ -306,69 +415,4 @@
 
 .font-Worst td label{
     color: #ff2626;
-}
-
-
-.table-home{
-    width: 100%;
-    padding-bottom: 10px;
-}
-
-/*.div-home {*/
-    /*background-color: #ffffff;*/
-    /*border-radius: 15px;*/
-    /*width: 46%;*/
-    /*top: 10px;*/
-    /*margin-left: 13px;*/
-    /*margin-top: 10px;*/
-    /*float: left;*/
-/*}*/
-
-table.table-home tr:first-child td:first-child{
-    width: 25%;
-}
-
-table.table-home tr:first-child td:first-child img{
-    width: 50%;
-    margin-left: 10px;
-    margin-top: 10px;
-}
-
-table.table-home tr:first-child,
-table.table-home tr:nth-child(2),
-table.table-home tr:nth-child(3),
-table.table-home tr:nth-child(4){
-    text-align: center;
-}
-
-table.table-home tr:nth-child(2) td:first-child label{
-    margin-left: 11px;
-}
-
-table.table-home tr:nth-child(2) td:nth-child(2){
-    text-align: center;
-}
-
-table.table-home tr:nth-child(2) td:first-child img{
-    width: 30%;
-    margin-left: 18px;
-    margin-top: -5px;
-}
-
-table.table-home tr:nth-child(3) td:first-child label, table.table-home tr:nth-child(4) td:first-child label{
-    margin-left: 10px;
-    font-size: 10px;
-}
-
-table.table-home tr:nth-child(3) td:nth-child(2) label,
-table.table-home tr:nth-child(3) td:nth-child(3) label,
-table.table-home tr:nth-child(4) td:nth-child(2) label,
-table.table-home tr:nth-child(4) td:nth-child(3) label{
-    font-size: 10px;
-}
-
-.div-home img:nth-child(2){
-    width: 30%;
-    margin-left: 18px;
-    margin-top: -5px;
 }
