@@ -29,7 +29,9 @@
                         <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
                     </div>
                     <div class="btn-back">
-                        <p:button value="Back"/>
+                        <p:commandButton id="btn_Back" value="Back" action="#{otpBean.onClickBtnBack}"
+                                         process="@form"
+                                         update=":frmOTP:factoryItem, :frmOTP:buildingFloorItem, :frmOTP:lineItem"/>
                     </div>
                 </div>
                 <div class="Container100 white">
@@ -39,22 +41,33 @@
                 </div>
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="factoryItem" value="#{otpBean.factoryId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{otpBean.factoryModelList}"
+                                           var="factoryItem"
+                                           itemLabel="#{factoryItem.name}"
+                                           itemValue="#{factoryItem.id}"/>
+                            <p:ajax listener="#{otpBean.filterBuildingFloor}" update=":frmOTP:buildingFloorItem"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="buildingFloorItem"  value="#{otpBean.buildingFloorId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{otpBean.buildingFloorModelList}"
+                                           var="buildingFloorItem"
+                                           itemLabel="#{buildingFloorItem.name}"
+                                           itemValue="#{buildingFloorItem.id}"/>
+                            <p:ajax listener="#{otpBean.filterLine}" update=":frmOTP:lineItem"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
-                            <f:selectItem itemLabel="VSEW001 วารินทร์" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="lineItem"  value="#{otpBean.lineId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{otpBean.lineModelList}"
+                                           var="lineItem"
+                                           itemLabel="#{lineItem.code} - #{lineItem.name}"
+                                           itemValue="#{lineItem.id}"/>
+                            <p:ajax listener="#{otpBean.filterValue}" update=""/>
                         </p:selectOneMenu>
                     </div>
                 </div>

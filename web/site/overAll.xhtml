@@ -27,7 +27,9 @@
                     <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
                 </div>
                 <div class="btn-back">
-                    <p:button value="Back"/>
+                    <p:commandButton id="btn_Back" value="Back" action="#{overAllBean.onClickBtnBack}"
+                                     process="@form" disabled="#{overAllBean.flagBack}"
+                                     update=":frmOverAll:factoryItem, :frmOverAll:buildingFloorItem, :frmOverAll:lineItem, :frmOverAll:btn_Back"/>
                 </div>
             </div>
             <div class="Container100 white">
@@ -37,22 +39,33 @@
             </div>
             <div class="Container100" style="margin-top: -7px;">
                 <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
+                    <p:selectOneMenu id="factoryItem" value="#{overAllBean.factoryId}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{overAllBean.factoryModelList}"
+                                       var="factoryItem"
+                                       itemLabel="#{factoryItem.name}"
+                                       itemValue="#{factoryItem.id}"/>
+                        <p:ajax listener="#{overAllBean.filterBuildingFloor}" update=":frmOverAll:buildingFloorItem, :frmOverAll:btn_Back"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
+                    <p:selectOneMenu id="buildingFloorItem"  value="#{overAllBean.buildingFloorId}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{overAllBean.buildingFloorModelList}"
+                                       var="buildingFloorItem"
+                                       itemLabel="#{buildingFloorItem.name}"
+                                       itemValue="#{buildingFloorItem.id}"/>
+                        <p:ajax listener="#{overAllBean.filterLine}" update=":frmOverAll:lineItem, :frmOverAll:btn_Back"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
-                        <f:selectItem itemLabel="VSEW001 วารินทร์" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
+                    <p:selectOneMenu id="lineItem"  value="#{overAllBean.lineId}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItems value="#{overAllBean.lineModelList}"
+                                       var="lineItem"
+                                       itemLabel="#{lineItem.code} - #{lineItem.name}"
+                                       itemValue="#{lineItem.id}"/>
+                        <p:ajax listener="#{overAllBean.filterValue}" update=""/>
                     </p:selectOneMenu>
                 </div>
             </div>

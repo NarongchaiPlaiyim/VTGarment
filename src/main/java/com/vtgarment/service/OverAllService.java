@@ -13,9 +13,13 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by pakorn on 29/03/2016.
+ */
 @Component
 @Transactional
-public class ReworkService extends Service {
+public class OverAllService extends Service{
+
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;

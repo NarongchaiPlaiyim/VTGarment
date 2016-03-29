@@ -19,7 +19,7 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
-        <h:form id="frmOTP">
+        <h:form id="frmRework">
             <div>
                 <div class="Container100 title">
                     <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
@@ -29,7 +29,9 @@
                         <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
                     </div>
                     <div class="btn-back">
-                        <p:button value="Back"/>
+                        <p:commandButton id="btn_Back" value="Back" action="#{reworkBean.onClickBtnBack}"
+                                         process="@form"
+                                         update=":frmRework:factoryItem, :frmRework:buildingFloorItem, :frmRework:lineItem"/>
                     </div>
                 </div>
                 <div class="Container100 white">
@@ -39,22 +41,33 @@
                 </div>
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="factoryItem" value="#{reworkBean.factoryId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{reworkBean.factoryModelList}"
+                                           var="factoryItem"
+                                           itemLabel="#{factoryItem.name}"
+                                           itemValue="#{factoryItem.id}"/>
+                            <p:ajax listener="#{reworkBean.filterBuildingFloor}" update=":frmRework:buildingFloorItem"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="buildingFloorItem"  value="#{reworkBean.buildingFloorId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{reworkBean.buildingFloorModelList}"
+                                           var="buildingFloorItem"
+                                           itemLabel="#{buildingFloorItem.name}"
+                                           itemValue="#{buildingFloorItem.id}"/>
+                            <p:ajax listener="#{reworkBean.filterLine}" update=":frmRework:lineItem"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                            <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
-                            <f:selectItem itemLabel="VSEW001 วารินทร์" itemValue="" noSelectionOption="true" />
-                            <f:selectItems value="#{dropdownView.cities}" />
+                        <p:selectOneMenu id="lineItem"  value="#{reworkBean.lineId}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItems value="#{reworkBean.lineModelList}"
+                                           var="lineItem"
+                                           itemLabel="#{lineItem.code} - #{lineItem.name}"
+                                           itemValue="#{lineItem.id}"/>
+                            <p:ajax listener="#{reworkBean.filterValue}" update=""/>
                         </p:selectOneMenu>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-@Table(name = "downtime", schema = "public", catalog = "visualboardDB")
+@Table(name = "downtime", schema = "public")
 public class DowntimeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

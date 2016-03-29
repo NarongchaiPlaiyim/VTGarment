@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-@Table(name = "production_result", schema = "public", catalog = "visualboardDB")
+@Table(name = "production_result", schema = "public")
 public class ProductionResultModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

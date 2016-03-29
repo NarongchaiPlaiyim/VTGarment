@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-@Table(name = "production", schema = "public", catalog = "visualboardDB")
+@Table(name = "production", schema = "public")
 public class ProductionModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,5 +90,11 @@ public class ProductionModel {
     @OneToOne
     @JoinColumn(name = "id")
     private SystemStatusModel systemStatusByStatusId;
+
+    @Column(name = "rework_qty_target")
+    private int reworkQtyTarget;
+
+    @Column(name = "rework_qty_actual")
+    private int reworkQtyActual;
 
 }

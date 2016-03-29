@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "department", schema = "public", catalog = "visualboardDB")
+@Table(name = "department", schema = "public")
 public class DepartmentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

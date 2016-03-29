@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class FactoryDAO extends GenericDAO<FactoryModel, Integer> {
+
 }

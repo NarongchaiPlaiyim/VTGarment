@@ -221,7 +221,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
     .ui-datatable table thead tr th,
     .ui-datatable table tfoot tr td,
     .ui-datatable table thead tr th {
-        font-size: 12px !important;
+        font-size: 7px !important;
     }
 
     .ui-datatable table tbody tr td {
@@ -239,7 +239,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 /*-------------------------------------------------------------------------------------------*/
 
  /*---------------------------  CSS brealDown.xhtml  ---------------------------------*/
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 530px) {
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr th,
     .break-down div.ui-datatable-tablewrapper table tbody tr td{
         font-size: 5px !important;
@@ -274,10 +274,6 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
         display: flex;
     }
 
-    /*btn-back{*/
-        /*width: 97% !important;*/
-    /*}*/
-
     .display-max-520{
         display: table-row;
     }
@@ -287,9 +283,31 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
     }
 }
 
-@media only screen and (min-width: 521px) {
+@media only screen and (min-width: 531px) and (max-width: 700px){
     .display-max-520{
         display: none;
+    }
+
+    .ui-datatable table thead tr th,
+    .ui-datatable table tfoot tr td,
+    .ui-datatable table thead tr th {
+        font-size: 8px !important;
+    }
+
+    .display-over-520{
+        display: table-row;
+    }
+}
+
+@media only screen and (min-width: 701px) {
+    .display-max-520{
+        display: none;
+    }
+
+    .ui-datatable table thead tr th,
+    .ui-datatable table tfoot tr td,
+    .ui-datatable table thead tr th {
+        font-size: 12px !important;
     }
 
     .display-over-520{

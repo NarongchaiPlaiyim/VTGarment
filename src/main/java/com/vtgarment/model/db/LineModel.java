@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "line", schema = "public", catalog = "visualboardDB")
+@Table(name = "line", schema = "public")
 public class LineModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,8 @@ public class LineModel {
     @ManyToOne
     @JoinColumn(name = "leader_id", referencedColumnName = "id", nullable = false)
     private UserModel userByLeaderId;
+
+    @ManyToOne
+    @JoinColumn(name = "building_floor_id", referencedColumnName = "id", nullable = false)
+    private BuildingFloorModel buildingFloorModel;
 }
