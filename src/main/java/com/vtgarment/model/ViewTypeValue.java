@@ -13,7 +13,7 @@ public enum ViewTypeValue {
     private int id;
     private String name;
 
-    private ViewTypeValue(int id, String name) {
+    ViewTypeValue(int id, String name) {
         this.id = id;
         this.name = name;
     }
