@@ -55,8 +55,9 @@
                 </div>
             </div>
             <div class="Container100">
-                <a href="/site/overAll.xhtml">
-                    <div class="div-home border-OTP">
+                <div class="div-home border-OTP">
+                    <p:commandButton action="#{overAllBean.onClickViewDetail('Rework')}" value="test"/>
+                    <p:commandLink id="link-id1" action="#{overAllBean.onClickViewDetail('Rework')}">
                         <table class="table-home" >
                             <tr>
                                 <td >
@@ -103,8 +104,8 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                </a>
+                    </p:commandLink>
+                </div>
 
                 <!--<div class="div-home border-Rework" onclick="#{overAllBean.onClickViewDetail('Rework')}">-->
                     <!--<table class="table-home" >-->
