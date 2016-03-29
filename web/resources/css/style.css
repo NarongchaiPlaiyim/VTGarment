@@ -1,5 +1,5 @@
 .title{
-    font-size: 2em;
+    font-size: 1.8em;
     color: #ffffff;
 }
 
@@ -9,6 +9,16 @@
 
 .white span{
     color: #ffffff;
+}
+
+.btn-back{
+    margin-top: -5px;
+    position: absolute;
+    right: 15px;
+}
+
+.btn-back span{
+    border: 1px solid #ffffff;
 }
 
 /*---------------------------  CSS overAll.xhtml  ---------------------------------*/
@@ -80,7 +90,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 
 @media only screen and (max-width: 370px){
     .Container33 div:first-child{
-        width: 45% !important;
+        width: 40% !important;
     }
 
     .ui-selectonemenu .ui-selectonemenu-label{
@@ -99,7 +109,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 
 @media only screen and (min-width: 371px) and (max-width: 550px) {
     .Container33 div:first-child{
-        width: 55% !important;
+        width: 50% !important;
     }
 
     .ui-selectonemenu .ui-selectonemenu-label{
@@ -125,7 +135,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 
 @media only screen and (min-width: 551px) and (max-width: 800px) {
     .Container33 div:first-child{
-        width: 70% !important;
+        width: 65% !important;
     }
 
     .ui-selectonemenu .ui-selectonemenu-label{
@@ -155,7 +165,7 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 
 @media only screen and (min-width: 801px)  {
     .Container33 div:first-child{
-        width: 80% !important;
+        width: 75% !important;
     }
 
     .ui-selectonemenu .ui-selectonemenu-label{
@@ -184,6 +194,45 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 }
 /*-------------------------------------------------------------------------------------------*/
 
+/*---------------------------  CSS OTP.xhtml  ---------------------------------*/
+
+.ui-datatable{
+    border-color: #0292c7 !important;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 370px){
+    .ui-datatable table thead tr th,
+    .ui-datatable table tfoot tr td,
+    .ui-datatable table thead tr th {
+        font-size: 10px !important;
+    }
+
+    .ui-datatable table tbody tr td {
+        font-size: 10px !important;
+    }
+}
+
+@media only screen and (min-width: 371px) and (max-width: 550px) {
+    .ui-datatable table thead tr th,
+    .ui-datatable table tfoot tr td,
+    .ui-datatable table thead tr th {
+        font-size: 12px !important;
+    }
+
+    .ui-datatable table tbody tr td {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 800px) {
+
+}
+
+@media only screen and (min-width: 801px)  {
+
+}
+/*-------------------------------------------------------------------------------------------*/
 
  /*---------------------------  CSS brealDown.xhtml  ---------------------------------*/
 @media only screen and (max-width: 520px) {
@@ -221,9 +270,9 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
         display: flex;
     }
 
-    .Container100{
-        width: 97% !important;
-    }
+    /*btn-back{*/
+        /*width: 97% !important;*/
+    /*}*/
 
     .display-max-520{
         display: table-row;

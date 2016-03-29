@@ -6,129 +6,169 @@
         xmlns:p="http://primefaces.org/ui"
         >
     <h:head>
-        <title>#{msg.get('menu.breakdown')}</title>
+        <title>#{msg.get('menu.main')}</title>
         <meta name="viewport" content="width=device-width"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <!--<script type="text/javascript">if(window.PrimeFaces){}</script>-->
-        <link href="../resources/css/style.css" rel="stylesheet"/>
+        <script type="text/javascript">if(window.PrimeFaces){}</script>
+
         <link href="../resources/primefaces-atlas-layout/theme.css" rel="stylesheet"/>
         <link href="../resources/primefaces-atlas-layout/theme2.css" rel="stylesheet"/>
+        <h:outputStylesheet name="css/atlas-layout.css" />
+        <h:outputStylesheet name="css/style.css" />
+        <h:outputScript library="js" name="custom.js" />
     </h:head>
-    <h:body class="BlueBack">
-            <div class="Container100">
-                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
-            </div>
+    <h:body style="background-color: #0292c7">
+        <h:form id="frmOTP">
+            <div>
+                <div class="Container100 title">
+                    <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+                </div>
+                <div class="Container100 white">
+                    <div style="font-size: 1.2em; color: #ffffff; float: left">
+                        <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+                    </div>
+                    <div class="btn-back">
+                        <p:button value="Back"/>
+                    </div>
+                </div>
+                <div class="Container100 white">
+                    <div style="font-size: 1.2em; float: left; color: #ffffff;">
+                        <h:outputText value="#{msg.get('menu.overall')}" />
+                    </div>
+                </div>
+                <div class="Container100" style="margin-top: -7px;">
+                    <div class="Container33">
+                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="Container33">
+                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                            <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="Container33">
+                        <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                            <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
+                            <f:selectItem itemLabel="VSEW001 วารินทร์" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{dropdownView.cities}" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+                <div class="Container100">
+                    <div class="Container100">
+                        <p:dataTable id="reworkTable"
+                                     widgetVar="carsTable"
+                                     var="reworkTableView"
+                                     styleClass="break-down table table-striped table-header-rotated"
+                                     rowStyleClass="neutral"
+                                     value="#{reworkBean.reworkTableViewList}"
+                                     filteredValue="#{reworkBean.filteredReworkTableViewList}"
+                                     rowIndexVar="rowIndex">
+                            <p:ajax event="filter" listener="#{reworkBean.filterListener}"/>
 
-        <h:form>
-            <div class="Container100">
-                <div style="float: left;">
-                    <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
-                </div>
-            </div>
-            <div class="Container100">
-                <div style="float: left; width: 31%;">
-                    <p:selectOneMenu  value="#{dropdownView.city}" style="width:31%">
-                        <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-                <div style="float: left; width: 31%;">
-                    <p:selectOneMenu  value="#{dropdownView.city}" style="width:31%">
-                        <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-                <div style="float: left; width: 31%;">
-                    <p:selectOneMenu  value="#{dropdownView.city}" style="width:31%">
-                        <f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-            </div>
-            <!--filteredValue="AAAA"-->
-            <div class="Container100">
-                <p:dataTable id="reworkTable"
-                             widgetVar="carsTable"
-                             var="reworkTableView"
-                             styleClass="break-down table table-striped table-header-rotated"
-                             rowStyleClass="neutral"
-                             value="#{reworkBean.reworkTableViewList}"
-                             filteredValue="#{reworkBean.filteredReworkTableViewList}"
-                             rowIndexVar="rowIndex">
-                    <p:ajax event="filter" listener="#{reworkBean.filterListener}"/>
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="1" headerText="#{msg.get('menu.breakdown')}" priority="10" />
+                                    <p:column colspan="12" headerText="#{msg.get('menu.target')}" priority="10" />
+                                </p:row>
+                                <!--<p:row>-->
+                                <!--<p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
+                                <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
+                                <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfToday')}" />-->
+                                <!--<p:column rowspan="3" colspan="2" headerText="#{msg.get('table.header.trends')}" />-->
+                                <!--</p:row>-->
+                                <p:row>
+                                    <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
+                                    <p:column             colspan="5" headerText="#{dateBean.previousDate}" />
+                                    <p:column             colspan="5" headerText="#{dateBean.currentDate}" />
+                                    <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.trends')}" />
+                                </p:row>
+                                <p:row styleClass="display-max-520">
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.person')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.mach')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.method')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.material')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.total')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.person')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.mach')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.method')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.material')}</span></div></th>
+                                    <th class="rotate-45"><div><span>#{msg.get('table.header.total')}</span></div></th>
+                                </p:row>
+                                <p:row styleClass="display-over-520">
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
+                                    <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
+                                </p:row>
+                            </p:columnGroup>
 
-                    <p:columnGroup type="header">
-                        <p:row>
-                            <p:column colspan="1" headerText="#{msg.get('menu.breakdown')}" priority="10" />
-                            <p:column colspan="12" headerText="#{msg.get('menu.target')}" priority="10" />
-                        </p:row>
-                        <!--<p:row>-->
-                        <!--<p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
-                        <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
-                        <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfToday')}" />-->
-                        <!--<p:column rowspan="3" colspan="2" headerText="#{msg.get('table.header.trends')}" />-->
-                        <!--</p:row>-->
-                        <p:row>
-                            <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
-                            <p:column             colspan="5" headerText="#{dateBean.previousDate}" />
-                            <p:column             colspan="5" headerText="#{dateBean.currentDate}" />
-                            <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.trends')}" />
-                        </p:row>
-                        <p:row styleClass="display-max-520">
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.person')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.mach')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.method')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.material')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.total')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.person')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.mach')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.method')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.material')}</span></div></th>
-                            <th class="rotate-45"><div><span>#{msg.get('table.header.total')}</span></div></th>
-                        </p:row>
-                        <p:row styleClass="display-over-520">
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.person')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.mach')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.method')}"/>
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.material')}" />
-                            <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
-                        </p:row>
-                    </p:columnGroup>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
+                                <f:facet name="filter">
+                                    <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
+                                        <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
+                                        <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                                <h:outputText value="#{reworkTableView.country}" />
+                            </p:column>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
+                                <h:outputText value="#{reworkTableView.factory}" />
+                            </p:column>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
+                                <h:outputText value="#{reworkTableView.line}" />
+                            </p:column>
+                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
+                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
+                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
+                                <h:outputText value="#{reworkTableView.trends}" />
+                            </p:column>
+                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
+                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
+                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
+                                <h:outputText value="#{reworkTableView.trends}" />
+                            </p:column>
 
-                    <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
-                        <f:facet name="filter">
-                            <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
-                                <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
-                                <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
-                            </p:selectCheckboxMenu>
-                        </f:facet>
-                        <h:outputText value="#{reworkTableView.country}" />
-                    </p:column>
-                    <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                        <h:outputText value="#{reworkTableView.factory}" />
-                    </p:column>
-                    <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
-                        <h:outputText value="#{reworkTableView.line}" />
-                    </p:column>
-                    <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                        <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                        <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                        <h:outputText value="#{reworkTableView.trends}" />
-                    </p:column>
-                    <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                        <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                        <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                        <h:outputText value="#{reworkTableView.trends}" />
-                    </p:column>
-                </p:dataTable>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
+                                <f:facet name="filter">
+                                    <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
+                                        <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
+                                        <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                                <h:outputText value="#{reworkTableView.country}" />
+                            </p:column>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
+                                <h:outputText value="#{reworkTableView.factory}" />
+                            </p:column>
+                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
+                                <h:outputText value="#{reworkTableView.line}" />
+                            </p:column>
+                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
+                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
+                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
+                                <h:outputText value="#{reworkTableView.trends}" />
+                            </p:column>
+                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
+                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
+                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
+                                <h:outputText value="#{reworkTableView.trends}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+                </div>
             </div>
-            <!--<p:poll interval="#{config['time.recall']}" listener="#{reworkBean.update}" update="reworkTable" />-->
         </h:form>
     </h:body>
 </f:view>
