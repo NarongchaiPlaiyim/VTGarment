@@ -34,29 +34,29 @@
                     <p:button value="Back"/>
                 </div>
             </div>
-            <div class="Container100" style="margin-top: -7px;">
-                <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-                <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-                <div class="Container33">
-                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{dropdownView.cities}" />
-                    </p:selectOneMenu>
-                </div>
-            </div>
+            <!--<div class="Container100" style="margin-top: -7px;">-->
+                <!--<div class="Container33">-->
+                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
+                        <!--<f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />-->
+                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
+                    <!--</p:selectOneMenu>-->
+                <!--</div>-->
+                <!--<div class="Container33">-->
+                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
+                        <!--<f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />-->
+                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
+                    <!--</p:selectOneMenu>-->
+                <!--</div>-->
+                <!--<div class="Container33">-->
+                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
+                        <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
+                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
+                    <!--</p:selectOneMenu>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="Container100">
                 <div class="div-home border-OTP">
-                    <p:commandButton action="#{overAllBean.onClickViewDetail('Rework')}" value="test"/>
+                    <p:commandButton action="#{overAllBean.onClickViewDetail('Rework')}" value="test" process="@form"/>
                     <p:commandLink id="link-id1" action="#{overAllBean.onClickViewDetail('Rework')}">
                         <table class="table-home" >
                             <tr>
