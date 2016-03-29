@@ -11,10 +11,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <script type="text/javascript">if(window.PrimeFaces){}</script>
-        <link href="../resources/css/style.css" rel="stylesheet"/>
+        <!--<link href="../resources/css/style.css" rel="stylesheet"/>-->
         <link href="../resources/primefaces-atlas-layout/theme.css" rel="stylesheet"/>
         <link href="../resources/primefaces-atlas-layout/theme2.css" rel="stylesheet"/>
         <link href="../resources/primefaces-atlas-layout/icon.css" rel="stylesheet"/>
+
+        <h:outputStylesheet name="css/style.css" />
+        <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
         <h:form id="frmOverAll">
@@ -34,225 +37,222 @@
                     <p:button value="Back"/>
                 </div>
             </div>
-            <!--<div class="Container100" style="margin-top: -7px;">-->
-                <!--<div class="Container33">-->
-                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
-                        <!--<f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />-->
-                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
-                    <!--</p:selectOneMenu>-->
-                <!--</div>-->
-                <!--<div class="Container33">-->
-                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
-                        <!--<f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />-->
-                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
-                    <!--</p:selectOneMenu>-->
-                <!--</div>-->
-                <!--<div class="Container33">-->
-                    <!--<p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">-->
-                        <!--<f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />-->
-                        <!--<f:selectItems value="#{dropdownView.cities}" />-->
-                    <!--</p:selectOneMenu>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="Container100" style="margin-top: -7px;">
+                <div class="Container33">
+                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.county')}" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{dropdownView.cities}" />
+                    </p:selectOneMenu>
+                </div>
+                <div class="Container33">
+                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.factory')}" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{dropdownView.cities}" />
+                    </p:selectOneMenu>
+                </div>
+                <div class="Container33">
+                    <p:selectOneMenu  value="#{dropdownView.city}" styleClass="dropdown">
+                        <f:selectItem itemLabel="#{msg.get('item.label.line')}" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{dropdownView.cities}" />
+                    </p:selectOneMenu>
+                </div>
+            </div>
             <div class="Container100">
-                <div class="div-home border-OTP">
-                    <p:commandButton action="#{overAllBean.onClickViewDetail('Rework')}" value="test" process="@form"/>
-                    <p:commandLink id="link-id1" action="#{overAllBean.onClickViewDetail('Rework')}">
-                        <table class="table-home" >
-                            <tr>
-                                <td >
-                                    <img src="../resources/images/Icon/boat-01.png"/>
-                                </td>
-                                <td colspan="2" >
-                                    <p:outputLabel value="% OTP" styleClass="font-OTP"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        <img src="../resources/images/Icon/up-01.png" />
-                                    </div>
-                                    <div>
-                                        <p:outputLabel value="Trend" />
+                <div class="div-home border-OTP" onclick="Redirect('OTP')">
+                    <table class="table-home" >
+                        <tr>
+                            <td >
+                                <img src="../resources/images/Icon/boat-01.png"/>
+                            </td>
+                            <td colspan="2" >
+                                <p:outputLabel value="% OTP" styleClass="font-OTP"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="../resources/images/Icon/up-01.png" />
+                                </div>
+                                <div>
+                                    <p:outputLabel value="Trend" />
 
-                                    </div>
-                                </td>
-                                <td  colspan="2">
-                                    <p:outputLabel value="90%"/>
-                                </td>
-                            </tr>
-                            <tr class="font-Best">
-                                <td>
-                                    <p:outputLabel value="Best" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW003" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="105%" />
-                                </td>
-                            </tr>
-                            <tr class="font-Worst">
-                                <td>
-                                    <p:outputLabel value="Worst" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="VSEW008" />
-                                </td>
-                                <td>
-                                    <p:outputLabel value="40.7%" />
-                                </td>
-                            </tr>
-                        </table>
-                    </p:commandLink>
+                                </div>
+                            </td>
+                            <td  colspan="2">
+                                <p:outputLabel value="90%"/>
+                            </td>
+                        </tr>
+                        <tr class="font-Best">
+                            <td>
+                                <p:outputLabel value="Best" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW003" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="105%" />
+                            </td>
+                        </tr>
+                        <tr class="font-Worst">
+                            <td>
+                                <p:outputLabel value="Worst" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW008" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="40.7%" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
-                <!--<div class="div-home border-Rework" onclick="#{overAllBean.onClickViewDetail('Rework')}">-->
-                    <!--<table class="table-home" >-->
-                        <!--<tr>-->
-                            <!--<td >-->
-                                <!--<img src="../resources/images/Icon/clothes-01.png"/>-->
-                            <!--</td>-->
-                            <!--<td colspan="2" >-->
-                                <!--<p:outputLabel value="% Rework" styleClass="font-Rework"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<td>-->
-                                <!--<div>-->
-                                    <!--<img src="../resources/images/Icon/up-01.png" />-->
-                                <!--</div>-->
-                                <!--<div>-->
-                                    <!--<p:outputLabel value="Trend" />-->
+                <div class="div-home border-Rework" onclick="Redirect('REWORK')">
+                    <table class="table-home" >
+                        <tr>
+                            <td >
+                                <img src="../resources/images/Icon/clothes-01.png"/>
+                            </td>
+                            <td colspan="2" >
+                                <p:outputLabel value="% Rework" styleClass="font-Rework"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="../resources/images/Icon/up-01.png" />
+                                </div>
+                                <div>
+                                    <p:outputLabel value="Trend" />
 
-                                <!--</div>-->
-                            <!--</td>-->
-                            <!--<td  colspan="2">-->
-                                <!--<p:outputLabel value="90%"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Best">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Best" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW003" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="105%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Worst">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Worst" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW008" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="40.7%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                <!--</div>-->
+                                </div>
+                            </td>
+                            <td  colspan="2">
+                                <p:outputLabel value="90%"/>
+                            </td>
+                        </tr>
+                        <tr class="font-Best">
+                            <td>
+                                <p:outputLabel value="Best" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW003" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="105%" />
+                            </td>
+                        </tr>
+                        <tr class="font-Worst">
+                            <td>
+                                <p:outputLabel value="Worst" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW008" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="40.7%" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                <!--<div class="div-home border-Break-Down" onclick="#{overAllBean.onClickViewDetail('Break Down')}">-->
-                    <!--<table class="table-home" >-->
-                        <!--<tr>-->
-                            <!--<td >-->
-                                <!--<img src="../resources/images/Icon/sewing-01.png"/>-->
-                            <!--</td>-->
-                            <!--<td colspan="2" >-->
-                                <!--<p:outputLabel value="% Breal Down" styleClass="font-Break-Down"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<td>-->
-                                <!--<div>-->
-                                    <!--<img src="../resources/images/Icon/up-01.png" />-->
-                                <!--</div>-->
-                                <!--<div>-->
-                                    <!--<p:outputLabel value="Trend" />-->
+                <div class="div-home border-Break-Down" onclick="Redirect('BREAK DOWN')">
+                    <table class="table-home" >
+                        <tr>
+                            <td >
+                                <img src="../resources/images/Icon/sewing-01.png"/>
+                            </td>
+                            <td colspan="2" >
+                                <p:outputLabel value="% Breal Down" styleClass="font-Break-Down"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="../resources/images/Icon/up-01.png" />
+                                </div>
+                                <div>
+                                    <p:outputLabel value="Trend" />
 
-                                <!--</div>-->
-                            <!--</td>-->
-                            <!--<td  colspan="2">-->
-                                <!--<p:outputLabel value="90%"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Best">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Best" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW003" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="105%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Worst">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Worst" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW008" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="40.7%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                <!--</div>-->
+                                </div>
+                            </td>
+                            <td  colspan="2">
+                                <p:outputLabel value="90%"/>
+                            </td>
+                        </tr>
+                        <tr class="font-Best">
+                            <td>
+                                <p:outputLabel value="Best" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW003" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="105%" />
+                            </td>
+                        </tr>
+                        <tr class="font-Worst">
+                            <td>
+                                <p:outputLabel value="Worst" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW008" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="40.7%" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                <!--<div class="div-home border-Repair" onclick="#{overAllBean.onClickViewDetail('OutStanding')}">-->
-                    <!--<table class="table-home" >-->
-                        <!--<tr>-->
-                            <!--<td >-->
-                                <!--<img src="../resources/images/Icon/F-01.png"/>-->
-                            <!--</td>-->
-                            <!--<td colspan="2" >-->
-                                <!--<p:outputLabel value="ค้างซ่อม" styleClass="font-Repair"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<td>-->
-                                <!--<div>-->
-                                    <!--<img src="../resources/images/Icon/up-01.png" />-->
-                                <!--</div>-->
-                                <!--<div>-->
-                                    <!--<p:outputLabel value="Trend" />-->
+                <div class="div-home border-Repair" onclick="Redirect('OUTSTANDING')">
+                    <table class="table-home" >
+                        <tr>
+                            <td >
+                                <img src="../resources/images/Icon/F-01.png"/>
+                            </td>
+                            <td colspan="2" >
+                                <p:outputLabel value="ค้างซ่อม" styleClass="font-Repair"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="../resources/images/Icon/up-01.png" />
+                                </div>
+                                <div>
+                                    <p:outputLabel value="Trend" />
 
-                                <!--</div>-->
-                            <!--</td>-->
-                            <!--<td  colspan="2">-->
-                                <!--<p:outputLabel value="90%"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Best">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Best" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW003" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="105%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr class="font-Worst">-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="Worst" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="VSEW008" />-->
-                            <!--</td>-->
-                            <!--<td>-->
-                                <!--<p:outputLabel value="40.7%" />-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                <!--</div>-->
+                                </div>
+                            </td>
+                            <td  colspan="2">
+                                <p:outputLabel value="90%"/>
+                            </td>
+                        </tr>
+                        <tr class="font-Best">
+                            <td>
+                                <p:outputLabel value="Best" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW003" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="105%" />
+                            </td>
+                        </tr>
+                        <tr class="font-Worst">
+                            <td>
+                                <p:outputLabel value="Worst" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="VSEW008" />
+                            </td>
+                            <td>
+                                <p:outputLabel value="40.7%" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </h:form>
     </h:body>
