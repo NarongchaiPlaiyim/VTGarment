@@ -195,8 +195,12 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 /*-------------------------------------------------------------------------------------------*/
 
 /*---------------------------  CSS OTP.xhtml  ---------------------------------*/
+/*.ui-datatable-tablewrapper{*/
+    /*margin-top: -10px !important;*/
+/*}*/
 
-.ui-datatable{
+/*.ui-datatable,*/
+.ui-scrollpanel{
     border-color: #0292c7 !important;
     background-color: transparent !important;
 }
