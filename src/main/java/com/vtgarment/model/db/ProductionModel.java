@@ -97,4 +97,7 @@ public class ProductionModel {
     @Column(name = "rework_qty_actual")
     private int reworkQtyActual;
 
+    @Column(name = "downtime_targer")
+    private Double downtimeTarger;
+
 }
