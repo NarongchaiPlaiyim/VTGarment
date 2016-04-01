@@ -4,7 +4,6 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui"
-        xmlns:pe="http://primefaces.org/ui/extensions"
         >
     <h:head>
         <title>Login Page</title>
@@ -37,21 +36,14 @@
                                          action="#{loginBean.login}" />
                     </div>
                 </div>
+                <div style="display: #{loginBean.flagLogin ? 'none' : ''};">
+                    aaaa
+                </div>
                 <div class="loginfooter">
                     <img src="#{msg.get('path')}/resources/images/shared/ESELogo608.png"/>
                 </div>
             </div>
         </h:form>
     </h:body>
-    <pe:blockUI widgetVar="bui" centerX="true" centerY="true">
-        <p:panel style="border: 0">
-            <div style="text-align: center;">
-                <h:outputText value="Please wait..." />
-            </div>
-            <div style="text-align: right;">
-                <p:graphicImage value="/resources/images/shared/292.GIF"/>
-            </div>
-        </p:panel>
-    </pe:blockUI>
 </f:view>
 </html>

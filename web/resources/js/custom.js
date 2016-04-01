@@ -1,13 +1,13 @@
 function Redirect(value, path) {
 
     if(value == 'OTP'){
-        window.location = "/test/site/otp.xhtml"
+        window.location = "../site/otp.xhtml"
     } else if(value == 'REWORK'){
-        window.location = "/test/site/rework.xhtml"
+        window.location = "../site/rework.xhtml"
     } else if(value == 'BREAK DOWN'){
-        window.location = "/test/site/breakDown.xhtml"
+        window.location = "../site/breakDown.xhtml"
     } else if(value == 'OUTSTANDING'){
-        window.location = "/test/site/outstading.xhtml"
+        window.location = "../site/outstading.xhtml"
     }
 
 }
