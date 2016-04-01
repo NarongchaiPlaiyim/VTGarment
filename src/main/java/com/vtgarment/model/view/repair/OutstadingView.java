@@ -8,5 +8,5 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class RepairView extends NormalView {
+public class OutstadingView extends NormalView {
 }

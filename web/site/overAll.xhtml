@@ -18,54 +18,52 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
+        <div class="Container100 title">
+            <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; float: left; color: #ffffff;">
+                <h:outputText value="#{msg.get('menu.overall')}" />
+            </div>
+        </div>
         <h:form id="frmOverAll">
-            <div class="Container100 title">
-                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
-            </div>
-            <div class="Container100 white">
-                <div style="font-size: 1.2em; color: #ffffff; float: left">
-                    <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
-                </div>
-                <div class="btn-back">
-                    <p:commandButton id="btn_Back" value="Back" action="#{overAllBean.onClickBtnBack}"
-                                     process="@form" disabled="#{overAllBean.flagBack}"
-                                     update=":frmOverAll:factoryItem, :frmOverAll:buildingFloorItem, :frmOverAll:lineItem, :frmOverAll:btn_Back"/>
-                </div>
-            </div>
-            <div class="Container100 white">
-                <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                    <h:outputText value="#{msg.get('menu.overall')}" />
-                </div>
-            </div>
             <div class="Container100" style="margin-top: -7px;">
                 <div class="Container33">
                     <p:selectOneMenu id="factoryItem" value="#{overAllBean.factoryId}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItem itemLabel="#{msg.get('item.label.SelectFactory')}" itemValue="0" noSelectionOption="true" />
                         <f:selectItems value="#{overAllBean.factoryModelList}"
                                        var="factoryItem"
                                        itemLabel="#{factoryItem.name}"
                                        itemValue="#{factoryItem.id}"/>
-                        <p:ajax listener="#{overAllBean.filterBuildingFloor}" update=":frmOverAll:buildingFloorItem, :frmOverAll:btn_Back"/>
+                        <p:ajax listener="#{overAllBean.filterBuildingFloor}"
+                                update=":frmOverAll:buildingFloorItem, :frmOverAll:lineItem, :frmOverAll"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container33">
                     <p:selectOneMenu id="buildingFloorItem"  value="#{overAllBean.buildingFloorId}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItem itemLabel="#{msg.get('item.label.SelectBuildFloor')}" itemValue="0" noSelectionOption="true" />
                         <f:selectItems value="#{overAllBean.buildingFloorModelList}"
                                        var="buildingFloorItem"
                                        itemLabel="#{buildingFloorItem.name}"
                                        itemValue="#{buildingFloorItem.id}"/>
-                        <p:ajax listener="#{overAllBean.filterLine}" update=":frmOverAll:lineItem, :frmOverAll:btn_Back"/>
+                        <p:ajax listener="#{overAllBean.filterLine}"
+                                update=":frmOverAll:lineItem, :frmOverAll"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container33">
                     <p:selectOneMenu id="lineItem"  value="#{overAllBean.lineId}" styleClass="dropdown">
-                        <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                        <f:selectItem itemLabel="#{msg.get('item.label.SelectLine')}" itemValue="0" noSelectionOption="true" />
                         <f:selectItems value="#{overAllBean.lineModelList}"
                                        var="lineItem"
                                        itemLabel="#{lineItem.code} - #{lineItem.name}"
                                        itemValue="#{lineItem.id}"/>
-                        <p:ajax listener="#{overAllBean.filterValue}" update=""/>
+                        <p:ajax listener="#{overAllBean.filterValue}"
+                                update=":frmOverAll"/>
                     </p:selectOneMenu>
                 </div>
             </div>
@@ -76,44 +74,45 @@
                             <td >
                                 <img src="../resources/images/Icon/boat-01.png"/>
                             </td>
-                            <td colspan="2" >
+                            <td colspan="2">
                                 <p:outputLabel value="% OTP" styleClass="font-OTP"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div>
-                                    <img src="../resources/images/Icon/up-01.png" />
+                                    <img src="#{overAllBean.otpView.image}" />
                                 </div>
                                 <div>
                                     <p:outputLabel value="Trend" />
 
                                 </div>
                             </td>
-                            <td  colspan="2">
-                                <p:outputLabel value="90%"/>
+                            <td colspan="2" class="#{overAllBean.otpView.styleTrend}">
+                                <p:outputLabel id="otp-trend" value="#{overAllBean.otpView.trendActual == null ? 0 : overAllBean.otpView.trendActual}"/>
+                                <p:outputLabel value=" %"/>
                             </td>
                         </tr>
-                        <tr class="font-Best">
+                        <tr class="#{overAllBean.otpView.styleBest}" style="display: #{overAllBean.otpView.worstLineCode == overAllBean.otpView.bestLineCode ? 'none' : ''}">
                             <td>
                                 <p:outputLabel value="Best" />
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW003" />
+                                <p:outputLabel value="#{overAllBean.otpView.bestLineCode}" />
                             </td>
                             <td>
-                                <p:outputLabel value="105%" />
+                                <p:outputLabel value="#{overAllBean.otpView.bestActual}" />
                             </td>
                         </tr>
-                        <tr class="font-Worst">
+                        <tr class="#{overAllBean.otpView.styleWorst}" style="display: #{overAllBean.otpView.worstLineCode == overAllBean.otpView.bestLineCode ? 'none' : ''}">
                             <td>
-                                <p:outputLabel value="Worst" />
+                                <p:outputLabel value="Worst"/>
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW008" />
+                                <p:outputLabel value="#{overAllBean.otpView.worstLineCode}"/>
                             </td>
                             <td>
-                                <p:outputLabel value="40.7%" />
+                                <p:outputLabel value="#{overAllBean.otpView.worstActual}"/>
                             </td>
                         </tr>
                     </table>
@@ -132,37 +131,38 @@
                         <tr>
                             <td>
                                 <div>
-                                    <img src="../resources/images/Icon/up-01.png" />
+                                    <img src="#{overAllBean.reworkView.image}" />
                                 </div>
                                 <div>
                                     <p:outputLabel value="Trend" />
 
                                 </div>
                             </td>
-                            <td  colspan="2">
-                                <p:outputLabel value="90%"/>
+                            <td  colspan="2" class="#{overAllBean.reworkView.styleTrend}">
+                                <p:outputLabel value="#{overAllBean.reworkView.trendActual == null ? 0 : overAllBean.reworkView.trendActual}"/>
+                                <p:outputLabel value=" %"/>
                             </td>
                         </tr>
-                        <tr class="font-Best">
+                        <tr class="#{overAllBean.reworkView.styleBest}" style="display: #{overAllBean.reworkView.worstLineCode == overAllBean.reworkView.bestLineCode ? 'none' : ''}">
                             <td>
                                 <p:outputLabel value="Best" />
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW003" />
+                                <p:outputLabel value="#{overAllBean.reworkView.bestLineCode}" />
                             </td>
                             <td>
-                                <p:outputLabel value="105%" />
+                                <p:outputLabel value="#{overAllBean.reworkView.bestActual}" />
                             </td>
                         </tr>
-                        <tr class="font-Worst">
+                        <tr class="#{overAllBean.reworkView.styleWorst}" style="display: #{overAllBean.reworkView.worstLineCode == overAllBean.reworkView.bestLineCode ? 'none' : ''}">
                             <td>
-                                <p:outputLabel value="Worst" />
+                                <p:outputLabel value="Worst"/>
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW008" />
+                                <p:outputLabel value="#{overAllBean.reworkView.worstLineCode}"/>
                             </td>
                             <td>
-                                <p:outputLabel value="40.7%" />
+                                <p:outputLabel value="#{overAllBean.reworkView.worstActual}"/>
                             </td>
                         </tr>
                     </table>
@@ -181,37 +181,38 @@
                         <tr>
                             <td>
                                 <div>
-                                    <img src="../resources/images/Icon/up-01.png" />
+                                    <img src="#{overAllBean.breakDownView.image}" />
                                 </div>
                                 <div>
                                     <p:outputLabel value="Trend" />
 
                                 </div>
                             </td>
-                            <td  colspan="2">
-                                <p:outputLabel value="90%"/>
+                            <td  colspan="2" class="#{overAllBean.breakDownView.styleTrend}">
+                                <p:outputLabel value="#{overAllBean.breakDownView.trendActual == null ? 0 : overAllBean.breakDownView.trendActual}"/>
+                                <p:outputLabel value=" %"/>
                             </td>
                         </tr>
-                        <tr class="font-Best">
+                        <tr class="#{overAllBean.breakDownView.styleBest}" style="display: #{overAllBean.breakDownView.worstLineCode == overAllBean.breakDownView.bestLineCode ? 'none' : ''}">
                             <td>
                                 <p:outputLabel value="Best" />
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW003" />
+                                <p:outputLabel value="#{overAllBean.breakDownView.bestLineCode}" />
                             </td>
                             <td>
-                                <p:outputLabel value="105%" />
+                                <p:outputLabel value="#{overAllBean.breakDownView.bestActual}" />
                             </td>
                         </tr>
-                        <tr class="font-Worst">
+                        <tr class="#{overAllBean.breakDownView.styleWorst}" style="display: #{overAllBean.breakDownView.worstLineCode == overAllBean.breakDownView.bestLineCode ? 'none' : ''}">
                             <td>
-                                <p:outputLabel value="Worst" />
+                                <p:outputLabel value="Worst"/>
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW008" />
+                                <p:outputLabel value="#{overAllBean.breakDownView.worstLineCode}"/>
                             </td>
                             <td>
-                                <p:outputLabel value="40.7%" />
+                                <p:outputLabel value="#{overAllBean.breakDownView.worstActual}"/>
                             </td>
                         </tr>
                     </table>
@@ -230,37 +231,38 @@
                         <tr>
                             <td>
                                 <div>
-                                    <img src="../resources/images/Icon/up-01.png" />
+                                    <img src="#{overAllBean.outstadingView.image}" />
                                 </div>
                                 <div>
                                     <p:outputLabel value="Trend" />
 
                                 </div>
                             </td>
-                            <td  colspan="2">
-                                <p:outputLabel value="90%"/>
+                            <td  colspan="2" class="#{overAllBean.outstadingView.styleTrend}">
+                                <p:outputLabel value="#{overAllBean.outstadingView.trendActual == null ? 0 : overAllBean.outstadingView.trendActual}"/>
+                                <p:outputLabel value=" %"/>
                             </td>
                         </tr>
-                        <tr class="font-Best">
+                        <tr class="#{overAllBean.outstadingView.styleBest}" style="display: #{overAllBean.outstadingView.worstLineCode == overAllBean.outstadingView.bestLineCode ? 'none' : ''}">
                             <td>
                                 <p:outputLabel value="Best" />
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW003" />
+                                <p:outputLabel value="#{overAllBean.outstadingView.bestLineCode}" />
                             </td>
                             <td>
-                                <p:outputLabel value="105%" />
+                                <p:outputLabel value="#{overAllBean.outstadingView.bestActual}" />
                             </td>
                         </tr>
-                        <tr class="font-Worst">
+                        <tr class="#{overAllBean.outstadingView.styleWorst}" style="display: #{overAllBean.outstadingView.worstLineCode == overAllBean.outstadingView.bestLineCode ? 'none' : ''}">
                             <td>
-                                <p:outputLabel value="Worst" />
+                                <p:outputLabel value="Worst"/>
                             </td>
                             <td>
-                                <p:outputLabel value="VSEW008" />
+                                <p:outputLabel value="#{overAllBean.outstadingView.worstLineCode}"/>
                             </td>
                             <td>
-                                <p:outputLabel value="40.7%" />
+                                <p:outputLabel value="#{overAllBean.outstadingView.worstActual}"/>
                             </td>
                         </tr>
                     </table>

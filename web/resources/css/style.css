@@ -21,6 +21,16 @@
     border: 1px solid #ffffff;
 }
 
+.label-green label{
+    font-weight: bold !important;
+    color: green;
+}
+
+.label-red label{
+    font-weight: bold !important;
+    color: red;
+}
+
 /*---------------------------  CSS overAll.xhtml  ---------------------------------*/
 
 table.table-home tbody tr:nth-child(2) td:first-child div{
@@ -50,7 +60,7 @@ table.table-home tr:nth-child(4){
 }
 
 table.table-home tr:nth-child(2) td:first-child label{
-    margin-left: 11px;
+    margin-left: 15px;
 }
 
 table.table-home tr:nth-child(2) td:nth-child(2){
@@ -448,7 +458,8 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 }
 
 .font-OTP{
-    color: #2580c2;
+    color: #2580c2 !important;
+    font-weight: bold !important;
 }
 
 .border-Rework{
@@ -456,7 +467,8 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 }
 
 .font-Rework{
-    color: #f09148;
+    color: #f09148 !important;
+    font-weight: bold !important;
 }
 
 .border-Break-Down{
@@ -465,7 +477,8 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 
 .font-Break-Down{
     font-size: 13px;
-    color: #e65cd1;
+    color: #e65cd1 !important;
+    font-weight: bold !important;
 }
 
 .ui-clock{
@@ -477,13 +490,22 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 }
 
 .font-Repair{
-    color: #5cb800;
+    color: #5cb800 !important;
+    font-weight: bold !important;
 }
 
-.font-Best td label{
-    color: #40c27a;
+.font-Best-Green td label{
+    color: green !important;
 }
 
-.font-Worst td label{
-    color: #ff2626;
+.font-Best-Red td label{
+    color: red !important;
+}
+
+.font-Worst-Green td label{
+    color: green !important;
+}
+
+.font-Worst-Red td label{
+    color: red !important;
 }

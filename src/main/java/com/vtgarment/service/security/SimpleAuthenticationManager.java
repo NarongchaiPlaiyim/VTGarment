@@ -24,11 +24,11 @@ public class SimpleAuthenticationManager implements AuthenticationManager {
         UserDetail userDetail = (UserDetail) authentication.getPrincipal();
         WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) authentication.getDetails();
         // system role
-        if ("ADMIN".equalsIgnoreCase(userDetail.getRole())) {
+        if ("ADMIN".equalsIgnoreCase(userDetail.getCode())) {
             return getAuthority(userDetail, authentication, authenticationDetails);
         }
         // business role
-        if ("USER".equalsIgnoreCase(userDetail.getRole())) {
+        if ("USER".equalsIgnoreCase(userDetail.getCode())) {
             return getAuthority(userDetail, authentication, authenticationDetails);
         }
         throw new BadCredentialsException("Bad Credentials");
@@ -36,7 +36,7 @@ public class SimpleAuthenticationManager implements AuthenticationManager {
 
     private UsernamePasswordAuthenticationToken getAuthority(UserDetail userDetail, Authentication authentication, WebAuthenticationDetails authenticationDetails) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(userDetail.getRole()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(userDetail.getCode()));
         UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(userDetail,
                 authentication.getCredentials(), grantedAuthorities);
         result.setDetails(authenticationDetails);

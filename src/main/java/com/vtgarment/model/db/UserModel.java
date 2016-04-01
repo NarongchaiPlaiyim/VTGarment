@@ -34,4 +34,13 @@ public class UserModel {
 
     @Column(name = "user_image", nullable = true, insertable = true, updatable = true, length = 2147483647)
     private String userImage;
+
+    @Column(name = "line_id")
+    private int lineId;
+
+    @Column(name = "section_id")
+    private int sectionId;
+
+    @Column(name = "factory_id")
+    private int factoryId;
 }

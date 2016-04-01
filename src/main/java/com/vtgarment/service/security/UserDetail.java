@@ -11,35 +11,35 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class UserDetail implements Serializable {
-    private String userName;
-    private String password;
-    private String role;
     private int id;
-    private String firstName;
-    private String lastName;
-    private boolean isRequestFlag;
-    private String fullName;
+    private String code;
+    private String name;
+    private int lineId;
+    private int sectionId;
+    private String userName;
+    private int factoryId;
 
-    public UserDetail(String userName, String password, String role, String firstName, String lastName) {
+    public UserDetail(int id, String code, String name, int lineId, int sectionId, String userName, int factoryId) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.lineId = lineId;
+        this.sectionId = sectionId;
         this.userName = userName;
-        this.password = password;
-        this.role = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullName = firstName+" "+lastName;
+        this.factoryId = factoryId;
     }
 
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("userName", userName)
-                .append("password", password)
-                .append("role", role)
                 .append("id", id)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("isRequestFlag", isRequestFlag)
+                .append("code", code)
+                .append("name", name)
+                .append("lineId", lineId)
+                .append("sectionId", sectionId)
+                .append("userName", userName)
+                .append("factoryId", factoryId)
                 .toString();
     }
 }

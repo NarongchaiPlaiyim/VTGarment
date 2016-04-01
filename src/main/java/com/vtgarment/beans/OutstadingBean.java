@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @ViewScoped
 @ManagedBean(name = "repairBean")
-public class RepairBean extends Bean {
+public class OutstadingBean extends Bean {
     @ManagedProperty("#{repairService}") private RepairService repairService;
 
     @NotNull private List<FactoryModel> factoryModelList;

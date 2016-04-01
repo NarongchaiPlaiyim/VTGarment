@@ -413,6 +413,15 @@ public enum Utils {
         }
     }
 
+    public static boolean compareBigDecimal(BigDecimal value1, BigDecimal value2){
+        if (value1.compareTo(value2) >= 0){
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+
+    }
+
     public static void main(String[] args) {
         Calendar calendar = Calendar.getInstance();
         String strDate = convertDateToStringDDMYYYY(new Date());
@@ -425,5 +434,9 @@ public enum Utils {
         calendar.set(Calendar.SECOND,59);
         calendar.set(Calendar.MILLISECOND,0);
         System.out.println(calendar.getTime());
+
+        BigDecimal a = new BigDecimal(10.2);
+        BigDecimal b = new BigDecimal(10.2);
+        System.out.println(a.compareTo(b));
     }
 }

@@ -5,7 +5,7 @@ import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
 import com.vtgarment.model.view.rework.ReworkView;
-import com.vtgarment.service.ReworkService;
+import com.vtgarment.service.OutstadingService;
 import com.vtgarment.utils.FacesUtil;
 import com.vtgarment.utils.Utils;
 import lombok.Getter;
@@ -25,7 +25,7 @@ import java.util.Random;
 @ViewScoped
 @ManagedBean(name = "reworkBean")
 public class ReworkBean extends Bean {
-    @ManagedProperty("#{reworkService}") private ReworkService reworkService;
+    @ManagedProperty("#{outstadingService}") private OutstadingService reworkService;
 
     @NotNull
     private List<FactoryModel> factoryModelList;

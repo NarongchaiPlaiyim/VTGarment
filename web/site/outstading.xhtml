@@ -42,7 +42,7 @@
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
                         <p:selectOneMenu id="factoryItem" value="#{repairBean.factoryId}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItem itemLabel="#{msg.get('item.label.SelectFactory')}" itemValue="0" noSelectionOption="true" />
                             <f:selectItems value="#{repairBean.factoryModelList}"
                                            var="factoryItem"
                                            itemLabel="#{factoryItem.name}"
@@ -52,7 +52,7 @@
                     </div>
                     <div class="Container33">
                         <p:selectOneMenu id="buildingFloorItem"  value="#{repairBean.buildingFloorId}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItem itemLabel="#{msg.get('item.label.SelectBuildFloor')}" itemValue="0" noSelectionOption="true" />
                             <f:selectItems value="#{repairBean.buildingFloorModelList}"
                                            var="buildingFloorItem"
                                            itemLabel="#{buildingFloorItem.name}"
@@ -62,7 +62,7 @@
                     </div>
                     <div class="Container33">
                         <p:selectOneMenu id="lineItem"  value="#{repairBean.lineId}" styleClass="dropdown">
-                            <f:selectItem itemLabel="#{msg.get('item.label.pleaseSelect')}" itemValue="0" noSelectionOption="true" />
+                            <f:selectItem itemLabel="#{msg.get('item.label.SelectLine')}" itemValue="0" noSelectionOption="true" />
                             <f:selectItems value="#{repairBean.lineModelList}"
                                            var="lineItem"
                                            itemLabel="#{lineItem.code} - #{lineItem.name}"

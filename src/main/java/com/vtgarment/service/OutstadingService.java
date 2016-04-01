@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class ReworkService extends Service {
+public class OutstadingService extends Service {
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;

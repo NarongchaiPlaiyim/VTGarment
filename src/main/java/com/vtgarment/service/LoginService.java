@@ -1,22 +1,32 @@
 package com.vtgarment.service;
 
+import com.vtgarment.model.dao.UserDAO;
+import com.vtgarment.model.db.UserModel;
 import com.vtgarment.utils.Utils;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 @Component
 @Transactional
 public class LoginService extends Service{
     private static final long serialVersionUID = 4112578634088874840L;
 
+    @Resource private UserDAO userDAO;
+
+    @Getter UserModel userModel;
+
     public boolean isUserExist(final String userName, final String password){
         log.debug("-- isUserExist({}, {})", userName, password);
         boolean result = Utils.TRUE;
         try {
-//            staffModel = staffDAO.findByUserNameAndPassword(userName, password);
-//            if(Utils.isNull(staffModel)){
-//                result = !result;
-//            }
+            userModel = userDAO.findByUserNameAndPassword(userName, password);
+            if(Utils.isNull(userModel)){
+                result = !result;
+            }
+            log.debug("---- {}", result);
             return result;
         } catch (Exception e) {
             log.error("Exception while calling isUserExist()", e);
