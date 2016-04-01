@@ -80,6 +80,7 @@ public class LoginBean extends Bean {
         }
 
         flagLogin = Boolean.FALSE;
+        log.debug("----------------------------- {}", flagLogin);
 
         showDialog(MessageDialog.WARNING.getMessageHeader(), "Invalid username or password.");
         return "loggedOut";
