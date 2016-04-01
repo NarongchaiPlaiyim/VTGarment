@@ -34,6 +34,8 @@ public class LoginBean extends Bean {
     private UserDetail userDetail;
     private Map map;
 
+    private boolean flagLogin = Boolean.TRUE;
+
     @PostConstruct
     private void init(){
         log.debug("[NEW] CODE MAP");
@@ -76,6 +78,9 @@ public class LoginBean extends Bean {
                 return "PASS";
             }
         }
+
+        flagLogin = Boolean.FALSE;
+
         showDialog(MessageDialog.WARNING.getMessageHeader(), "Invalid username or password.");
         return "loggedOut";
     }

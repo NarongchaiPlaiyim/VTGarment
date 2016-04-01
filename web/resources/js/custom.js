@@ -1,12 +1,12 @@
-function Redirect(path) {
+function Redirect(value, path) {
 
-    if(path == 'OTP'){
+    if(value == 'OTP'){
         window.location = "/test/site/otp.xhtml"
-    } else if(path == 'REWORK'){
+    } else if(value == 'REWORK'){
         window.location = "/test/site/rework.xhtml"
-    } else if(path == 'BREAK DOWN'){
+    } else if(value == 'BREAK DOWN'){
         window.location = "/test/site/breakDown.xhtml"
-    } else if(path == 'OUTSTANDING'){
+    } else if(value == 'OUTSTANDING'){
         window.location = "/test/site/outstading.xhtml"
     }
 

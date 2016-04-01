@@ -14,13 +14,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <script type="text/javascript">if(window.PrimeFaces){}</script>
-        <link href="/test/resources/css/style.css" rel="stylesheet"/>
+        <h:outputStylesheet library="css" name="style.css" target="head" />
+        <!--<link href="/test/resources/css/style.css" rel="stylesheet"/>-->
     </h:head>
     <h:body>
         <h:form id="frmLogin">
             <div class="login">
                 <div>
-                    <img src="/test/resources/images/shared/logo_2.png"/>
+                    <img src="#{msg.get('path')}/resources/images/shared/logo_2.png"/>
                 </div>
                 <div class="ui-fluid div-box-login">
                     <div>Login</div>
@@ -37,7 +38,7 @@
                     </div>
                 </div>
                 <div class="loginfooter">
-                    <img src="/test/resources/images/shared/ESELogo608.png"/>
+                    <img src="#{msg.get('path')}/resources/images/shared/ESELogo608.png"/>
                 </div>
             </div>
         </h:form>
