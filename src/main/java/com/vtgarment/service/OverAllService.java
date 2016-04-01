@@ -1,9 +1,9 @@
 package com.vtgarment.service;
 
 import com.vtgarment.model.dao.BuildingFloorDAO;
+import com.vtgarment.model.dao.DashboardDAO;
 import com.vtgarment.model.dao.FactoryDAO;
 import com.vtgarment.model.dao.LineDAO;
-import com.vtgarment.model.dao.OverAllDAO;
 import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
@@ -30,7 +30,7 @@ public class OverAllService extends Service{
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;
-    @Resource private OverAllDAO overAllDAO;
+    @Resource private DashboardDAO overAllDAO;
 
     @Value("#{config['arrow.up']}") private String up;
     @Value("#{config['arrow.down']}") private String down;
