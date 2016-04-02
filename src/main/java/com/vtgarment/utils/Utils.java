@@ -3,6 +3,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -435,8 +436,11 @@ public enum Utils {
         calendar.set(Calendar.MILLISECOND,0);
         System.out.println(calendar.getTime());
 
-        BigDecimal a = new BigDecimal(10.2);
+        BigDecimal a = new BigDecimal(10.3);
         BigDecimal b = new BigDecimal(10.2);
         System.out.println(a.compareTo(b));
+
+        MathContext mc = new MathContext(2);
+        System.out.println(a.subtract(b, mc));
     }
 }

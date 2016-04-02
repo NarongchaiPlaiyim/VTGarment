@@ -5,9 +5,9 @@ import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
 import com.vtgarment.model.view.BreakDownView;
-import com.vtgarment.model.view.OTPView;
 import com.vtgarment.model.view.OutstadingView;
 import com.vtgarment.model.view.ReworkView;
+import com.vtgarment.model.view.otp.OtpView;
 import com.vtgarment.service.OverAllService;
 import com.vtgarment.service.security.UserDetail;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class OverAllBean extends Bean {
     @NotNull private List<BuildingFloorModel> buildingFloorModelList;
     @NotNull private List<LineModel> lineModelList;
 
-    @NotNull private OTPView otpView;
+    @NotNull private OtpView otpView;
     @NotNull private ReworkView reworkView;
     @NotNull private OutstadingView outstadingView;
     @NotNull private BreakDownView breakDownView;

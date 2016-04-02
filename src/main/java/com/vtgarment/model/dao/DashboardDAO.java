@@ -1,9 +1,9 @@
 package com.vtgarment.model.dao;
 
 import com.vtgarment.model.view.BreakDownView;
-import com.vtgarment.model.view.OTPView;
 import com.vtgarment.model.view.OutstadingView;
 import com.vtgarment.model.view.ReworkView;
+import com.vtgarment.model.view.otp.OtpView;
 import com.vtgarment.utils.Utils;
 import org.hibernate.SQLQuery;
 import org.hibernate.type.BigDecimalType;
@@ -27,8 +27,8 @@ public class DashboardDAO extends GenericDAO<String, Integer>{
     private StringBuilder where;
 
 
-    public OTPView findOTPView(int lineId){
-        OTPView otpView = new OTPView();
+    public OtpView findOTPView(int lineId){
+        OtpView otpView = new OtpView();
         StringBuilder sqlBuilder = new StringBuilder();
 
         sqlBuilder.append(" SELECT ");
@@ -64,8 +64,8 @@ public class DashboardDAO extends GenericDAO<String, Integer>{
         return otpView;
     }
 
-    public OTPView findOTPViewBySection(int factoryId, int buildingFloor, int lineId){
-        OTPView otpView = new OTPView();
+    public OtpView findOTPViewBySection(int factoryId, int buildingFloor, int lineId){
+        OtpView otpView = new OtpView();
 
         StringBuilder sql = new StringBuilder();
 
