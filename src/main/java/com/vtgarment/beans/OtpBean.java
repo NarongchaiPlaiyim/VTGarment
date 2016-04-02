@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -76,7 +75,12 @@ public class OtpBean extends Bean {
     public void filterValue(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
-        otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId);
+        if (!Utils.isZero(factoryId)){
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId);
+        } else {
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, userDetail.getLineId());
+        }
+
         sum(otpTableViewList);
     }
 
@@ -90,15 +94,6 @@ public class OtpBean extends Bean {
     }
 
     public void onClickBtnBack(){
-        if (!Utils.isZero(lineId)){
-            lineModelList = new ArrayList<>();
-        } else if (!Utils.isZero(buildingFloorId)){
-            buildingFloorModelList = new ArrayList<>();
-        } else if (!Utils.isZero(factoryId)){
-            factoryId = 0;
-        } else {
-            FacesUtil.redirect("/site/overAll.xhtml");
-        }
-
+        FacesUtil.redirect("/site/overAll.xhtml");
     }
 }

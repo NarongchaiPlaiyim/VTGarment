@@ -18,28 +18,14 @@
         <h:outputStylesheet name="css/style.css" />
         <h:outputScript library="js" name="custom.js" />
     </h:head>
-    <script>
-        $( document ).ready(function() {
-            $('.imageTotalOtp').prepend('<img src="#{otpBean.summaryTableView.imageTrend}"/>');
-        });
-
-        function change(){
-//            alert('11111111111111');
-            $(".imageTotalOtp img").remove();
-            $('.imageTotalOtp').prepend('<img src="#{otpBean.summaryTableView.imageTrend}"/>');
-        };
-
-        $('table').on('update', function(){
-            alert('Table updated, launching kill space goats sequence now.')
-        });
-
-        $('#frmOTP').change(function(){
-            alert('11111111111111');
-        })
-    </script>
     <h:body style="background-color: #0292c7">
-        <div class="Container100 title">
-            <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+        <div class="Container100 white">
+            <div class="Container100 title">
+                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+            </div>
+            <div class="btn-refresh">
+                <p:commandButton id="btn-refresh" value="Refresh" action="#{otpBean.filterValue}" update=":frmOTP"/>
+            </div>
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; color: #ffffff; float: left">
@@ -60,7 +46,7 @@
             <div>
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
-                        <p:selectOneMenu id="factoryItem" value="#{otpBean.factoryId}" styleClass="dropdown" onchange="change()">
+                        <p:selectOneMenu id="factoryItem" value="#{otpBean.factoryId}" styleClass="dropdown" >
                             <f:selectItem itemLabel="#{msg.get('item.label.SelectFactory')}" itemValue="0" noSelectionOption="true" />
                             <f:selectItems value="#{otpBean.factoryModelList}"
                                            var="factoryItem"
@@ -131,12 +117,12 @@
                             <h:outputText value="%"/>
                         </p:column>
 
-                        <p:columnGroup type="footer" id="gr">
-                            <p:row>
+                        <p:columnGroup type="footer">
+                            <p:row style="display: #{otpBean.otpTableViewList.size() == 1 || otpBean.otpTableViewList.size() == 0 ? 'none' : ''};">
                                 <p:column colspan="2" style="text-align: right" footerText="Grand Total"/>
                                 <p:column footerText="#{otpBean.summaryTableView.totalYesterDay}%" styleClass="#{otpBean.summaryTableView.styleTotalYesterDay}"/>
                                 <p:column footerText="#{otpBean.summaryTableView.totalToDay}%" styleClass="#{otpBean.summaryTableView.styleTotalToDay}"/>
-                                <p:column footerText="#{otpBean.summaryTableView.totalTrend}%" styleClass="imageTotalOtp"/>
+                                <p:column footerText="#{otpBean.summaryTableView.imageTrend} #{otpBean.summaryTableView.totalTrend}%" styleClass="imageTotalOtp"/>
                             </p:row>
                         </p:columnGroup>
                     </p:dataTable>

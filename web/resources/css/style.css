@@ -11,13 +11,20 @@
     color: #ffffff;
 }
 
+.btn-refresh{
+    margin-top: 5px;
+    position: absolute;
+    right: 15px;
+}
+
 .btn-back{
     margin-top: -5px;
     position: absolute;
     right: 15px;
 }
 
-.btn-back span{
+.btn-back span,
+.btn-refresh span{
     border: 1px solid #ffffff;
 }
 

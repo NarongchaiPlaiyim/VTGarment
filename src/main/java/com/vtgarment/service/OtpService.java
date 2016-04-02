@@ -29,8 +29,8 @@ public class OtpService extends Service {
 
     @Value("#{config['style.red']}") private String red;
     @Value("#{config['style.green']}") private String green;
-    @Value("#{config['arrow.up']}") private String up;
-    @Value("#{config['arrow.down']}") private String down;
+    @Value("#{config['arrow.up.text']}") private String up;
+    @Value("#{config['arrow.down.text']}") private String down;
 
     public List<FactoryModel> findAll(){
         try {
@@ -79,6 +79,8 @@ public class OtpService extends Service {
                 summaryTableView.setStyleTotalYesterDay(green);
                 summaryTableView.setImageTrend(down);
             }
+
+
         }
 
         return summaryTableView;
