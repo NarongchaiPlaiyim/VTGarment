@@ -8,7 +8,6 @@ import com.vtgarment.model.view.SummaryTableView;
 import com.vtgarment.model.view.outstading.OutStadingTableView;
 import com.vtgarment.service.OutStandingService;
 import com.vtgarment.service.security.UserDetail;
-import com.vtgarment.utils.FacesUtil;
 import com.vtgarment.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
@@ -90,9 +89,5 @@ public class OutstadingBean extends Bean {
 
     private void sum(List<OutStadingTableView> list){
         summaryTableView = outStadingService.sum(list);
-    }
-
-    public void onClickBtnBack(){
-        FacesUtil.redirect("/site/overAll.xhtml");
     }
 }

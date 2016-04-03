@@ -8,7 +8,6 @@ import com.vtgarment.model.view.SummaryTableView;
 import com.vtgarment.model.view.otp.OtpTableView;
 import com.vtgarment.service.OtpService;
 import com.vtgarment.service.security.UserDetail;
-import com.vtgarment.utils.FacesUtil;
 import com.vtgarment.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
@@ -91,9 +90,5 @@ public class OtpBean extends Bean {
 
     private void sum(List<OtpTableView> list){
         summaryTableView = otpService.sum(list);
-    }
-
-    public void onClickBtnBack(){
-        FacesUtil.redirect("/site/overAll.xhtml");
     }
 }

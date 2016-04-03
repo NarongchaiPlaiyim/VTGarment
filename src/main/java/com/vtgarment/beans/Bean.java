@@ -105,4 +105,8 @@ public abstract class Bean implements Serializable {
             return (UserDetail)FacesUtil.getSession(false).getAttribute(AttributeName.USER_DETAIL.getName());
         }
     }
+
+    public void onClickBtnBack(){
+        FacesUtil.redirect(NamesUtil.MAIN_PAGE.getName());
+    }
 }
