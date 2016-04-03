@@ -24,11 +24,11 @@ public class SimpleAuthenticationManager implements AuthenticationManager {
         UserDetail userDetail = (UserDetail) authentication.getPrincipal();
         WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) authentication.getDetails();
         // system role
-        if ("ADMIN".equalsIgnoreCase(userDetail.getCode())) {
-            return getAuthority(userDetail, authentication, authenticationDetails);
-        }
+//        if ("ADMIN".equalsIgnoreCase(userDetail.getCode())) {
+//            return getAuthority(userDetail, authentication, authenticationDetails);
+//        }
         // business role
-        if ("USER".equalsIgnoreCase(userDetail.getCode())) {
+        if ("USER".equalsIgnoreCase(userDetail.getRole())) {
             return getAuthority(userDetail, authentication, authenticationDetails);
         }
         throw new BadCredentialsException("Bad Credentials");
