@@ -6,7 +6,7 @@ import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
 import com.vtgarment.model.view.SummaryTableView;
 import com.vtgarment.model.view.outstading.OutStadingTableView;
-import com.vtgarment.service.OutStadingService1;
+import com.vtgarment.service.OutStadingService;
 import com.vtgarment.service.security.UserDetail;
 import com.vtgarment.utils.FacesUtil;
 import com.vtgarment.utils.Utils;
@@ -24,7 +24,7 @@ import java.util.List;
 @ViewScoped
 @ManagedBean(name = "outStadingBean")
 public class OutstadingBean extends Bean {
-    @ManagedProperty("#{outStadingService1}") private OutStadingService1 outStadingService;
+    @ManagedProperty("#{outStadingService}") private OutStadingService outStadingService;
 
     @NotNull private List<FactoryModel> factoryModelList;
     @NotNull private List<BuildingFloorModel> buildingFloorModelList;

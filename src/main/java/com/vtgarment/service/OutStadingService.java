@@ -21,7 +21,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class OutStadingService1 extends Service  {
+public class OutStadingService extends Service  {
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;
