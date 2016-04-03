@@ -1,9 +1,9 @@
 package com.vtgarment.model.dao;
 
-import com.vtgarment.model.view.BreakDownView;
-import com.vtgarment.model.view.OutstadingView;
-import com.vtgarment.model.view.ReworkView;
+import com.vtgarment.model.view.breakdown.BreakDownView;
 import com.vtgarment.model.view.otp.OtpView;
+import com.vtgarment.model.view.outstading.OutstadingView;
+import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.utils.Utils;
 import org.hibernate.SQLQuery;
 import org.hibernate.type.BigDecimalType;

@@ -1,30 +1,48 @@
 package com.vtgarment.model.view.breakdown;
 
-import com.vtgarment.model.view.View;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+import java.math.BigDecimal;
+
+/**
+ * Created by pakorn on 01/04/2016.
+ */
 @Getter
 @Setter
-@ToString
-public class BreakDownView extends View {
-    private String country;
-    private String factory;
-    private String line;
-    private String sutureLine;
+public class BreakDownView {
 
-    private String personPercentOfYesterday;
-    private String machPercentOfYesterday;
-    private String methodPercentOfYesterday;
-    private String materialPercentOfYesterday;
-    private String totalPercentOfYesterday;
+    private String bestLineCode;
+    private String worstLineCode;
+    private BigDecimal trendActual;
+    private BigDecimal bestActual;
+    private BigDecimal worstActual;
 
-    private String personPercentOfToday;
-    private String machPercentOfToday;
-    private String methodPercentOfToday;
-    private String materialPercentOfToday;
-    private String totalPercentOfToday;
+    private BigDecimal trendTarget;
+    private BigDecimal bestTarget;
+    private BigDecimal worstTarget;
 
-    private String trends;
+    private String image;
+    private String styleTrend;
+    private String styleBest;
+    private String styleWorst;
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ReworkView{");
+        sb.append("bestLineCode='").append(bestLineCode).append('\'');
+        sb.append(", worstLineCode='").append(worstLineCode).append('\'');
+        sb.append(", trendActual=").append(trendActual);
+        sb.append(", bestActual=").append(bestActual);
+        sb.append(", worstActual=").append(worstActual);
+        sb.append(", trendTarget=").append(trendTarget);
+        sb.append(", bestTarget=").append(bestTarget);
+        sb.append(", worstTarget=").append(worstTarget);
+        sb.append(", image='").append(image).append('\'');
+        sb.append(", styleTrend='").append(styleTrend).append('\'');
+        sb.append(", styleBest='").append(styleBest).append('\'');
+        sb.append(", styleWorst='").append(styleWorst).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

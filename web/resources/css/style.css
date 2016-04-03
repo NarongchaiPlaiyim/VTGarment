@@ -278,6 +278,114 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
 }
 /*-------------------------------------------------------------------------------------------*/
 
+/*---------------------------  CSS Rework.xhtml  ---------------------------------*/
+/*.ui-datatable-tablewrapper{*/
+/*margin-top: -10px !important;*/
+/*}*/
+
+/*.ui-datatable,*/
+.ui-scrollpanel{
+    border-color: #0292c7 !important;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 370px){
+    .rework-table table thead tr th,
+    .rework-table table tfoot tr td,
+    .rework-table table thead tr th {
+        font-size: 10px !important;
+    }
+
+    .rework-table table thead tr th:first-child{
+        width: 25% !important;
+    }
+
+    .rework-table table tbody tr td {
+        font-size: 10px !important;
+    }
+}
+
+@media only screen and (min-width: 371px) and (max-width: 550px) {
+    .rework-table table thead tr th,
+    .rework-table table tfoot tr td,
+    .rework-table table thead tr th {
+        font-size: 12px !important;
+    }
+
+    .rework-table table tbody tr td {
+        font-size: 12px !important;
+    }
+
+    .rework-table table thead tr th:first-child{
+        width: 25% !important;
+    }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 800px) {
+    .rework-table table thead tr th:first-child{
+        width: 20% !important;
+    }
+}
+
+@media only screen and (min-width: 801px)  {
+
+}
+/*-------------------------------------------------------------------------------------------*/
+
+/*---------------------------  CSS Rework.xhtml  ---------------------------------*/
+/*.ui-datatable-tablewrapper{*/
+/*margin-top: -10px !important;*/
+/*}*/
+
+/*.ui-datatable,*/
+.ui-scrollpanel{
+    border-color: #0292c7 !important;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 370px){
+    .outstading-table table thead tr th,
+    .outstading-table table tfoot tr td,
+    .outstading-table table thead tr th {
+        font-size: 10px !important;
+    }
+
+    .outstading-table table thead tr th:first-child{
+        width: 25% !important;
+    }
+
+    .outstading-table table tbody tr td {
+        font-size: 10px !important;
+    }
+}
+
+@media only screen and (min-width: 371px) and (max-width: 550px) {
+    .outstading-table table thead tr th,
+    .outstading-table table tfoot tr td,
+    .outstading-table table thead tr th {
+        font-size: 12px !important;
+    }
+
+    .outstading-table table tbody tr td {
+        font-size: 12px !important;
+    }
+
+    .outstading-table table thead tr th:first-child{
+        width: 25% !important;
+    }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 800px) {
+    .outstading-table table thead tr th:first-child{
+        width: 20% !important;
+    }
+}
+
+@media only screen and (min-width: 801px)  {
+
+}
+/*-------------------------------------------------------------------------------------------*/
+
  /*---------------------------  CSS brealDown.xhtml  ---------------------------------*/
 @media only screen and (max-width: 530px) {
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr th,
