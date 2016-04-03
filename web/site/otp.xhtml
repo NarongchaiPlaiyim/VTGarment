@@ -19,35 +19,40 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
+        <div class="Container100 white">
+            <div class="Container100 title">
+                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+            </div>
+            <div class="btn-refresh">
+                <p:commandButton id="btn-refresh" value="Refresh" action="#{otpBean.filterValue}" update=":frmOTP"/>
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+            </div>
+            <div class="btn-back">
+                <p:commandButton id="btn_Back" value="Back" action="#{otpBean.onClickBtnBack}"
+                                 update=":frmOTP:factoryItem, :frmOTP:buildingFloorItem, :frmOTP:lineItem"/>
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; float: left; color: #ffffff;">
+                <h:outputText value="#{msg.get('menu.otp')}" />
+            </div>
+        </div>
+
         <h:form id="frmOTP">
             <div>
-                <div class="Container100 title">
-                    <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; color: #ffffff; float: left">
-                        <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
-                    </div>
-                    <div class="btn-back">
-                        <p:commandButton id="btn_Back" value="Back" action="#{otpBean.onClickBtnBack}"
-                                         process="@form"
-                                         update=":frmOTP:factoryItem, :frmOTP:buildingFloorItem, :frmOTP:lineItem"/>
-                    </div>
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                        <h:outputText value="#{msg.get('menu.otp')}" />
-                    </div>
-                </div>
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
-                        <p:selectOneMenu id="factoryItem" value="#{otpBean.factoryId}" styleClass="dropdown">
+                        <p:selectOneMenu id="factoryItem" value="#{otpBean.factoryId}" styleClass="dropdown" >
                             <f:selectItem itemLabel="#{msg.get('item.label.SelectFactory')}" itemValue="0" noSelectionOption="true" />
                             <f:selectItems value="#{otpBean.factoryModelList}"
                                            var="factoryItem"
                                            itemLabel="#{factoryItem.name}"
                                            itemValue="#{factoryItem.id}"/>
-                            <p:ajax listener="#{otpBean.filterBuildingFloor}" update=":frmOTP:buildingFloorItem"/>
+                            <p:ajax listener="#{otpBean.filterBuildingFloor}" update=":frmOTP, :frmOTP:otpTable"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
@@ -57,7 +62,7 @@
                                            var="buildingFloorItem"
                                            itemLabel="#{buildingFloorItem.name}"
                                            itemValue="#{buildingFloorItem.id}"/>
-                            <p:ajax listener="#{otpBean.filterLine}" update=":frmOTP:lineItem"/>
+                            <p:ajax listener="#{otpBean.filterLine}" update=":frmOTP"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
@@ -67,25 +72,24 @@
                                            var="lineItem"
                                            itemLabel="#{lineItem.code} - #{lineItem.name}"
                                            itemValue="#{lineItem.id}"/>
-                            <p:ajax listener="#{otpBean.filterValue}" update=""/>
+                            <p:ajax listener="#{otpBean.filterValue}" update=":frmOTP"/>
                         </p:selectOneMenu>
                     </div>
                 </div>
                 <div class="Container100">
-                    <p:scrollPanel  mode="native" style="height: 250px">
-                    <p:dataTable id="reworkTable"
-                                 widgetVar="carsTable"
-                                 var="reworkTableView"
-                                 value="#{reworkBean.reworkTableViewList}"
+                    <p:dataTable id="otpTable"
+                                 var="otpTableView"
+                                 styleClass="otp-table"
+                                 value="#{otpBean.otpTableViewList}"
                                  rowIndexVar="rowIndex">
 
                         <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="1" headerText="Rework" priority="10" />
-                                <p:column colspan="3" headerText="Taget" priority="10" />
+                                <p:column colspan="2" headerText="Rework" style="width:25%;"/>
+                                <p:column colspan="3" headerText="Taget" style="width:41%;"/>
                             </p:row>
                             <p:row>
-                                <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
+                                <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
                                 <p:column colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />
                                 <p:column colspan="1" headerText="#{msg.get('table.header.percentOfToday')}" />
                                 <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.trends')}" />
@@ -96,28 +100,32 @@
                             </p:row>
                         </p:columnGroup>
 
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
-                            <f:facet name="filter">
-                                <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
-                                    <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
-                                    <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
-                                </p:selectCheckboxMenu>
-                            </f:facet>
-                            <h:outputText value="#{reworkTableView.country}" />
+                        <p:column colspan="2">
+                            <h:outputText value="#{otpTableView.lineCode}"/>
                         </p:column>
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                            <h:outputText value="#{reworkTableView.factory}" />
+                        <p:column style="text-align: center;" styleClass="#{otpTableView.styleYesterDay}">
+                            <h:outputText value="#{otpTableView.yesterDay}"/>
+                            <h:outputText value="%"/>
                         </p:column>
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
-                            <h:outputText value="#{reworkTableView.line}" />
+                        <p:column style="text-align: center;" styleClass="#{otpTableView.styleToDay}">
+                            <h:outputText value="#{otpTableView.toDay}"/>
+                            <h:outputText value="%"/>
                         </p:column>
-                        <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                            <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                            <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                            <h:outputText value="#{reworkTableView.trends}" />
+                        <p:column style="text-align: center;">
+                            <img src="#{otpTableView.image}"/>
+                            <h:outputText value="#{otpTableView.trend}" />
+                            <h:outputText value="%"/>
                         </p:column>
+
+                        <p:columnGroup type="footer">
+                            <p:row style="display: #{otpBean.otpTableViewList.size() == 1 || otpBean.otpTableViewList.size() == 0 ? 'none' : ''};">
+                                <p:column colspan="2" style="text-align: right" footerText="Grand Total"/>
+                                <p:column footerText="#{otpBean.summaryTableView.totalYesterDay}%" styleClass="#{otpBean.summaryTableView.styleTotalYesterDay}"/>
+                                <p:column footerText="#{otpBean.summaryTableView.totalToDay}%" styleClass="#{otpBean.summaryTableView.styleTotalToDay}"/>
+                                <p:column footerText="#{otpBean.summaryTableView.imageTrend} #{otpBean.summaryTableView.totalTrend}%" styleClass="imageTotalOtp"/>
+                            </p:row>
+                        </p:columnGroup>
                     </p:dataTable>
-                    </p:scrollPanel>
                 </div>
             </div>
         </h:form>

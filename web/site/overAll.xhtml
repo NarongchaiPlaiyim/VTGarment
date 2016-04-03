@@ -18,12 +18,17 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
-        <div class="Container100 title">
-            <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+        <div class="Container100 white">
+            <div class="Container100 title">
+                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+            </div>
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; color: #ffffff; float: left">
                 <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+            </div>
+            <div class="btn-refresh" style="margin-top: -5px">
+                <p:commandButton id="btn-refresh" value="Refresh" action="#{overAllBean.filterValue}" update=":frmOverAll"/>
             </div>
         </div>
         <div class="Container100 white">

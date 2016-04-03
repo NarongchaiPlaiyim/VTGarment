@@ -7,10 +7,10 @@ import com.vtgarment.model.dao.LineDAO;
 import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
-import com.vtgarment.model.view.BreakDownView;
-import com.vtgarment.model.view.OTPView;
-import com.vtgarment.model.view.OutstadingView;
-import com.vtgarment.model.view.ReworkView;
+import com.vtgarment.model.view.breakdown.BreakDownView;
+import com.vtgarment.model.view.otp.OtpView;
+import com.vtgarment.model.view.outstading.OutstadingView;
+import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.utils.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -60,9 +60,9 @@ public class OverAllService extends Service{
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public OTPView findOTPView(int factory, int buildingFloor, int lineId){
+    public OtpView findOTPView(int factory, int buildingFloor, int lineId){
         log.debug("-- findOTPView {} : {} : {}", factory, buildingFloor, lineId);
-        OTPView otpView = null;
+        OtpView otpView = null;
 
         if (Utils.isZero(factory) && !Utils.isZero(lineId)){
             otpView = overAllDAO.findOTPView(lineId);

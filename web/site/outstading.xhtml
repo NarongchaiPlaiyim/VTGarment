@@ -19,72 +19,76 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
+        <div class="Container100 white">
+            <div class="Container100 title">
+                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+            </div>
+            <div class="btn-refresh">
+                <p:commandButton id="btn-refresh" value="Refresh" action="#{outStadingBean.filterValue}" update=":frmOutStading"/>
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+            </div>
+            <div class="btn-back">
+                <p:commandButton id="btn_Back" value="Back" action="#{outStadingBean.onClickBtnBack}" update=":frmOutStading"/>
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; float: left; color: #ffffff;">
+                <h:outputText value="#{msg.get('menu.otp')}" />
+            </div>
+        </div>
         <h:form id="frmOutStading">
             <div>
-                <div class="Container100 title">
-                    <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; color: #ffffff; float: left">
-                        <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
-                    </div>
-                    <div class="btn-back">
-                        <p:commandButton id="btn_Back" value="Back" action="#{repairBean.onClickBtnBack}"
-                                         process="@form"
-                                         update=":frmOutStading:factoryItem, :frmOutStading:buildingFloorItem, :frmOutStading:lineItem"/>
-                    </div>
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                        <h:outputText value="#{msg.get('menu.outstading')}" />
-                    </div>
-                </div>
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
-                        <p:selectOneMenu id="factoryItem" value="#{repairBean.factoryId}" styleClass="dropdown">
+                        <p:selectOneMenu id="factoryItem" value="#{outStadingBean.factoryId}" styleClass="dropdown">
                             <f:selectItem itemLabel="#{msg.get('item.label.SelectFactory')}" itemValue="0" noSelectionOption="true" />
-                            <f:selectItems value="#{repairBean.factoryModelList}"
+                            <f:selectItems value="#{outStadingBean.factoryModelList}"
                                            var="factoryItem"
                                            itemLabel="#{factoryItem.name}"
                                            itemValue="#{factoryItem.id}"/>
-                            <p:ajax listener="#{repairBean.filterBuildingFloor}" update=":frmOutStading:buildingFloorItem"/>
+                            <p:ajax listener="#{outStadingBean.filterBuildingFloor}" update=":frmOutStading"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu id="buildingFloorItem"  value="#{repairBean.buildingFloorId}" styleClass="dropdown">
+                        <p:selectOneMenu id="buildingFloorItem"  value="#{outStadingBean.buildingFloorId}" styleClass="dropdown">
                             <f:selectItem itemLabel="#{msg.get('item.label.SelectBuildFloor')}" itemValue="0" noSelectionOption="true" />
-                            <f:selectItems value="#{repairBean.buildingFloorModelList}"
+                            <f:selectItems value="#{outStadingBean.buildingFloorModelList}"
                                            var="buildingFloorItem"
                                            itemLabel="#{buildingFloorItem.name}"
                                            itemValue="#{buildingFloorItem.id}"/>
-                            <p:ajax listener="#{repairBean.filterLine}" update=":frmOutStading:lineItem"/>
+                            <p:ajax listener="#{outStadingBean.filterLine}" update=":frmOutStading"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
-                        <p:selectOneMenu id="lineItem"  value="#{repairBean.lineId}" styleClass="dropdown">
+                        <p:selectOneMenu id="lineItem"  value="#{outStadingBean.lineId}" styleClass="dropdown">
                             <f:selectItem itemLabel="#{msg.get('item.label.SelectLine')}" itemValue="0" noSelectionOption="true" />
-                            <f:selectItems value="#{repairBean.lineModelList}"
+                            <f:selectItems value="#{outStadingBean.lineModelList}"
                                            var="lineItem"
                                            itemLabel="#{lineItem.code} - #{lineItem.name}"
                                            itemValue="#{lineItem.id}"/>
-                            <p:ajax listener="#{repairBean.filterValue}" update=""/>
+                            <p:ajax listener="#{outStadingBean.filterValue}" update=":frmOutStading"/>
                         </p:selectOneMenu>
                     </div>
                 </div>
                 <div class="Container100">
                     <p:dataTable id="reworkTable"
                                  widgetVar="carsTable"
-                                 var="reworkTableView"
-                                 value="#{reworkBean.reworkTableViewList}"
+                                 var="outstadingTableView"
+                                 styleClass="outstading-table"
+                                 value="#{outStadingBean.outStadingTableViewList}"
                                  rowIndexVar="rowIndex">
 
                         <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="1" headerText="Rework" priority="10" />
-                                <p:column colspan="3" headerText="Taget" priority="10" />
+                                <p:column colspan="2" headerText="Rework" style="width:25%;"/>
+                                <p:column colspan="3" headerText="Taget" style="width:41%;"/>
                             </p:row>
                             <p:row>
-                                <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />
+                                <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
                                 <p:column colspan="1" headerText="#{msg.get('table.header.percentOfYesterday')}" />
                                 <p:column colspan="1" headerText="#{msg.get('table.header.percentOfToday')}" />
                                 <p:column rowspan="2" colspan="1" headerText="#{msg.get('table.header.trends')}" />
@@ -95,26 +99,31 @@
                             </p:row>
                         </p:columnGroup>
 
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
-                            <f:facet name="filter">
-                                <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
-                                    <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
-                                    <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
-                                </p:selectCheckboxMenu>
-                            </f:facet>
-                            <h:outputText value="#{reworkTableView.country}" />
+                        <p:column colspan="2">
+                            <h:outputText value="#{outstadingTableView.lineCode}"/>
                         </p:column>
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                            <h:outputText value="#{reworkTableView.factory}" />
+                        <p:column style="text-align: center;" styleClass="#{outstadingTableView.styleYesterDay}">
+                            <h:outputText value="#{outstadingTableView.yesterDay}"/>
+                            <h:outputText value="%"/>
                         </p:column>
-                        <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
-                            <h:outputText value="#{reworkTableView.line}" />
+                        <p:column style="text-align: center;" styleClass="#{outstadingTableView.styleToDay}">
+                            <h:outputText value="#{outstadingTableView.toDay}"/>
+                            <h:outputText value="%"/>
                         </p:column>
-                        <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                            <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                            <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                            <h:outputText value="#{reworkTableView.trends}" />
+                        <p:column style="text-align: center;">
+                            <img src="#{outstadingTableView.image}"/>
+                            <h:outputText value="#{outstadingTableView.trend}" />
+                            <h:outputText value="%"/>
                         </p:column>
+
+                        <p:columnGroup type="footer">
+                            <p:row style="display: #{outStadingBean.outStadingTableViewList.size() == 1 || outStadingBean.outStadingTableViewList.size() == 0 ? 'none' : ''};">
+                                <p:column colspan="2" style="text-align: right" footerText="Grand Total"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalYesterDay}%" styleClass="#{outStadingBean.summaryTableView.styleTotalYesterDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalToDay}%" styleClass="#{outStadingBean.summaryTableView.styleTotalToDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.imageTrend} #{outStadingBean.summaryTableView.totalTrend}%" styleClass="imageTotalOtp"/>
+                            </p:row>
+                        </p:columnGroup>
                     </p:dataTable>
                 </div>
             </div>

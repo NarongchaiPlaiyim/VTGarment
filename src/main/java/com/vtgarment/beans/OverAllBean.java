@@ -4,12 +4,13 @@ import com.sun.istack.internal.NotNull;
 import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
-import com.vtgarment.model.view.BreakDownView;
-import com.vtgarment.model.view.OTPView;
-import com.vtgarment.model.view.OutstadingView;
-import com.vtgarment.model.view.ReworkView;
+import com.vtgarment.model.view.breakdown.BreakDownView;
+import com.vtgarment.model.view.otp.OtpView;
+import com.vtgarment.model.view.outstading.OutstadingView;
+import com.vtgarment.model.view.rework.ReworkView;
 import com.vtgarment.service.OverAllService;
 import com.vtgarment.service.security.UserDetail;
+import com.vtgarment.utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +32,7 @@ public class OverAllBean extends Bean {
     @NotNull private List<BuildingFloorModel> buildingFloorModelList;
     @NotNull private List<LineModel> lineModelList;
 
-    @NotNull private OTPView otpView;
+    @NotNull private OtpView otpView;
     @NotNull private ReworkView reworkView;
     @NotNull private OutstadingView outstadingView;
     @NotNull private BreakDownView breakDownView;
@@ -98,10 +99,18 @@ public class OverAllBean extends Bean {
     public void filterValue(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
-        otpView = overAllService.findOTPView(factoryId, buildingFloorId, lineId);
-        reworkView = overAllService.findReworkView(factoryId, buildingFloorId, lineId);
-        outstadingView = overAllService.findOutstadingView(factoryId, buildingFloorId, lineId);
-        breakDownView = overAllService.findBreakDownView(factoryId, buildingFloorId, lineId);
+        if (!Utils.isZero(factoryId) || Utils.isZero(userDetail.getLineId())){
+            otpView = overAllService.findOTPView(factoryId, buildingFloorId, lineId);
+            reworkView = overAllService.findReworkView(factoryId, buildingFloorId, lineId);
+            outstadingView = overAllService.findOutstadingView(factoryId, buildingFloorId, lineId);
+            breakDownView = overAllService.findBreakDownView(factoryId, buildingFloorId, lineId);
+        } else {
+            getOTP();
+            getRework();
+            getOutstading();
+            getBreakDown();
+        }
+
 
     }
 }

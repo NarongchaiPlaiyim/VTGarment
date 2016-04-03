@@ -1,4 +1,4 @@
-package com.vtgarment.model.view;
+package com.vtgarment.model.view.outstading;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 @Getter
 @Setter
-public class ReworkView {
+public class OutstadingView {
     private String bestLineCode;
     private String worstLineCode;
     private BigDecimal trendActual;
@@ -28,7 +28,7 @@ public class ReworkView {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ReworkView{");
+        final StringBuilder sb = new StringBuilder("OTPView{");
         sb.append("bestLineCode='").append(bestLineCode).append('\'');
         sb.append(", worstLineCode='").append(worstLineCode).append('\'');
         sb.append(", trendActual=").append(trendActual);

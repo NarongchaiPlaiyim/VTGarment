@@ -3,12 +3,12 @@ package com.vtgarment.service;
 import com.vtgarment.model.dao.BuildingFloorDAO;
 import com.vtgarment.model.dao.FactoryDAO;
 import com.vtgarment.model.dao.LineDAO;
-import com.vtgarment.model.dao.OtpDAO;
+import com.vtgarment.model.dao.OutStadingDAO;
 import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
 import com.vtgarment.model.view.SummaryTableView;
-import com.vtgarment.model.view.otp.OtpTableView;
+import com.vtgarment.model.view.outstading.OutStadingTableView;
 import com.vtgarment.utils.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,11 +21,11 @@ import java.util.List;
 
 @Component
 @Transactional
-public class OtpService extends Service {
+public class OutStadingService extends Service  {
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;
-    @Resource private OtpDAO otpDAO;
+    @Resource private OutStadingDAO outStadingDAO;
 
     @Value("#{config['style.red']}") private String red;
     @Value("#{config['style.green']}") private String green;
@@ -50,22 +50,22 @@ public class OtpService extends Service {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<OtpTableView> getOtp(int factoryId, int buildingFloorId, int lineId){
-        return otpDAO.getOtp(factoryId, buildingFloorId, lineId);
+    public List<OutStadingTableView> getOutstading(int factoryId, int buildingFloorId, int lineId){
+        return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId);
     }
 
-    public SummaryTableView sum(List<OtpTableView> otpTableViewList){
+    public SummaryTableView sum(List<OutStadingTableView> reworkTableViewList){
         SummaryTableView summaryTableView = new SummaryTableView();
-        for (OtpTableView otpTableView : otpTableViewList){
-            summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().add(otpTableView.getYesterDay()));
-            summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().add(otpTableView.getToDay()));
-            summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().add(otpTableView.getTrend()));
+        for (OutStadingTableView outStadingTableView : reworkTableViewList){
+            summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().add(outStadingTableView.getYesterDay()));
+            summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().add(outStadingTableView.getToDay()));
+            summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().add(outStadingTableView.getTrend()));
         }
 
-        log.debug("---- Size : {}", otpTableViewList.size());
+        log.debug("---- Size : {}", reworkTableViewList.size());
 
-        if (!Utils.isZero(otpTableViewList.size())){
-            BigDecimal divideValue = new BigDecimal(otpTableViewList.size());
+        if (!Utils.isZero(reworkTableViewList.size())){
+            BigDecimal divideValue = new BigDecimal(reworkTableViewList.size());
             summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
@@ -79,8 +79,6 @@ public class OtpService extends Service {
                 summaryTableView.setStyleTotalYesterDay(green);
                 summaryTableView.setImageTrend(down);
             }
-
-
         }
 
         return summaryTableView;
