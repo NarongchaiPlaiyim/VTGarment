@@ -23,9 +23,7 @@
             <div class="Container100 title">
                 <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
             </div>
-            <div class="btn-refresh">
-                <p:commandButton id="btn-refresh" value="Refresh" action="#{otpBean.filterValue}" update=":frmOTP"/>
-            </div>
+
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; color: #ffffff; float: left">
@@ -82,6 +80,11 @@
                                  styleClass="otp-table"
                                  value="#{otpBean.otpTableViewList}"
                                  rowIndexVar="rowIndex">
+                        <f:facet name="header">
+                            <div class="btn-refresh" >
+                                <p:commandButton id="btn-refresh" value="Refresh" action="#{otpBean.filterValue}" update=":frmOTP"/>
+                            </div>
+                        </f:facet>
 
                         <p:columnGroup type="header">
                             <p:row>

@@ -80,6 +80,12 @@
                                      rowStyleClass="neutral"
                                      rowIndexVar="rowIndex">
 
+                            <f:facet name="header">
+                                <div class="btn-refresh">
+                                    <p:commandButton id="btn-refresh" value="Refresh" action="#{breakDownBean.filterValue}" update=":frmBreakDown"/>
+                                </div>
+                            </f:facet>
+
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="#{msg.get('menu.breakdown')}" priority="10" />

@@ -44,7 +44,7 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <!--<prop key="hibernate.default_schema">${schema}</prop>-->
                 <!--<prop key="hibernate.default_catalog">${catalog}</prop>-->
@@ -112,4 +112,21 @@
         </constructor-arg>
     </bean>
     <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+
+
+    <!--<bean id="aopService" class="com.vtgarment.utils.AOPService" />-->
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="loggingPointcut"-->
+                      <!--expression="execution(* com.kiatnakinbank.fcrws.service.ExampleBeanClass.*(..))" />-->
+
+        <!--<aop:aspect id="loggingAspectBefore" ref="exampleLoggingAspect">-->
+            <!--<aop:before pointcut-ref="loggingPointcut" method="logEntry" />-->
+            <!--<aop:after pointcut-ref="loggingPointcut" method="logExit" />-->
+            <!--<aop:after-returning pointcut-ref="loggingPointcut"-->
+                                 <!--method="logExitAfterReturn" returning="returnVal" />-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
 </beans>

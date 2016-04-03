@@ -5,10 +5,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Configuration
+@EnableAspectJAutoProxy
 @Aspect
 @Component
 public class AOPService {
@@ -24,8 +28,8 @@ public class AOPService {
 
 //    @Pointcut("execution(* com.tmn.rce.module.*.service.*.*(..) && @annotation(org.springframework.web.bind.annotation.RequestMapping))")
 //    private void pointcut(){}
-
-    @Around("execution(* com.vtgarment.beans.*.*(..))")
+//
+    @Around("execution(* com.vtgarment.beans.LoginBean.*(..))")
     public Object execute(ProceedingJoinPoint proceedingJoinPoint){
         log = LoggerFactory.getLogger(proceedingJoinPoint.getTarget().getClass());
         log.info("===== {} Started =====", proceedingJoinPoint.getSignature().getName());
