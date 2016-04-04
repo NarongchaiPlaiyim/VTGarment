@@ -41,6 +41,22 @@
     color: #ffffff !important;
 }
 
+.ui-confirm-dialog .ui-dialog-content .ui-confirm-dialog-message{
+    color: red !important;
+    text-align: center;
+}
+
+.dialog-alert div:nth-child(3){
+    background-color: transparent !important;
+    border-top: 0px !important;
+}
+
+.dialog-alert .ui-button-text{
+    background-color: #3e5e66 !important;
+    border: 0px !important;
+    color: #ffffff !important;
+}
+
 /*---------------------------  CSS overAll.xhtml  ---------------------------------*/
 
 table.table-home tbody tr:nth-child(2) td:first-child div{

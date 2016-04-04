@@ -33,11 +33,9 @@
                     <div >
                         <p:commandButton id="test1" value="#{msg.get('btn.name.login')}"
                                          styleClass="btn-login"
+                                         update=":msgBoxSystemMessagePanel"
                                          action="#{loginBean.login}" />
                     </div>
-                </div>
-                <div style="display: #{loginBean.flagLogin ? 'none' : ''};">
-                    aaaa
                 </div>
                 <div class="loginfooter">
                     <img src="#{msg.get('path')}/resources/images/shared/ESELogo608.png"/>
@@ -45,5 +43,19 @@
             </div>
         </h:form>
     </h:body>
+    <p:panel id="msgBoxSystemMessagePanel" style="border: 0">
+        <p:confirmDialog id="msgBoxSystemMessageDialog" widgetVar="msgBoxSystemMessageDlg" width="#{msg.get('dialog.message.size')}" closable="false"
+                         style="border: 0;" styleClass="dialog-alert"
+                         header="#{loginBean.messageHeader}" message="#{loginBean.message}" >
+            <div style="text-align: center;">
+                <p:commandButton value="#{msg.get('btn.name.ok')}"
+                                 process="@this"
+                                 update=":frmLogin"
+                                 icon="ui-icon-check"
+                                 style="width: 100%; font-weight: bold; background-color: red !important;"
+                                 oncomplete="PF('msgBoxSystemMessageDlg').hide()"/>
+            </div>
+        </p:confirmDialog>
+    </p:panel>
 </f:view>
 </html>

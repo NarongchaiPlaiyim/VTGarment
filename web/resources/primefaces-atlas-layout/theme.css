@@ -3508,11 +3508,11 @@ hr.ui-widget-header {
 .ui-button.ui-state-active .ui-button-text {
   background-color: #040e10;
 }
-.ui-button.ui-state-focus .ui-button-text {
-  -webkit-box-shadow: 0px 0px 0px 2px #0BC3F1;
-  -moz-box-shadow: 0px 0px 0px 2px #0BC3F1;
-  box-shadow: 0px 0px 0px 2px #0BC3F1;
-}
+/*.ui-button.ui-state-focus .ui-button-text {*/
+  /*-webkit-box-shadow: 0px 0px 0px 2px #0BC3F1;*/
+  /*-moz-box-shadow: 0px 0px 0px 2px #0BC3F1;*/
+  /*box-shadow: 0px 0px 0px 2px #0BC3F1;*/
+/*}*/
 .ui-buttonset .ui-state-hover .ui-button-text {
   background-color: #457784;
 }
