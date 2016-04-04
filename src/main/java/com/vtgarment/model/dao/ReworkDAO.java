@@ -69,20 +69,19 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
                 ReworkTableView reworkTableView = new ReworkTableView();
 
                 reworkTableView.setLineCode(Utils.parseString(entity[0]));
-                reworkTableView.setToDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-
+                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
                 if (Utils.compareBigDecimal(reworkTableView.getToDay(), reworkTableView.getYesterDay())){
                     reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                    reworkTableView.setStyleToDay(green);
-                    reworkTableView.setStyleYesterDay(red);
-                    reworkTableView.setImage(up);
-                } else {
-                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
                     reworkTableView.setStyleToDay(red);
                     reworkTableView.setStyleYesterDay(green);
                     reworkTableView.setImage(down);
+                } else {
+                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    reworkTableView.setStyleToDay(green);
+                    reworkTableView.setStyleYesterDay(red);
+                    reworkTableView.setImage(up);
                 }
 
                 reworkTableViewList.add(reworkTableView);

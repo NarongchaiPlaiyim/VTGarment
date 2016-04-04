@@ -34,7 +34,7 @@
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                <h:outputText value="#{msg.get('menu.otp')}" />
+                <h:outputText value="#{msg.get('menu.outstading')}" />
             </div>
         </div>
         <h:form id="frmOutStading">
@@ -87,8 +87,8 @@
 
                         <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="2" headerText="Rework" style="width:25%;"/>
-                                <p:column colspan="3" headerText="Taget" style="width:41%;"/>
+                                <p:column colspan="2" styleClass="header-table" headerText="งานค้างซ่อม" style="width:25%;"/>
+                                <p:column colspan="3" styleClass="header-table" headerText="Taget ≤ 20 ตัว" style="width:41%;"/>
                             </p:row>
                             <p:row>
                                 <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
@@ -107,23 +107,20 @@
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{outstadingTableView.styleYesterDay}">
                             <h:outputText value="#{outstadingTableView.yesterDay}"/>
-                            <h:outputText value="%"/>
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{outstadingTableView.styleToDay}">
                             <h:outputText value="#{outstadingTableView.toDay}"/>
-                            <h:outputText value="%"/>
                         </p:column>
                         <p:column style="text-align: center;">
                             <img src="#{outstadingTableView.image}"/>
-                            <h:outputText value="#{outstadingTableView.trend}" />
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{outstadingTableView.trend}"/>
                         </p:column>
 
                         <p:columnGroup type="footer">
                             <p:row style="display: #{outStadingBean.outStadingTableViewList.size() == 1 || outStadingBean.outStadingTableViewList.size() == 0 ? 'none' : ''};">
                                 <p:column colspan="2" style="text-align: right" footerText="Grand Total"/>
-                                <p:column footerText="#{outStadingBean.summaryTableView.totalYesterDay}%" styleClass="#{outStadingBean.summaryTableView.styleTotalYesterDay}"/>
-                                <p:column footerText="#{outStadingBean.summaryTableView.totalToDay}%" styleClass="#{outStadingBean.summaryTableView.styleTotalToDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalYesterDay}" styleClass="#{outStadingBean.summaryTableView.styleTotalYesterDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalToDay}" styleClass="#{outStadingBean.summaryTableView.styleTotalToDay}"/>
                                 <p:column footerText="#{outStadingBean.summaryTableView.imageTrend} #{outStadingBean.summaryTableView.totalTrend}%" styleClass="imageTotalOtp"/>
                             </p:row>
                         </p:columnGroup>

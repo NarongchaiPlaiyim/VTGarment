@@ -54,29 +54,27 @@ public class OutStandingService extends Service  {
         return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId);
     }
 
-    public SummaryTableView sum(List<OutStadingTableView> reworkTableViewList){
+    public SummaryTableView sum(List<OutStadingTableView> outStadingTableViewList){
         SummaryTableView summaryTableView = new SummaryTableView();
-        for (OutStadingTableView outStadingTableView : reworkTableViewList){
+        for (OutStadingTableView outStadingTableView : outStadingTableViewList){
             summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().add(outStadingTableView.getYesterDay()));
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().add(outStadingTableView.getToDay()));
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().add(outStadingTableView.getTrend()));
         }
 
-        log.debug("---- Size : {}", reworkTableViewList.size());
-
-        if (!Utils.isZero(reworkTableViewList.size())){
-            BigDecimal divideValue = new BigDecimal(reworkTableViewList.size());
+        if (!Utils.isZero(outStadingTableViewList.size())){
+            BigDecimal divideValue = new BigDecimal(outStadingTableViewList.size());
             summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
 
             if (Utils.compareBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
-                summaryTableView.setStyleTotalToDay(green);
-                summaryTableView.setStyleTotalYesterDay(red);
-                summaryTableView.setImageTrend(up);
-            } else {
                 summaryTableView.setStyleTotalToDay(red);
                 summaryTableView.setStyleTotalYesterDay(green);
+                summaryTableView.setImageTrend(up);
+            } else {
+                summaryTableView.setStyleTotalToDay(green);
+                summaryTableView.setStyleTotalYesterDay(red);
                 summaryTableView.setImageTrend(down);
             }
         }

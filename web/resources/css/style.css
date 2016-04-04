@@ -12,9 +12,7 @@
 }
 
 .btn-refresh{
-    margin-top: 5px;
-    position: absolute;
-    right: 15px;
+    text-align: right;
 }
 
 .btn-back{
@@ -36,6 +34,11 @@
 .label-red label{
     font-weight: bold !important;
     color: red;
+}
+
+.header-table{
+    background-color: #0078ae !important;
+    color: #ffffff !important;
 }
 
 /*---------------------------  CSS overAll.xhtml  ---------------------------------*/
@@ -389,7 +392,8 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
  /*---------------------------  CSS brealDown.xhtml  ---------------------------------*/
 @media only screen and (max-width: 530px) {
     .break-down div.ui-datatable-tablewrapper table thead:first-child tr th,
-    .break-down div.ui-datatable-tablewrapper table tbody tr td{
+    .break-down div.ui-datatable-tablewrapper table tbody tr td,
+    .break-down div.ui-datatable-tablewrapper table tfoot tr td{
         font-size: 5px !important;
     }
 
@@ -410,6 +414,10 @@ table.table-home tr:nth-child(4) td:nth-child(3) label{
         top: 0px;
         height: 100%;
         overflow: hidden;
+    }
+
+    .break-down div.ui-datatable-tablewrapper table tbody tr td{
+        padding: 6px 0px !important;
     }
 
     .table-header-rotated th.rotate-45 span {

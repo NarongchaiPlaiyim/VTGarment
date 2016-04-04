@@ -69,20 +69,19 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
                 OutStadingTableView outStadingTableView = new OutStadingTableView();
 
                 outStadingTableView.setLineCode(Utils.parseString(entity[0]));
-                outStadingTableView.setToDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                outStadingTableView.setYesterDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-
+                outStadingTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                outStadingTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
                 if (Utils.compareBigDecimal(outStadingTableView.getToDay(), outStadingTableView.getYesterDay())){
                     outStadingTableView.setTrend(outStadingTableView.getToDay().subtract(outStadingTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                    outStadingTableView.setStyleToDay(green);
-                    outStadingTableView.setStyleYesterDay(red);
-                    outStadingTableView.setImage(up);
-                } else {
-                    outStadingTableView.setTrend(outStadingTableView.getYesterDay().subtract(outStadingTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
                     outStadingTableView.setStyleToDay(red);
                     outStadingTableView.setStyleYesterDay(green);
                     outStadingTableView.setImage(down);
+                } else {
+                    outStadingTableView.setTrend(outStadingTableView.getYesterDay().subtract(outStadingTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    outStadingTableView.setStyleToDay(green);
+                    outStadingTableView.setStyleYesterDay(red);
+                    outStadingTableView.setImage(up);
                 }
 
                 outStadingTableViewList.add(outStadingTableView);

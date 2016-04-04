@@ -75,7 +75,8 @@
                     <div class="Container100">
                         <p:dataTable id="reworkTable"
                                      widgetVar="carsTable"
-                                     var="reworkTableView"
+                                     var="breakDownTableView"
+                                     value="#{breakDownBean.breakDownTableViewList}"
                                      styleClass="break-down table table-striped table-header-rotated breakdown-table"
                                      rowStyleClass="neutral"
                                      rowIndexVar="rowIndex">
@@ -88,15 +89,9 @@
 
                             <p:columnGroup type="header">
                                 <p:row>
-                                    <p:column colspan="2" headerText="#{msg.get('menu.breakdown')}" priority="10" />
-                                    <p:column colspan="12" headerText="#{msg.get('menu.target')}" priority="10" />
+                                    <p:column colspan="2" styleClass="header-table" headerText="#{msg.get('menu.breakdown')}" priority="10" />
+                                    <p:column colspan="12" styleClass="header-table" headerText="Target ≤ (คน ≤ 1%; จักร ≤ 3% วิธีการ ≤ 7%; วัตถุดิบ ≤ 1%)" priority="10" />
                                 </p:row>
-                                <!--<p:row>-->
-                                <!--<p:column rowspan="3" colspan="1" headerText="#{msg.get('table.header.sutureLine')}" />-->
-                                <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfYesterday')}" />-->
-                                <!--<p:column             colspan="5" headerText="#{msg.get('table.header.percentOfToday')}" />-->
-                                <!--<p:column rowspan="3" colspan="2" headerText="#{msg.get('table.header.trends')}" />-->
-                                <!--</p:row>-->
                                 <p:row>
                                     <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
                                     <p:column             colspan="5" headerText="#{dateBean.previousDate}" />
@@ -128,58 +123,66 @@
                                     <p:column rowspan="1" colspan="1" headerText="#{msg.get('table.header.total')}" />
                                 </p:row>
                             </p:columnGroup>
-
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
-                                <f:facet name="filter">
-                                    <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
-                                        <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
-                                        <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
-                                    </p:selectCheckboxMenu>
-                                </f:facet>
-                                <h:outputText value="#{reworkTableView.country}" />
-                            </p:column>
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                                <h:outputText value="#{reworkTableView.factory}" />
-                            </p:column>
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
-                                <h:outputText value="#{reworkTableView.line}" />
-                            </p:column>
-                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                                <h:outputText value="#{reworkTableView.trends}" />
-                            </p:column>
-                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                                <h:outputText value="#{reworkTableView.trends}" />
+                            <p:column colspan="2" >
+                                <h:outputText value="#{breakDownTableView.lineCode}" />
                             </p:column>
 
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.country}" headerText="#{msg.get('table.header.sutureLine')}" >
-                                <f:facet name="filter">
-                                    <p:selectCheckboxMenu label="Colors" onchange="PF('carsTable').filter()" >
-                                        <f:selectItem itemLabel="LO" itemValue="#{reworkTableView.country}"  />
-                                        <f:selectItem itemLabel="TH" itemValue="#{reworkTableView.country}" />
-                                    </p:selectCheckboxMenu>
-                                </f:facet>
-                                <h:outputText value="#{reworkTableView.country}" />
+                            <p:column styleClass="#{breakDownTableView.stylePeopleYesterday}">
+                                <h:outputText value="#{breakDownTableView.yesterDayPeople}%" />
                             </p:column>
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.factory}" headerText="#{msg.get('table.header.percentOfYesterday')}" >
-                                <h:outputText value="#{reworkTableView.factory}" />
+                            <p:column styleClass="#{breakDownTableView.styleMachYesterday}">
+                                <h:outputText value="#{breakDownTableView.yesterDayMach}%" />
                             </p:column>
-                            <p:column filterMatchMode="contains" filterBy="#{reworkTableView.line}" headerText="#{msg.get('table.header.percentOfToday')}" >
-                                <h:outputText value="#{reworkTableView.line}" />
+                            <p:column styleClass="#{breakDownTableView.styleMethodYesterday}">
+                                <h:outputText value="#{breakDownTableView.yesterDayMethod}%" />
                             </p:column>
-                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                                <h:outputText value="#{reworkTableView.trends}" />
+                            <p:column styleClass="#{breakDownTableView.styleMaterialYesterday}">
+                                <h:outputText value="#{breakDownTableView.yesterDayMaterial}%" />
                             </p:column>
-                            <p:column rendered="#{true}" headerText="#{msg.get('table.header.trends')}" >
-                                <!--<img src="../resources/images/Icon/up-01.png"/>-->
-                                <!--<p:graphicImage library="images" name="/Icon/up-01.png"/>-->
-                                <h:outputText value="#{reworkTableView.trends}" />
+                            <p:column styleClass="#{breakDownTableView.styleTotalYesterday}">
+                                <h:outputText value="#{breakDownTableView.yesterDayTotal}%" />
                             </p:column>
+
+                            <p:column styleClass="#{breakDownTableView.stylePeopleToday}">
+                                <h:outputText value="#{breakDownTableView.toDayPeople}%" />
+                            </p:column>
+                            <p:column styleClass="#{breakDownTableView.styleMachToday}">
+                                <h:outputText value="#{breakDownTableView.toDayMach}%" />
+                            </p:column>
+                            <p:column styleClass="#{breakDownTableView.styleMethodToday}">
+                                <h:outputText value="#{breakDownTableView.toDayMethod}%" />
+                            </p:column>
+                            <p:column styleClass="#{breakDownTableView.styleMaterialToday}">
+                                <h:outputText value="#{breakDownTableView.toDayMaterial}%" />
+                            </p:column>
+                            <p:column styleClass="#{breakDownTableView.styleTotalToDay}">
+                                <h:outputText value="#{breakDownTableView.toDayTotal}%" />
+                            </p:column>
+
+                            <p:column colspan="2" style="text-align: center;">
+                                <img src="#{breakDownTableView.image}"/>
+                                <h:outputText value="#{breakDownTableView.trend}%" />
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row style="display: #{breakDownBean.breakDownTableViewList.size() == 1 || breakDownBean.breakDownTableViewList.size() == 0 ? 'none' : ''};">
+                                    <p:column colspan="2" style="text-align: right" footerText="Average"/>
+
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalPeopleYesterDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.stylePeopleYesterDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMachYesterDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMachYesterDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMethodYesterDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMethodYesterDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMaterialYesterDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMaterialYesterDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalAllYesterDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleAllYesterDay}"/>
+
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalPeopleToDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.stylePeopleToDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMachToDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMachToDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMethodToDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMethodToDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalMaterialToDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleMaterialToDay}"/>
+                                    <p:column footerText="#{breakDownBean.summaryBreakDownTableView.totalAllToDay}%" styleClass="#{breakDownBean.summaryBreakDownTableView.styleAllToDay}"/>
+
+                                    <p:column colspan="2" footerText="#{breakDownBean.summaryBreakDownTableView.imageSummaryTrend} #{breakDownBean.summaryBreakDownTableView.totalTrend}%" styleClass="imageTotalOtp"/>
+                                </p:row>
+                            </p:columnGroup>
 
                         </p:dataTable>
                     </div>

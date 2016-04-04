@@ -74,12 +74,12 @@ public class ReworkService extends Service{
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
 
             if (Utils.compareBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
-                summaryTableView.setStyleTotalToDay(green);
-                summaryTableView.setStyleTotalYesterDay(red);
-                summaryTableView.setImageTrend(up);
-            } else {
                 summaryTableView.setStyleTotalToDay(red);
                 summaryTableView.setStyleTotalYesterDay(green);
+                summaryTableView.setImageTrend(up);
+            } else {
+                summaryTableView.setStyleTotalToDay(green);
+                summaryTableView.setStyleTotalYesterDay(red);
                 summaryTableView.setImageTrend(down);
             }
         }

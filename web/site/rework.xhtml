@@ -36,7 +36,7 @@
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                <h:outputText value="#{msg.get('menu.otp')}" />
+                <h:outputText value="#{msg.get('menu.rework')}" />
             </div>
         </div>
         <h:form id="frmRework">
@@ -89,8 +89,8 @@
 
                         <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="2" headerText="Rework" style="width:25%;"/>
-                                <p:column colspan="3" headerText="Taget" style="width:41%;"/>
+                                <p:column colspan="2" styleClass="header-table" headerText="Rework" style="width:25%;"/>
+                                <p:column colspan="3" styleClass="header-table" headerText="Taget ≤ 5%" style="width:41%;"/>
                             </p:row>
                             <p:row>
                                 <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
@@ -108,17 +108,14 @@
                             <h:outputText value="#{reworkTableView.lineCode}"/>
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{reworkTableView.styleYesterDay}">
-                            <h:outputText value="#{reworkTableView.yesterDay}"/>
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{reworkTableView.yesterDay}%"/>
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{reworkTableView.styleToDay}">
-                            <h:outputText value="#{reworkTableView.toDay}"/>
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{reworkTableView.toDay}%"/>
                         </p:column>
                         <p:column style="text-align: center;">
                             <img src="#{reworkTableView.image}"/>
-                            <h:outputText value="#{reworkTableView.trend}" />
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{reworkTableView.trend}%"/>
                         </p:column>
 
                         <p:columnGroup type="footer">

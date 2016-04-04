@@ -88,8 +88,8 @@
 
                         <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="2" headerText="Rework" style="width:25%;"/>
-                                <p:column colspan="3" headerText="Taget" style="width:41%;"/>
+                                <p:column colspan="2" styleClass="header-table" headerText="OTP" style="width:25%;"/>
+                                <p:column colspan="3" styleClass="header-table" headerText="Taget ≥ 88%" style="width:41%;"/>
                             </p:row>
                             <p:row>
                                 <p:column rowspan="2" colspan="2" headerText="#{msg.get('table.header.sutureLine')}" />
@@ -107,17 +107,15 @@
                             <h:outputText value="#{otpTableView.lineCode}"/>
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{otpTableView.styleYesterDay}">
-                            <h:outputText value="#{otpTableView.yesterDay}"/>
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{otpTableView.yesterDay}%"/>
                         </p:column>
                         <p:column style="text-align: center;" styleClass="#{otpTableView.styleToDay}">
-                            <h:outputText value="#{otpTableView.toDay}"/>
+                            <h:outputText value="#{otpTableView.toDay}%"/>
                             <h:outputText value="%"/>
                         </p:column>
                         <p:column style="text-align: center;">
                             <img src="#{otpTableView.image}"/>
-                            <h:outputText value="#{otpTableView.trend}" />
-                            <h:outputText value="%"/>
+                            <h:outputText value="#{otpTableView.trend}%"/>
                         </p:column>
 
                         <p:columnGroup type="footer">

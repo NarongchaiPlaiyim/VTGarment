@@ -70,8 +70,8 @@ public class OtpDAO extends GenericDAO<String, Integer> {
                 OtpTableView otpTableView = new OtpTableView();
 
                 otpTableView.setLineCode(Utils.parseString(entity[0]));
-                otpTableView.setToDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                otpTableView.setYesterDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                otpTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                otpTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
 
                 if (Utils.compareBigDecimal(otpTableView.getToDay(), otpTableView.getYesterDay())){
