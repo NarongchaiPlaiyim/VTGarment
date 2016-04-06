@@ -71,11 +71,11 @@ public class OutStandingService extends Service  {
             if (Utils.compareBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
                 summaryTableView.setStyleTotalToDay(red);
                 summaryTableView.setStyleTotalYesterDay(green);
-                summaryTableView.setImageTrend(up);
+                summaryTableView.setImageTrend(down);
             } else {
                 summaryTableView.setStyleTotalToDay(green);
                 summaryTableView.setStyleTotalYesterDay(red);
-                summaryTableView.setImageTrend(down);
+                summaryTableView.setImageTrend(up);
             }
         }
 

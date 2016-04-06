@@ -8,7 +8,6 @@ import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,16 +68,16 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
                 ReworkTableView reworkTableView = new ReworkTableView();
 
                 reworkTableView.setLineCode(Utils.parseString(entity[0]));
-                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]));
+                reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]));
 
                 if (Utils.compareBigDecimal(reworkTableView.getToDay(), reworkTableView.getYesterDay())){
-                    reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()));
                     reworkTableView.setStyleToDay(red);
                     reworkTableView.setStyleYesterDay(green);
                     reworkTableView.setImage(down);
                 } else {
-                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()));
                     reworkTableView.setStyleToDay(green);
                     reworkTableView.setStyleYesterDay(red);
                     reworkTableView.setImage(up);
