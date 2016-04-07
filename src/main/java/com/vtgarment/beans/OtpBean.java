@@ -39,6 +39,8 @@ public class OtpBean extends Bean {
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
 
+    private int zero = 0;
+
     @PostConstruct
     public void onCreation(){
         log.debug("onCreation()");
@@ -75,16 +77,16 @@ public class OtpBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId);
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, zero);
         } else {
-            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, userDetail.getLineId());
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         }
 
         sum(otpTableViewList);
     }
 
     public void getOtp(){
-        otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, userDetail.getLineId());
+        otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         sum(otpTableViewList);
     }
 

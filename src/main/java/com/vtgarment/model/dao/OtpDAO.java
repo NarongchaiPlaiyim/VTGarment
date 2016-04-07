@@ -24,38 +24,62 @@ public class OtpDAO extends GenericDAO<String, Integer> {
     @Value("#{config['arrow.up']}") private String up;
     @Value("#{config['arrow.down']}") private String down;
 
-    public List<OtpTableView> getOtp(int factoryId, int bildingFloorId, int lineId){
+    public List<OtpTableView> getOtp(int factoryId, int bildingFloorId, int lineId, int leaderId){
         List<OtpTableView> otpTableViewList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
-        sql.append(" SELECT today.code||today.name AS CODE_NAME, yesterday.sew_otp_actual AS YESTERDAY, today.sew_otp_actual AS TODAY")
-                .append(" FROM (SELECT line.id AS LINE_ID, line.code, line.name, sew_otp_actual, factory_id, building_floor.id AS FLOOR_ID FROM line")
+//        sql.append(" SELECT today.code||today.name AS CODE_NAME, yesterday.sew_otp_actual AS YESTERDAY, today.sew_otp_actual AS TODAY")
+//                .append(" FROM (SELECT line.id AS LINE_ID, line.code, line.name, sew_otp_actual, factory_id, building_floor.id AS FLOOR_ID FROM line")
+//                .append(" LEFT JOIN production ON line.id = production.line_id")
+//                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+//                .append(" WHERE date_part('year', plan_start) = date_part('year', current_timestamp)")
+//                .append(" AND date_part('month', plan_start) = date_part('month', current_timestamp)")
+//                .append(" AND date_part('day', plan_start) = date_part('day', current_timestamp)) AS today")
+//                .append(" LEFT JOIN (SELECT line_id,sew_otp_actual FROM production")
+//                .append(" WHERE (date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start) =")
+//                .append(" (SELECT date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
+//                .append(" FROM production WHERE id = (SELECT max(id) FROM production)))")
+//                .append(" AND ((SELECT date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
+//                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
+//                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
+
+        sql.append(" SELECT otp_today.code||otp_today.name AS CODE_NAME, otp_yesterday.rework_actual AS YESTERDAY, otp_today.rework_actual AS TODAY")
+                .append(" FROM line")
+                .append(" LEFT JOIN (")
+                .append(" SELECT line.id, code, name, rework_actual")
+                .append(" FROM line")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
+                .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
+                .append(" ) AS otp_today ON line.id = otp_today.id")
+                .append(" LEFT JOIN (")
+                .append(" SELECT production.line_id, rework_actual")
+                .append(" FROM production")
+                .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
+                .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
+                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
+                .append(" ) AS otp_yesterday ON line.id = otp_yesterday.line_id")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
-                .append(" WHERE date_part('year', plan_start) = date_part('year', current_timestamp)")
-                .append(" AND date_part('month', plan_start) = date_part('month', current_timestamp)")
-                .append(" AND date_part('day', plan_start) = date_part('day', current_timestamp)) AS today")
-                .append(" LEFT JOIN (SELECT line_id,sew_otp_actual FROM production")
-                .append(" WHERE (date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start) =")
-                .append(" (SELECT date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
-                .append(" FROM production WHERE id = (SELECT max(id) FROM production)))")
-                .append(" AND ((SELECT date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
-                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
-                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
+                .append(" WHERE 1=1");
 
         if (!Utils.isZero(factoryId)){
-            sql.append(" AND today.factory_id =").append(factoryId);
+            sql.append(" AND building_floor.factory_id =").append(factoryId);
         }
 
         if (!Utils.isZero(bildingFloorId)){
-            sql.append(" AND today.FLOOR_ID =").append(bildingFloorId);
+            sql.append(" AND building_floor.id =").append(bildingFloorId);
         }
 
         if (!Utils.isZero(lineId)){
-            sql.append(" AND today.LINE_ID =").append(lineId);
+            sql.append(" AND line.id =").append(lineId);
         }
 
-        sql.append(" GROUP BY today.code, today.name, yesterday.sew_otp_actual, today.sew_otp_actual");
+        if (!Utils.isZero(leaderId)){
+            sql.append(" AND line.leader_id =").append(leaderId);
+        }
+
+        sql.append(" GROUP BY otp_today.code, otp_today.name, otp_yesterday.rework_actual, otp_today.rework_actual");
 
         log.debug("getOtp : {}", sql.toString());
 

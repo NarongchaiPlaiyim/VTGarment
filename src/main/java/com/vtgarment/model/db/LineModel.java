@@ -23,9 +23,8 @@ public class LineModel {
     @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 2147483647)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "leader_id", referencedColumnName = "id", nullable = false)
-    private UserModel userByLeaderId;
+    @Column(name = "leader_id")
+    private int leaderId;
 
     @ManyToOne
     @JoinColumn(name = "building_floor_id", referencedColumnName = "id", nullable = false)

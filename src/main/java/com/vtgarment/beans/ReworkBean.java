@@ -37,6 +37,8 @@ public class ReworkBean extends Bean {
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
 
+    private int zero = 0;
+
     @PostConstruct
     public void onCreation(){
         log.debug("onCreation()");
@@ -73,16 +75,16 @@ public class ReworkBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId);
+            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, zero);
         } else {
-            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, userDetail.getLineId());
+            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         }
 
         sum(reworkTableViewList);
     }
 
     public void getRework(){
-        reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, userDetail.getLineId());
+        reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         sum(reworkTableViewList);
     }
 

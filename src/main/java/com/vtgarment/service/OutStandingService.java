@@ -50,8 +50,8 @@ public class OutStandingService extends Service  {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<OutStadingTableView> getOutstading(int factoryId, int buildingFloorId, int lineId){
-        return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId);
+    public List<OutStadingTableView> getOutstading(int factoryId, int buildingFloorId, int lineId, int leaderId){
+        return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId, leaderId);
     }
 
     public SummaryTableView sum(List<OutStadingTableView> outStadingTableViewList){

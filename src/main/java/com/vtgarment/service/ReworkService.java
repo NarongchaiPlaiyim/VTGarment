@@ -53,8 +53,8 @@ public class ReworkService extends Service{
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<ReworkTableView> getRework(int factoryId, int buildingFloorId, int lineId){
-        return reworkDAO.getRework(factoryId, buildingFloorId, lineId);
+    public List<ReworkTableView> getRework(int factoryId, int buildingFloorId, int lineId, int leaderId){
+        return reworkDAO.getRework(factoryId, buildingFloorId, lineId, leaderId);
     }
 
     public SummaryTableView sum(List<ReworkTableView> reworkTableViewList){

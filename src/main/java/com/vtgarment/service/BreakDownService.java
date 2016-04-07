@@ -51,8 +51,8 @@ public class BreakDownService extends Service {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<BreakDownTableView> getBreakDown(int factoryId, int buildingFloorId, int lineId){
-        return breakDownDAO.getBreakDown(factoryId, buildingFloorId, lineId);
+    public List<BreakDownTableView> getBreakDown(int factoryId, int buildingFloorId, int lineId, int leaaderId){
+        return breakDownDAO.getBreakDown(factoryId, buildingFloorId, lineId, leaaderId);
     }
 
     public SummaryBreakDownTableView sum(List<BreakDownTableView> breakDownTableViews){

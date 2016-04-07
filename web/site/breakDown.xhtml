@@ -19,26 +19,45 @@
         <h:outputScript library="js" name="custom.js" />
     </h:head>
     <h:body style="background-color: #0292c7">
+        <div class="Container100 white">
+            <div class="Container100 title">
+                <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
+            </div>
+            <div class="btn-back">
+                <p:commandButton id="btn_Back" value="Back" action="#{breakDownBean.onClickBtnBack}"
+                                 update=":frmBreakDown"/>
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; float: left; color: #ffffff;">
+                <h:outputText value="#{msg.get('menu.rework')}" />
+            </div>
+        </div>
         <h:form id="frmBreakDown">
             <div>
-                <div class="Container100 title">
-                    <h:outputText value="#{msg.get('menu.dashboard.real.time')}" />
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; color: #ffffff; float: left">
-                        <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
-                    </div>
-                    <div class="btn-back">
-                        <p:commandButton id="btn_Back" value="Back" action="#{breakDownBean.onClickBtnBack}"
-                                         process="@form"
-                                         update=":frmBreakDown:factoryItem, :frmBreakDown:buildingFloorItem, :frmBreakDown:lineItem"/>
-                    </div>
-                </div>
-                <div class="Container100 white">
-                    <div style="font-size: 1.2em; float: left; color: #ffffff;">
-                        <h:outputText value="#{msg.get('menu.breakdown')}" />
-                    </div>
-                </div>
+                <!--<div class="Container100 title">-->
+                    <!--<h:outputText value="#{msg.get('menu.dashboard.real.time')}" />-->
+                <!--</div>-->
+                <!--<div class="Container100 white">-->
+                    <!--<div style="font-size: 1.2em; color: #ffffff; float: left">-->
+                        <!--<h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />-->
+                    <!--</div>-->
+                    <!--<div class="btn-back">-->
+                        <!--<p:commandButton id="btn_Back" value="Back" action="#{breakDownBean.onClickBtnBack}"-->
+                                         <!--process="@form"-->
+                                         <!--update=":frmBreakDown:factoryItem, :frmBreakDown:buildingFloorItem, :frmBreakDown:lineItem"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="Container100 white">-->
+                    <!--<div style="font-size: 1.2em; float: left; color: #ffffff;">-->
+                        <!--<h:outputText value="#{msg.get('menu.breakdown')}" />-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="Container100" style="margin-top: -7px;">
                     <div class="Container33">
                         <p:selectOneMenu id="factoryItem" value="#{breakDownBean.factoryId}" styleClass="dropdown">
@@ -47,7 +66,7 @@
                                            var="factoryItem"
                                            itemLabel="#{factoryItem.name}"
                                            itemValue="#{factoryItem.id}"/>
-                            <p:ajax listener="#{breakDownBean.filterBuildingFloor}" update=":frmBreakDown:buildingFloorItem"/>
+                            <p:ajax listener="#{breakDownBean.filterBuildingFloor}" update=":frmBreakDown"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
@@ -57,7 +76,7 @@
                                            var="buildingFloorItem"
                                            itemLabel="#{buildingFloorItem.name}"
                                            itemValue="#{buildingFloorItem.id}"/>
-                            <p:ajax listener="#{breakDownBean.filterLine}" update=":frmBreakDown:lineItem"/>
+                            <p:ajax listener="#{breakDownBean.filterLine}" update=":frmBreakDown"/>
                         </p:selectOneMenu>
                     </div>
                     <div class="Container33">
@@ -67,7 +86,7 @@
                                            var="lineItem"
                                            itemLabel="#{lineItem.code} - #{lineItem.name}"
                                            itemValue="#{lineItem.id}"/>
-                            <p:ajax listener="#{breakDownBean.filterValue}" update=""/>
+                            <p:ajax listener="#{breakDownBean.filterValue}" update=":frmBreakDown"/>
                         </p:selectOneMenu>
                     </div>
                 </div>

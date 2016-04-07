@@ -37,6 +37,8 @@ public class OutstadingBean extends Bean {
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
 
+    private int zero = 0;
+
     @PostConstruct
     public void onCreation(){
         log.debug("onCreation()");
@@ -73,9 +75,9 @@ public class OutstadingBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId);
+            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, zero);
         } else {
-            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, userDetail.getLineId());
+            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         }
 
         sum(outStadingTableViewList);
@@ -83,7 +85,7 @@ public class OutstadingBean extends Bean {
 
     public void getOutStading(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, userDetail.getLineId());
-        outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, userDetail.getLineId());
+        outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         sum(outStadingTableViewList);
     }
 

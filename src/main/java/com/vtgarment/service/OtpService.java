@@ -50,8 +50,8 @@ public class OtpService extends Service {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<OtpTableView> getOtp(int factoryId, int buildingFloorId, int lineId){
-        return otpDAO.getOtp(factoryId, buildingFloorId, lineId);
+    public List<OtpTableView> getOtp(int factoryId, int buildingFloorId, int lineId, int leaderId){
+        return otpDAO.getOtp(factoryId, buildingFloorId, lineId, leaderId);
     }
 
     public SummaryTableView sum(List<OtpTableView> otpTableViewList){

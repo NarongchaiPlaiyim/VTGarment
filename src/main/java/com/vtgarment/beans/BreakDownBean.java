@@ -38,6 +38,8 @@ public class BreakDownBean extends Bean {
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryBreakDownTableView summaryBreakDownTableView;
 
+    private int zero = 0;
+
     @PostConstruct
     public void onCreation(){
         log.debug("onCreation()");
@@ -74,15 +76,15 @@ public class BreakDownBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId);
+            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, zero);
         } else {
-            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, userDetail.getLineId());
+            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         }
     }
 
     private void getBreakDown(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, userDetail.getLineId());
-        breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, userDetail.getLineId());
+        breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
         sum(breakDownTableViewList);
     }
 
