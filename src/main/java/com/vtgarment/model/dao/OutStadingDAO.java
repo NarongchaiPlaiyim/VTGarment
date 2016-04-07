@@ -63,15 +63,15 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
                 .append(" WHERE 1=1");
 
         if (!Utils.isZero(factoryId)){
-            sql.append(" AND today.factory_id =").append(factoryId);
+            sql.append(" AND building_floor.factory_id =").append(factoryId);
         }
 
         if (!Utils.isZero(bildingFloorId)){
-            sql.append(" AND today.FLOOR_ID =").append(bildingFloorId);
+            sql.append(" AND building_floor.id =").append(bildingFloorId);
         }
 
         if (!Utils.isZero(lineId)){
-            sql.append(" AND today.LINE_ID =").append(lineId);
+            sql.append(" AND line.id =").append(lineId);
         }
 
         if (!Utils.isZero(leaderId)){
