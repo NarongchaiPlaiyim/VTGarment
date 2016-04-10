@@ -39,7 +39,12 @@
                 <h:outputText value="#{msg.get('menu.otp')}" />
             </div>
         </div>
-
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Last Updated : " />
+                <h:outputText id="lastUpdate" value="#{otpBean.lastUpdate}"/>
+            </div>
+        </div>
         <h:form id="frmOTP">
             <div>
                 <div class="Container100" style="margin-top: -7px;">

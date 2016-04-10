@@ -3,8 +3,6 @@ package com.vtgarment.model.view.outstading;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 /**
  * Created by pakorn on 03/04/2016.
  */
@@ -12,11 +10,11 @@ import java.math.BigDecimal;
 @Setter
 public class OutStadingTableView {
     private String lineCode;
-    private BigDecimal toDay;
+    private int toDay;
     private String styleToDay;
-    private BigDecimal yesterDay;
+    private int yesterDay;
     private String styleYesterDay;
-    private BigDecimal trend;
+    private int trend;
     private String image;
 
     @Override

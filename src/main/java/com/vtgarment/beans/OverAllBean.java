@@ -42,6 +42,7 @@ public class OverAllBean extends Bean {
     @NotNull private int lineId;
 
     @NotNull private UserDetail userDetail;
+    private String lastUpdate;
 
     @PostConstruct
     public void onCreation(){
@@ -57,6 +58,7 @@ public class OverAllBean extends Bean {
         getRework();
         getBreakDown();
         getOutstading();
+        findLastUpdate();
     }
 
     private void getOTP(){
@@ -96,21 +98,27 @@ public class OverAllBean extends Bean {
         filterValue();
     }
 
+    public void findLastUpdate(){
+        lastUpdate = overAllService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
+        log.debug("lastUpdate : {}", lastUpdate);
+    }
+
     public void filterValue(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId) || Utils.isZero(userDetail.getLineId())){
-            otpView = overAllService.findOTPView(factoryId, buildingFloorId, lineId);
-            reworkView = overAllService.findReworkView(factoryId, buildingFloorId, lineId);
-            outstadingView = overAllService.findOutstadingView(factoryId, buildingFloorId, lineId);
-            breakDownView = overAllService.findBreakDownView(factoryId, buildingFloorId, lineId);
+            otpView = overAllService.findOTPView(factoryId, buildingFloorId, String.valueOf(lineId));
+            reworkView = overAllService.findReworkView(factoryId, buildingFloorId, String.valueOf(lineId));
+            outstadingView = overAllService.findOutstadingView(factoryId, buildingFloorId, String.valueOf(lineId));
+            breakDownView = overAllService.findBreakDownView(factoryId, buildingFloorId, String.valueOf(lineId));
+            lastUpdate = overAllService.getLastUpdate(factoryId, buildingFloorId, String.valueOf(lineId));
+            log.debug("----- {}", lastUpdate);
         } else {
             getOTP();
             getRework();
             getOutstading();
             getBreakDown();
+            findLastUpdate();
         }
-
-
     }
 }

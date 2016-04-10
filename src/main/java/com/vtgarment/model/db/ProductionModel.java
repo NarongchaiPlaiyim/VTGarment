@@ -97,7 +97,20 @@ public class ProductionModel {
     @Column(name = "rework_qty_actual")
     private int reworkQtyActual;
 
-    @Column(name = "downtime_targer")
-    private Double downtimeTarger;
+    @Column(name = "downtime_man")
+    private Double downtimeMan;
+
+    @Column(name = "downtime_mach", nullable=false, columnDefinition="int default 0")
+    private int downtimeMach;
+
+    @Column(name = "downtime_method", nullable=false, columnDefinition="int default 0")
+    private int downtimeMethod;
+
+    @Column(name = "downtime_material", nullable=false, columnDefinition="int default 0")
+    private int downtimeMaterial;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_update")
+    private Date lastUpdate;
 
 }

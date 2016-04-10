@@ -40,4 +40,8 @@ public class DowntimeModel {
     @ManyToOne
     @JoinColumn(name = "production_id", referencedColumnName = "id")
     private ProductionModel productionByProductionId;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_update")
+    private Date lastUpdate;
 }

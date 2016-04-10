@@ -63,7 +63,7 @@ public class LoginBean extends Bean {
             if(loginService.isUserExist(getUserName(), getPassword())){
 
                 UserModel userModel = loginService.getUserModel();
-                userDetail = new UserDetail(userModel.getId(), userModel.getCode(), userModel.getName(), userModel.getLineId().getId(), userModel.getSectionId(), userModel.getUsername(), userModel.getFactoryId(), userModel.getLineId().getLeaderId());
+                userDetail = new UserDetail(userModel.getId(), userModel.getCode(), userModel.getName(), userModel.getUsername(), userModel.getFactoryId(), loginService.getLineId(userModel.getId()));
                 log.debug("-- User Detail : {}", userDetail.toString());
                 HttpServletRequest httpServletRequest = FacesUtil.getRequest();
                 HttpServletResponse httpServletResponse = FacesUtil.getResponse();

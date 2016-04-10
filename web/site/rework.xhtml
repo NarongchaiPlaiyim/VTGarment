@@ -30,13 +30,19 @@
                 <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
             </div>
             <div class="btn-back">
-                <p:commandButton id="btn_Back" value="Back" action="#{otpBean.onClickBtnBack}"
+                <p:commandButton id="btn_Back" value="Back" action="#{reworkBean.onClickBtnBack}"
                                  update=":frmRework"/>
             </div>
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; float: left; color: #ffffff;">
                 <h:outputText value="#{msg.get('menu.rework')}" />
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Last Updated : " />
+                <h:outputText id="lastUpdate" value="#{reworkBean.lastUpdate}"/>
             </div>
         </div>
         <h:form id="frmRework">

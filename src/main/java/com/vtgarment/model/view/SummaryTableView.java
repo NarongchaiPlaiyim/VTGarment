@@ -19,6 +19,10 @@ public class SummaryTableView {
     private String styleTotalToDay;
     private String imageTrend;
 
+    private int totalYesterDayOutStading;
+    private int totalToDayOutStading;
+    private int totalTrendOutStading;
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("SummaryTableView{");
@@ -28,6 +32,9 @@ public class SummaryTableView {
         sb.append(", styleTotalYesterDay='").append(styleTotalYesterDay).append('\'');
         sb.append(", styleTotalToDay='").append(styleTotalToDay).append('\'');
         sb.append(", imageTrend='").append(imageTrend).append('\'');
+        sb.append(", totalYesterDayOutStading=").append(totalYesterDayOutStading);
+        sb.append(", totalToDayOutStading=").append(totalToDayOutStading);
+        sb.append(", totalTrendOutStading=").append(totalTrendOutStading);
         sb.append('}');
         return sb.toString();
     }

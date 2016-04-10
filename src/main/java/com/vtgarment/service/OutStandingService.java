@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,25 +49,27 @@ public class OutStandingService extends Service  {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<OutStadingTableView> getOutstading(int factoryId, int buildingFloorId, int lineId, int leaderId){
-        return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId, leaderId);
+    public List<OutStadingTableView> getOutstading(int factoryId, int buildingFloorId, String lineId){
+        return outStadingDAO.getOutStading(factoryId, buildingFloorId, lineId);
     }
 
     public SummaryTableView sum(List<OutStadingTableView> outStadingTableViewList){
         SummaryTableView summaryTableView = new SummaryTableView();
         for (OutStadingTableView outStadingTableView : outStadingTableViewList){
-            summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().add(outStadingTableView.getYesterDay()));
-            summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().add(outStadingTableView.getToDay()));
-            summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().add(outStadingTableView.getTrend()));
+            summaryTableView.setTotalYesterDayOutStading(summaryTableView.getTotalYesterDayOutStading() + outStadingTableView.getYesterDay());
+            summaryTableView.setTotalToDayOutStading(summaryTableView.getTotalToDayOutStading() + outStadingTableView.getToDay());
+            summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalTrendOutStading() + outStadingTableView.getTrend());
         }
 
-        if (!Utils.isZero(outStadingTableViewList.size())){
-            BigDecimal divideValue = new BigDecimal(outStadingTableViewList.size());
-            summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
-            summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
-            summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
+        log.debug("---------- {}", summaryTableView.getTotalTrendOutStading());
 
-            if (Utils.compareBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
+        if (!Utils.isZero(outStadingTableViewList.size())){
+            int divideValue = outStadingTableViewList.size();
+            summaryTableView.setTotalYesterDayOutStading(summaryTableView.getTotalYesterDayOutStading()/divideValue);
+            summaryTableView.setTotalToDayOutStading(summaryTableView.getTotalToDayOutStading()/divideValue);
+            summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalTrendOutStading()/divideValue);
+
+            if (Utils.compareInt(summaryTableView.getTotalToDayOutStading(), summaryTableView.getTotalYesterDayOutStading())){
                 summaryTableView.setStyleTotalToDay(red);
                 summaryTableView.setStyleTotalYesterDay(green);
                 summaryTableView.setImageTrend(down);
@@ -80,5 +81,9 @@ public class OutStandingService extends Service  {
         }
 
         return summaryTableView;
+    }
+
+    public String getLastUpdate(int factory, int buildingFloor, String lineId){
+        return lineDAO.findLastUpdate(factory, buildingFloor, lineId);
     }
 }

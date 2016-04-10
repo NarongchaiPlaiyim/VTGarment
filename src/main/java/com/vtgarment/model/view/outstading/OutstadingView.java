@@ -3,8 +3,6 @@ package com.vtgarment.model.view.outstading;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 /**
  * Created by pakorn on 31/03/2016.
  */
@@ -13,13 +11,13 @@ import java.math.BigDecimal;
 public class OutstadingView {
     private String bestLineCode;
     private String worstLineCode;
-    private BigDecimal trendActual;
-    private BigDecimal bestActual;
-    private BigDecimal worstActual;
+    private int trendActual;
+    private int bestActual;
+    private int worstActual;
 
-    private BigDecimal trendTarget;
-    private BigDecimal bestTarget;
-    private BigDecimal worstTarget;
+    private int trendTarget;
+    private int bestTarget;
+    private int worstTarget;
 
     private String image;
     private String styleTrend;

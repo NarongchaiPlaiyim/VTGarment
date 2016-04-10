@@ -1,13 +1,11 @@
 package com.vtgarment.service;
 
-import com.vtgarment.model.dao.BreakDownDAO;
-import com.vtgarment.model.dao.BuildingFloorDAO;
-import com.vtgarment.model.dao.FactoryDAO;
-import com.vtgarment.model.dao.LineDAO;
+import com.vtgarment.model.dao.*;
 import com.vtgarment.model.db.BuildingFloorModel;
 import com.vtgarment.model.db.FactoryModel;
 import com.vtgarment.model.db.LineModel;
 import com.vtgarment.model.view.SummaryBreakDownTableView;
+import com.vtgarment.model.view.breakdown.BreakDownCompareView;
 import com.vtgarment.model.view.breakdown.BreakDownTableView;
 import com.vtgarment.utils.Utils;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,12 +24,15 @@ public class BreakDownService extends Service {
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;
     @Resource private BreakDownDAO breakDownDAO;
+    @Resource private ProductionDAO productionDAO;
     private final int twoDecimal = 2;
 
     @Value("#{config['style.red']}") private String red;
     @Value("#{config['style.green']}") private String green;
     @Value("#{config['arrow.up.text']}") private String up;
     @Value("#{config['arrow.down.text']}") private String down;
+
+    private BreakDownCompareView breakDownCompareView;
 
     public List<FactoryModel> findAll(){
         try {
@@ -51,12 +52,20 @@ public class BreakDownService extends Service {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<BreakDownTableView> getBreakDown(int factoryId, int buildingFloorId, int lineId, int leaaderId){
-        return breakDownDAO.getBreakDown(factoryId, buildingFloorId, lineId, leaaderId);
+    public List<BreakDownTableView> getBreakDown(int factoryId, int buildingFloorId, String lineId){
+        breakDownCompareView = productionDAO.getCompateBreakdown();
+        return breakDownDAO.getBreakDown(factoryId, buildingFloorId, lineId, breakDownCompareView);
     }
 
     public SummaryBreakDownTableView sum(List<BreakDownTableView> breakDownTableViews){
         SummaryBreakDownTableView summaryBreakDownTableView = new SummaryBreakDownTableView();
+
+        BigDecimal man = new BigDecimal(breakDownCompareView.getMan());
+        BigDecimal mach = new BigDecimal(breakDownCompareView.getMach());
+        BigDecimal method = new BigDecimal(breakDownCompareView.getMethod());
+        BigDecimal material = new BigDecimal(breakDownCompareView.getMaterial());
+        BigDecimal sum = new BigDecimal(breakDownCompareView.getMan() + breakDownCompareView.getMach() + breakDownCompareView.getMethod() + breakDownCompareView.getMaterial());
+
         for (BreakDownTableView breakDownTableView : breakDownTableViews){
             summaryBreakDownTableView.setTotalPeopleToDay(summaryBreakDownTableView.getTotalPeopleToDay().add(breakDownTableView.getToDayPeople()));
             summaryBreakDownTableView.setTotalMachToDay(summaryBreakDownTableView.getTotalMachToDay().add(breakDownTableView.getToDayMach()));
@@ -94,49 +103,83 @@ public class BreakDownService extends Service {
 
             summaryBreakDownTableView.setTotalTrend(summaryBreakDownTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
-            if (Utils.compareBigDecimal(summaryBreakDownTableView.getTotalPeopleToDay(), summaryBreakDownTableView.getTotalPeopleYesterDay())){
+
+            // To Day
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalPeopleToDay(), man)){
+                summaryBreakDownTableView.setStylePeopleToDay(green);
+            } else {
                 summaryBreakDownTableView.setStylePeopleToDay(red);
+            }
+
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMachToDay(), mach)){
+                summaryBreakDownTableView.setStyleMachToDay(green);
+            } else {
+                summaryBreakDownTableView.setStyleMachToDay(red);
+            }
+
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMethodToDay(), method)){
+                summaryBreakDownTableView.setStyleMethodToDay(green);
+            } else {
+                summaryBreakDownTableView.setStyleMethodToDay(red);
+            }
+
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMaterialToDay(), material)){
+                summaryBreakDownTableView.setStyleMaterialToDay(green);
+            } else {
+                summaryBreakDownTableView.setStyleMaterialToDay(red);
+            }
+
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalAllToDay(), sum)){
+                summaryBreakDownTableView.setStyleAllToDay(green);
+            } else {
+                summaryBreakDownTableView.setStyleAllToDay(red);
+            }
+
+            // Total
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalTrend(), sum)){
+                summaryBreakDownTableView.setImageSummaryTrend(up);
+            } else {
+                summaryBreakDownTableView.setImageSummaryTrend(down);
+            }
+
+            //Yester Day
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalPeopleYesterDay(), man)){
                 summaryBreakDownTableView.setStylePeopleYesterDay(green);
             } else {
-                summaryBreakDownTableView.setStylePeopleToDay(green);
                 summaryBreakDownTableView.setStylePeopleYesterDay(red);
             }
 
-            if (Utils.compareBigDecimal(summaryBreakDownTableView.getTotalMachToDay(), summaryBreakDownTableView.getTotalMachYesterDay())){
-                summaryBreakDownTableView.setStyleMachToDay(red);
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMachYesterDay(), mach)){
                 summaryBreakDownTableView.setStyleMachYesterDay(green);
             } else {
-                summaryBreakDownTableView.setStyleMachToDay(green);
                 summaryBreakDownTableView.setStyleMachYesterDay(red);
             }
 
-            if (Utils.compareBigDecimal(summaryBreakDownTableView.getTotalMethodToDay(), summaryBreakDownTableView.getTotalMethodYesterDay())){
-                summaryBreakDownTableView.setStyleMethodToDay(red);
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMethodYesterDay(), method)){
                 summaryBreakDownTableView.setStyleMethodYesterDay(green);
             } else {
-                summaryBreakDownTableView.setStyleMethodToDay(green);
                 summaryBreakDownTableView.setStyleMethodYesterDay(red);
             }
 
-            if (Utils.compareBigDecimal(summaryBreakDownTableView.getTotalMaterialToDay(), summaryBreakDownTableView.getTotalMaterialYesterDay())){
-                summaryBreakDownTableView.setStyleMaterialToDay(red);
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalMaterialYesterDay(), material)){
                 summaryBreakDownTableView.setStyleMaterialYesterDay(green);
             } else {
-                summaryBreakDownTableView.setStyleMaterialToDay(red);
-                summaryBreakDownTableView.setStyleMaterialYesterDay(green);
+                summaryBreakDownTableView.setStyleMaterialYesterDay(red);
             }
 
-            if (Utils.compareBigDecimal(summaryBreakDownTableView.getTotalAllToDay(), summaryBreakDownTableView.getTotalAllYesterDay())){
-                summaryBreakDownTableView.setStyleAllToDay(red);
+            if (Utils.compareLessBigDecimal(summaryBreakDownTableView.getTotalAllYesterDay(), sum)){
                 summaryBreakDownTableView.setStyleAllYesterDay(green);
-                summaryBreakDownTableView.setImageSummaryTrend(down);
             } else {
-                summaryBreakDownTableView.setStyleAllToDay(green);
                 summaryBreakDownTableView.setStyleAllYesterDay(red);
-                summaryBreakDownTableView.setImageSummaryTrend(up);
             }
+
+
         }
 
         return summaryBreakDownTableView;
+    }
+
+    public String getLastUpdate(int factory, int buildingFloor, String lineId){
+        return lineDAO.findLastUpdateBreakdown(factory, buildingFloor, lineId);
     }
 }

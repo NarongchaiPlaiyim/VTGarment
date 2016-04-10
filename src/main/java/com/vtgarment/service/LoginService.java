@@ -1,6 +1,8 @@
 package com.vtgarment.service;
 
 import com.vtgarment.model.dao.UserDAO;
+import com.vtgarment.model.dao.UserLineDAO;
+import com.vtgarment.model.db.UserLineModel;
 import com.vtgarment.model.db.UserModel;
 import com.vtgarment.utils.Utils;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 @Transactional
@@ -15,6 +18,7 @@ public class LoginService extends Service{
     private static final long serialVersionUID = 4112578634088874840L;
 
     @Resource private UserDAO userDAO;
+    @Resource private UserLineDAO userLineDAO;
 
     @Getter UserModel userModel;
 
@@ -31,6 +35,15 @@ public class LoginService extends Service{
         } catch (Exception e) {
             log.error("Exception while calling isUserExist()", e);
             return !result;
+        }
+    }
+
+    public List<UserLineModel> getLineId(int userId){
+        try {
+            return userLineDAO.findLineIdByUserId(userId);
+        } catch (Exception e) {
+            log.debug("Exception error getLineId {}", e);
+            return null;
         }
     }
 

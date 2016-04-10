@@ -37,7 +37,7 @@ public class BreakDownBean extends Bean {
 
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryBreakDownTableView summaryBreakDownTableView;
-
+    private String lastUpdate;
     private int zero = 0;
 
     @PostConstruct
@@ -50,6 +50,7 @@ public class BreakDownBean extends Bean {
     private void init(){
         factory();
         getBreakDown();
+        findLastUpdate();
     }
 
     private void factory(){
@@ -76,15 +77,19 @@ public class BreakDownBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, zero);
+            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, String.valueOf(lineId));
+            lastUpdate = breakDownService.getLastUpdate(factoryId, buildingFloorId, String.valueOf(lineId));
         } else {
-            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+            breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, userDetail.getLineId());
+            lastUpdate = breakDownService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
         }
+
+        sum(breakDownTableViewList);
     }
 
     private void getBreakDown(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, userDetail.getLineId());
-        breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+        breakDownTableViewList = breakDownService.getBreakDown(factoryId, buildingFloorId, userDetail.getLineId());
         sum(breakDownTableViewList);
     }
 
@@ -92,6 +97,11 @@ public class BreakDownBean extends Bean {
         summaryBreakDownTableView = breakDownService.sum(list);
     }
 
+    public void findLastUpdate(){
+        lastUpdate = breakDownService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
+        log.debug("lastUpdate : {}", lastUpdate);
+    }
+    
     public void onClickBtnBack(){
         FacesUtil.redirect("/site/overAll.xhtml");
     }

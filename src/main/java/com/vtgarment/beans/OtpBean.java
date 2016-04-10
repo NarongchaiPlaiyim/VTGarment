@@ -38,7 +38,7 @@ public class OtpBean extends Bean {
 
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
-
+    private String lastUpdate;
     private int zero = 0;
 
     @PostConstruct
@@ -51,6 +51,7 @@ public class OtpBean extends Bean {
     private void init(){
         factory();
         getOtp();
+        findLastUpdate();
     }
 
     private void factory(){
@@ -77,17 +78,24 @@ public class OtpBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, zero);
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, String.valueOf(lineId));
+            lastUpdate = otpService.getLastUpdate(factoryId, buildingFloorId, String.valueOf(lineId));
         } else {
-            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+            otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, userDetail.getLineId());
+            lastUpdate = otpService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
         }
 
         sum(otpTableViewList);
     }
 
     public void getOtp(){
-        otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+        otpTableViewList = otpService.getOtp(factoryId, buildingFloorId, userDetail.getLineId());
         sum(otpTableViewList);
+    }
+
+    public void findLastUpdate(){
+        lastUpdate = otpService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
+        log.debug("lastUpdate : {}", lastUpdate);
     }
 
     private void sum(List<OtpTableView> list){

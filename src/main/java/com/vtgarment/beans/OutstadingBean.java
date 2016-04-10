@@ -36,7 +36,7 @@ public class OutstadingBean extends Bean {
 
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
-
+    private String lastUpdate;
     private int zero = 0;
 
     @PostConstruct
@@ -49,6 +49,7 @@ public class OutstadingBean extends Bean {
     private void init(){
         factory();
         getOutStading();
+        findLastUpdate();
     }
 
     private void factory(){
@@ -75,9 +76,11 @@ public class OutstadingBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, zero);
+            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, String.valueOf(lineId));
+            lastUpdate = outStadingService.getLastUpdate(factoryId, buildingFloorId, String.valueOf(lineId));
         } else {
-            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+            outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, userDetail.getLineId());
+            lastUpdate = outStadingService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
         }
 
         sum(outStadingTableViewList);
@@ -85,8 +88,13 @@ public class OutstadingBean extends Bean {
 
     public void getOutStading(){
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, userDetail.getLineId());
-        outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+        outStadingTableViewList = outStadingService.getOutstading(factoryId, buildingFloorId, userDetail.getLineId());
         sum(outStadingTableViewList);
+    }
+
+    public void findLastUpdate(){
+        lastUpdate = outStadingService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
+        log.debug("lastUpdate : {}", lastUpdate);
     }
 
     private void sum(List<OutStadingTableView> list){

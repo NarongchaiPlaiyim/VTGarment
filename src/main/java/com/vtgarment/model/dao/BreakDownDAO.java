@@ -1,5 +1,6 @@
 package com.vtgarment.model.dao;
 
+import com.vtgarment.model.view.breakdown.BreakDownCompareView;
 import com.vtgarment.model.view.breakdown.BreakDownTableView;
 import com.vtgarment.utils.Utils;
 import org.hibernate.SQLQuery;
@@ -23,236 +24,223 @@ public class BreakDownDAO extends GenericDAO<String, Integer> {
     @Value("#{config['arrow.up']}") private String up;
     @Value("#{config['arrow.down']}") private String down;
 
-    public List<BreakDownTableView> getBreakDown(int factoryId, int bildingFloorId, int lineId, int leaderId){
+    public List<BreakDownTableView> getBreakDown(int factoryId, int bildingFloorId, String lineId, BreakDownCompareView breakDownCompareView){
         List<BreakDownTableView> breakDownTableViewList = new ArrayList<>();
+
+        BigDecimal man = new BigDecimal(breakDownCompareView.getMan());
+        BigDecimal mach = new BigDecimal(breakDownCompareView.getMach());
+        BigDecimal method = new BigDecimal(breakDownCompareView.getMethod());
+        BigDecimal material = new BigDecimal(breakDownCompareView.getMaterial());
+        BigDecimal sum = new BigDecimal(breakDownCompareView.getMan() + breakDownCompareView.getMach() + breakDownCompareView.getMethod() + breakDownCompareView.getMaterial());
+
+        StringBuilder whereSQL = new StringBuilder();
 
         StringBuilder sql = new StringBuilder();
 
-//        Select ALL
-        sql.append(" SELECT line.code || line.NAME AS CODE_NAME,")
-                .append(" PEOPLE_TODAY.TODAY_PEOPLE, MACH_TODAY.TODAY_MACH, METHOD_TODAY.TODAY_METHOD, MATERIAL_TODAY.TODAY_MATERIAL,")
-                .append(" PEOPLE_YESTERDAY.YESTERDAY_PEOPLE, MACH_YESTERDAY.YESTERDAY_MACH, METHOD_YESTERDAY.YESTERDAY_METHOD, METERIAL_YESTERDAY.YESTERDAY_METERIAL")
-                .append(" FROM line")
-                .append(" LEFT JOIN downtime ON line.ID = downtime.line_id")
-                .append(" LEFT JOIN production ON line.ID = production.line_id")
-                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.ID");
-
-//        PROPLE TODAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0  THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS today_people, line.id AS line_id")
-                .append(" FROM line")
-                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 1")
-                .append(" AND date_part('year', from_datetime)||'-'||date_part('month', from_datetime)||'-'||date_part('day', from_datetime)")
-                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, line.id")
-                .append(" ) AS people_today ON line.id = people_today.line_id");
-
-//        MACH TODAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0  THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS TODAY_MACH, line.id AS line_id")
-                .append(" FROM line")
-                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 2")
-                .append(" AND date_part('year', from_datetime)||'-'||date_part('month', from_datetime)||'-'||date_part('day', from_datetime)")
-                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, line.id")
-                .append(" ) AS MACH_TODAY ON line.id = MACH_TODAY.line_id");
-
-//        METHOD TODAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0  THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS TODAY_METHOD, line.id AS line_id")
-                .append(" FROM line")
-                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 3")
-                .append(" AND date_part('year', from_datetime)||'-'||date_part('month', from_datetime)||'-'||date_part('day', from_datetime)")
-                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, line.id")
-                .append(" ) AS METHOD_TODAY ON line.id = METHOD_TODAY.line_id");
-
-//        MATERIAL TODAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0  THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS TODAY_MATERIAL, line.id AS line_id")
-                .append(" FROM line")
-                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 4")
-                .append(" AND date_part('year', from_datetime)||'-'||date_part('month', from_datetime)||'-'||date_part('day', from_datetime)")
-                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, line.id")
-                .append(" ) AS MATERIAL_TODAY ON line.id = MATERIAL_TODAY.line_id");
-
-//        SUMMARY TODAY
-//        sql.append(" LEFT JOIN (")
-//                .append(" SELECT (sum(total_downtime) * 100) /")
-//                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-//                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-//                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-//                .append(" WHEN 0  THEN 1")
-//                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-//                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-//                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-//                .append(" END AS TODAY_SUMMARY, line.id AS line_id")
-//                .append(" FROM line")
-//                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
-//                .append(" WHERE date_part('year', from_datetime)||'-'||date_part('month', from_datetime)||'-'||date_part('day', from_datetime)")
-//                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
-//                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, line.id")
-//                .append(" ) AS SUMMARY_TODAY ON line.id = SUMMARY_TODAY.line_id");
-
-//        PROPLE YESTERDAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0 THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS yesterday_people, downtime.line_id AS line_id")
-                .append(" FROM downtime")
-                .append(" LEFT JOIN workday ON downtime.line_id = workday.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 1")
-                .append(" AND date_part('year', from_datetime) || '-' || date_part('month', from_datetime) || '-' || date_part('day', from_datetime)")
-                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, downtime.line_id")
-                .append(" ) people_yesterday ON line.id = people_yesterday.line_id");
-
-//        MACH_YESTERDAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0 THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS YESTERDAY_MACH, downtime.line_id AS line_id")
-                .append(" FROM downtime")
-                .append(" LEFT JOIN workday ON downtime.line_id = workday.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 2")
-                .append(" AND date_part('year', from_datetime) || '-' || date_part('month', from_datetime) || '-' || date_part('day', from_datetime)")
-                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, downtime.line_id")
-                .append(" ) MACH_YESTERDAY ON line.id = MACH_YESTERDAY.line_id");
-
-//        METHOD YESTERDAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0 THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS YESTERDAY_METHOD, downtime.line_id AS line_id")
-                .append(" FROM downtime")
-                .append(" LEFT JOIN workday ON downtime.line_id = workday.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 3")
-                .append(" AND date_part('year', from_datetime) || '-' || date_part('month', from_datetime) || '-' || date_part('day', from_datetime)")
-                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, downtime.line_id")
-                .append(" ) METHOD_YESTERDAY ON line.id = METHOD_YESTERDAY.line_id");
-
-//        MATERIAL YESTERDAY
-        sql.append(" LEFT JOIN (")
-                .append(" SELECT (sum(total_downtime) * 100) /")
-                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" WHEN 0 THEN 1")
-                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-                .append(" END AS YESTERDAY_METERIAL, downtime.line_id AS line_id")
-                .append(" FROM downtime")
-                .append(" LEFT JOIN workday ON downtime.line_id = workday.line_id")
-                .append(" WHERE downtime.downtime_cause_category_id = 4")
-                .append(" AND date_part('year', from_datetime) || '-' || date_part('month', from_datetime) || '-' || date_part('day', from_datetime)")
-                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
-                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, downtime.line_id")
-                .append(" ) METERIAL_YESTERDAY ON line.id = METERIAL_YESTERDAY.line_id");
-
-//        SUMMARY_YESTERDAY
-//        sql.append(" LEFT JOIN (")
-//                .append(" SELECT (sum(total_downtime) * 100) /")
-//                .append(" CASE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-//                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-//                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-//                .append(" WHEN 0 THEN 1")
-//                .append(" ELSE (date_part('hour', downtime.to_datetime - downtime.from_datetime) * 3600) +")
-//                .append(" (date_part('min', downtime.to_datetime - downtime.from_datetime) * 60) +")
-//                .append(" date_part('sec', downtime.to_datetime - downtime.from_datetime)")
-//                .append(" END AS YESTERDAY_SUMMARY, downtime.line_id AS line_id")
-//                .append(" FROM downtime")
-//                .append(" LEFT JOIN workday ON downtime.line_id = workday.line_id")
-//                .append(" WHERE date_part('year', from_datetime) || '-' || date_part('month', from_datetime) || '-' || date_part('day', from_datetime)")
-//                .append(" = date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
-//                .append(" GROUP BY downtime.to_datetime, downtime.from_datetime, downtime.line_id")
-//                .append(" ) SUMMARY_YESTERDAY ON line.id = SUMMARY_YESTERDAY.line_id");
-
-        sql.append(" WHERE date_part('year', downtime.from_datetime)||'-'||date_part('month', downtime.from_datetime)||'-'||date_part('day', downtime.from_datetime)")
-                .append(" = date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)");
-
         if (!Utils.isZero(factoryId)){
-            sql.append(" AND building_floor.factory_id =").append(factoryId);
+            whereSQL.append(" AND building_floor.factory_id =").append(factoryId);
         }
 
         if (!Utils.isZero(bildingFloorId)){
-            sql.append(" AND building_floor.id =").append(bildingFloorId);
+            whereSQL.append(" AND building_floor.id =").append(bildingFloorId);
         }
 
-        if (!Utils.isZero(lineId)){
-            sql.append(" AND line.id =").append(lineId);
+        if (!Utils.isNull(lineId) && !Utils.isEmpty(lineId) && !"0".equals(lineId)){
+            whereSQL.append(" AND production.line_id in (").append(lineId).append(")");
         }
 
-        if (!Utils.isZero(leaderId)){
-            sql.append(" AND line.leader_id =").append(leaderId);
-        }
+        sql.append(" SELECT code||line.name AS LINE_CODE,")
+                .append(" people_today.today_people AS TODAY_PEOPLE, mach_today.today_mach AS TODAY_MACH, method_today.today_method AS TODAY_METHOD, material_today.today_material AS TODAY_MATERIAL,")
+                .append(" people_yesterday.yesterday_people AS YESTERDAY_PEOPLE, mach_yesterday.yesterday_mach AS YESTERDAY_MACH, method_yesterday.yesterday_method AS YESTERDAY_METHOD, material_yesterday.yesterday_material AS YESTERDAY_METHOD")
+                .append(" FROM line")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
 
-        sql.append(" GROUP BY line. ID, line.code, line.NAME,")
-                .append(" PEOPLE_TODAY.TODAY_PEOPLE, MACH_TODAY.TODAY_MACH, METHOD_TODAY.TODAY_METHOD, MATERIAL_TODAY.TODAY_MATERIAL,")
-                .append(" PEOPLE_YESTERDAY.YESTERDAY_PEOPLE, MACH_YESTERDAY.YESTERDAY_MACH, METHOD_YESTERDAY.YESTERDAY_METHOD, METERIAL_YESTERDAY.YESTERDAY_METERIAL");
+//        people_today
+                .append(" LEFT JOIN (SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" WHEN 0  THEN 1 ELSE")
+                .append(" (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" END AS today_people, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 1")
+                .append(" AND date_part('year', actual_start)||'-'||date_part('month', actual_start)||'-'||date_part('day', actual_start) =")
+                .append(" date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.last_update, production.actual_start")
+                .append(" ) AS people_today ON line.id = people_today.line_id")
+
+//        mach_today
+                .append(" LEFT JOIN (SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" WHEN 0  THEN 1 ELSE")
+                .append(" (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" END AS today_mach, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 2")
+                .append(" AND date_part('year', actual_start)||'-'||date_part('month', actual_start)||'-'||date_part('day', actual_start) =")
+                .append(" date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.last_update, production.actual_start")
+                .append(" ) AS mach_today ON line.id = mach_today.line_id")
+
+//        method_today
+                .append(" LEFT JOIN (SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" WHEN 0  THEN 1 ELSE")
+                .append(" (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" END AS today_method, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 3")
+                .append(" AND date_part('year', actual_start)||'-'||date_part('month', actual_start)||'-'||date_part('day', actual_start) =")
+                .append(" date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.last_update, production.actual_start")
+                .append(" ) AS method_today ON line.id = method_today.line_id")
+
+//        material_today
+                .append(" LEFT JOIN (SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" WHEN 0  THEN 1 ELSE")
+                .append(" (date_part('hour', production.last_update - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.last_update - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.last_update - production.actual_start)")
+                .append(" END AS today_material, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 4")
+                .append(" AND date_part('year', actual_start)||'-'||date_part('month', actual_start)||'-'||date_part('day', actual_start) =")
+                .append(" date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.last_update, production.actual_start")
+                .append(" ) AS material_today ON line.id = material_today.line_id")
+
+//        people_yesterday
+                .append(" LEFT JOIN ( SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" WHEN 0 THEN 1 ELSE")
+                .append(" (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" END AS yesterday_people, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN workday ON line.id = workday.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 1")
+                .append(" AND date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start) =")
+                .append(" date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.actual_finish, production.actual_start")
+                .append(" ) people_yesterday ON line.id = people_yesterday.line_id")
+
+//        mach_yesterday
+                .append(" LEFT JOIN ( SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" WHEN 0 THEN 1 ELSE")
+                .append(" (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" END AS yesterday_mach, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN workday ON line.id = workday.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 2")
+                .append(" AND date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start) =")
+                .append(" date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.actual_finish, production.actual_start")
+                .append(" ) mach_yesterday ON line.id = mach_yesterday.line_id")
+
+//        method_yesterday
+                .append(" LEFT JOIN ( SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" WHEN 0 THEN 1 ELSE")
+                .append(" (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" END AS yesterday_method, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN workday ON line.id = workday.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 3")
+                .append(" AND date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start) =")
+                .append(" date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.actual_finish, production.actual_start")
+                .append(" ) method_yesterday ON line.id = method_yesterday.line_id")
+
+//        material_yesterday
+                .append(" LEFT JOIN ( SELECT (sum(total_downtime) * 100) /")
+                .append(" CASE (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" WHEN 0 THEN 1 ELSE")
+                .append(" (date_part('hour', production.actual_finish - production.actual_start) * 3600) +")
+                .append(" (date_part('min', production.actual_finish - production.actual_start) * 60) +")
+                .append(" date_part('sec', production.actual_finish - production.actual_start)")
+                .append(" END AS yesterday_material, line.id AS line_id")
+                .append(" FROM line")
+                .append(" LEFT JOIN downtime ON line.id = downtime.line_id")
+                .append(" LEFT JOIN production ON line.id = production.line_id")
+                .append(" LEFT JOIN workday ON line.id = workday.line_id")
+                .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" WHERE downtime.downtime_cause_category_id = 4")
+                .append(" AND date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start) =")
+                .append(" date_part('year', yesterday) || '-' || date_part('month', yesterday) || '-' || date_part('day', yesterday)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.id, production.actual_finish, production.actual_start")
+                .append(" ) material_yesterday ON line.id = material_yesterday.line_id")
+
+                .append(" WHERE date_part('year', production.actual_start)||'-'||date_part('month', production.actual_start)||'-'||date_part('day', production.actual_start) =")
+                .append(" date_part('year', current_timestamp)||'-'||date_part('month', current_timestamp)||'-'||date_part('day', current_timestamp)")
+                .append(whereSQL.toString())
+                .append(" GROUP BY line.code, line.name,")
+                .append(" people_today.today_people, mach_today.today_mach, method_today.today_method, material_today.today_material,")
+                .append(" people_yesterday.yesterday_people, mach_yesterday.yesterday_mach, method_yesterday.yesterday_method, material_yesterday.yesterday_material")
+                .append(" ORDER BY line.code");
 
         log.debug(" --getBreakDown {}", sql.toString());
 
         try {
             SQLQuery query = getSession().createSQLQuery(sql.toString())
-                    .addScalar("CODE_NAME", StringType.INSTANCE)
+                    .addScalar("LINE_CODE", StringType.INSTANCE)
                     .addScalar("TODAY_PEOPLE", BigDecimalType.INSTANCE)
                     .addScalar("TODAY_MACH", BigDecimalType.INSTANCE)
                     .addScalar("TODAY_METHOD", BigDecimalType.INSTANCE)
@@ -290,48 +278,74 @@ public class BreakDownDAO extends GenericDAO<String, Integer> {
 
                 breakDownTableView.setYesterDayTotal(summaryYesterDay.setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
-                if (Utils.compareBigDecimal(breakDownTableView.getToDayPeople(), breakDownTableView.getYesterDayPeople())){
+                // To DAY
+                if (Utils.compareLessBigDecimal(breakDownTableView.getToDayPeople(), man)){
+                    breakDownTableView.setStylePeopleToday(green);
+                } else {
                     breakDownTableView.setStylePeopleToday(red);
+                }
+
+                if (Utils.compareLessBigDecimal(breakDownTableView.getToDayMach(), mach)){
+                    breakDownTableView.setStyleMachToday(green);
+                } else {
+                    breakDownTableView.setStyleMachToday(red);
+                }
+
+                if (Utils.compareLessBigDecimal(breakDownTableView.getToDayMethod(), method)){
+                    breakDownTableView.setStyleMethodToday(green);
+                } else {
+                    breakDownTableView.setStyleMethodToday(red);
+                }
+
+                if (Utils.compareLessBigDecimal(breakDownTableView.getToDayMaterial(), material)){
+                    breakDownTableView.setStyleMaterialToday(green);
+                } else {
+                    breakDownTableView.setStyleMaterialToday(red);
+                }
+
+                // YESTERDAY
+                if (Utils.compareLessBigDecimal(breakDownTableView.getYesterDayPeople(), man)){
                     breakDownTableView.setStylePeopleYesterday(green);
                 } else {
-                    breakDownTableView.setStylePeopleToday(green);
                     breakDownTableView.setStylePeopleYesterday(red);
                 }
 
-                if (Utils.compareBigDecimal(breakDownTableView.getToDayMach(), breakDownTableView.getYesterDayMach())){
-                    breakDownTableView.setStyleMachToday(red);
+                if (Utils.compareLessBigDecimal(breakDownTableView.getYesterDayMach(), mach)){
                     breakDownTableView.setStyleMachYesterday(green);
                 } else {
-                    breakDownTableView.setStyleMachToday(green);
                     breakDownTableView.setStyleMachYesterday(red);
                 }
 
-                if (Utils.compareBigDecimal(breakDownTableView.getToDayMethod(), breakDownTableView.getYesterDayMethod())){
-                    breakDownTableView.setStyleMethodToday(red);
+                if (Utils.compareLessBigDecimal(breakDownTableView.getYesterDayMethod(), method)){
                     breakDownTableView.setStyleMethodYesterday(green);
                 } else {
-                    breakDownTableView.setStyleMethodToday(green);
                     breakDownTableView.setStyleMethodYesterday(red);
                 }
 
-                if (Utils.compareBigDecimal(breakDownTableView.getToDayMaterial(), breakDownTableView.getToDayMaterial())){
-                    breakDownTableView.setStyleMaterialToday(red);
+                if (Utils.compareLessBigDecimal(breakDownTableView.getYesterDayMaterial(), material)){
                     breakDownTableView.setStyleMaterialYesterday(green);
                 } else {
-                    breakDownTableView.setStyleMaterialToday(green);
                     breakDownTableView.setStyleMaterialYesterday(red);
                 }
 
-                if (Utils.compareBigDecimal(breakDownTableView.getToDayTotal(), breakDownTableView.getYesterDayTotal())){
-                    breakDownTableView.setStyleTotalToDay(red);
-                    breakDownTableView.setStyleTotalYesterday(green);
-                    breakDownTableView.setTrend(breakDownTableView.getToDayTotal().subtract(breakDownTableView.getYesterDayTotal()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                    breakDownTableView.setImage(down);
-                } else {
+                if (Utils.compareLessBigDecimal(breakDownTableView.getToDayTotal(), sum)){
                     breakDownTableView.setStyleTotalToDay(green);
-                    breakDownTableView.setStyleTotalYesterday(red);
+                    breakDownTableView.setTrend(breakDownTableView.getToDayTotal().subtract(breakDownTableView.getYesterDayTotal()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                } else {
+                    breakDownTableView.setStyleTotalToDay(red);
                     breakDownTableView.setTrend(breakDownTableView.getYesterDayTotal().subtract(breakDownTableView.getToDayTotal()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                }
+
+                if (Utils.compareLessBigDecimal(breakDownTableView.getYesterDayTotal(), sum)){
+                    breakDownTableView.setStyleTotalYesterday(green);
+                } else {
+                    breakDownTableView.setStyleTotalYesterday(red);
+                }
+
+                if (Utils.compareLessBigDecimal(breakDownTableView.getTrend(), sum)){
                     breakDownTableView.setImage(up);
+                } else {
+                    breakDownTableView.setImage(down);
                 }
 
                 breakDownTableViewList.add(breakDownTableView);

@@ -3,12 +3,11 @@ package com.vtgarment.model.dao;
 import com.vtgarment.model.view.outstading.OutStadingTableView;
 import com.vtgarment.utils.Utils;
 import org.hibernate.SQLQuery;
-import org.hibernate.type.BigDecimalType;
+import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
     @Value("#{config['arrow.up']}") private String up;
     @Value("#{config['arrow.down']}") private String down;
 
-    public List<OutStadingTableView> getOutStading(int factoryId, int bildingFloorId, int lineId, int leaderId){
+    public List<OutStadingTableView> getOutStading(int factoryId, int bildingFloorId, String lineId){
         List<OutStadingTableView> outStadingTableViewList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
@@ -44,14 +43,14 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
 
         sql.append(" SELECT outstading_today.code||outstading_today.name AS CODE_NAME, outstading_yesterday.sew_otp_actual AS YESTERDAY, outstading_today.sew_otp_actual AS TODAY")
                 .append(" FROM line")
-                .append(" LEFT JOIN (")
+                .append(" INNER JOIN (")
                 .append(" SELECT line.id, code, name, sew_otp_actual")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
                 .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
                 .append(" ) AS outstading_today ON line.id = outstading_today.id")
-                .append(" LEFT JOIN (")
+                .append(" INNER JOIN (")
                 .append(" SELECT production.line_id, sew_otp_actual")
                 .append(" FROM production")
                 .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
@@ -70,39 +69,37 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
             sql.append(" AND building_floor.id =").append(bildingFloorId);
         }
 
-        if (!Utils.isZero(lineId)){
-            sql.append(" AND line.id =").append(lineId);
+        if (!Utils.isNull(lineId) && !Utils.isEmpty(lineId) && !"0".equals(lineId)){
+            sql.append(" AND production.line_id in (").append(lineId).append(")");
         }
 
-        if (!Utils.isZero(leaderId)){
-            sql.append(" AND line.leader_id =").append(leaderId);
-        }
 
         sql.append(" GROUP BY outstading_today.code, outstading_today.name, outstading_yesterday.sew_otp_actual, outstading_today.sew_otp_actual");
+        sql.append(" ORDER BY outstading_today.code");
 
         log.debug("getOutStading : {}", sql.toString());
 
         try {
             SQLQuery query = getSession().createSQLQuery(sql.toString())
                     .addScalar("CODE_NAME", StringType.INSTANCE)
-                    .addScalar("YESTERDAY", BigDecimalType.INSTANCE)
-                    .addScalar("TODAY", BigDecimalType.INSTANCE);
+                    .addScalar("YESTERDAY", IntegerType.INSTANCE)
+                    .addScalar("TODAY", IntegerType.INSTANCE);
             List<Object[]> objects = query.list();
 
             for (Object[] entity : objects) {
                 OutStadingTableView outStadingTableView = new OutStadingTableView();
 
                 outStadingTableView.setLineCode(Utils.parseString(entity[0]));
-                outStadingTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                outStadingTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                outStadingTableView.setYesterDay(Utils.parseInt(entity[1]));
+                outStadingTableView.setToDay(Utils.parseInt(entity[2]));
 
-                if (Utils.compareBigDecimal(outStadingTableView.getToDay(), outStadingTableView.getYesterDay())){
-                    outStadingTableView.setTrend(outStadingTableView.getToDay().subtract(outStadingTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                if (Utils.compareInt(outStadingTableView.getToDay(), outStadingTableView.getYesterDay())){
+                    outStadingTableView.setTrend(outStadingTableView.getToDay());
                     outStadingTableView.setStyleToDay(red);
                     outStadingTableView.setStyleYesterDay(green);
                     outStadingTableView.setImage(down);
                 } else {
-                    outStadingTableView.setTrend(outStadingTableView.getYesterDay().subtract(outStadingTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    outStadingTableView.setTrend(outStadingTableView.getYesterDay());
                     outStadingTableView.setStyleToDay(green);
                     outStadingTableView.setStyleYesterDay(red);
                     outStadingTableView.setImage(up);

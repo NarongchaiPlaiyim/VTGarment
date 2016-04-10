@@ -36,7 +36,7 @@ public class ReworkBean extends Bean {
 
     @NotNull private UserDetail userDetail;
     @NotNull private SummaryTableView summaryTableView;
-
+    private String lastUpdate;
     private int zero = 0;
 
     @PostConstruct
@@ -49,6 +49,7 @@ public class ReworkBean extends Bean {
     private void init(){
         factory();
         getRework();
+        findLastUpdate();
     }
 
     private void factory(){
@@ -75,17 +76,24 @@ public class ReworkBean extends Bean {
         log.debug("Factory : {}, BuildingFloor : {}, Line : {}", factoryId, buildingFloorId, lineId);
 
         if (!Utils.isZero(factoryId)){
-            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, zero);
+            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, String.valueOf(lineId));
+            lastUpdate = reworkService.getLastUpdate(factoryId, buildingFloorId, String.valueOf(lineId));
         } else {
-            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+            reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, userDetail.getLineId());
+            lastUpdate = reworkService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
         }
 
         sum(reworkTableViewList);
     }
 
     public void getRework(){
-        reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, lineId, userDetail.getLeaderId());
+        reworkTableViewList = reworkService.getRework(factoryId, buildingFloorId, userDetail.getLineId());
         sum(reworkTableViewList);
+    }
+
+    public void findLastUpdate(){
+        lastUpdate = reworkService.getLastUpdate(factoryId, buildingFloorId, userDetail.getLineId());
+        log.debug("lastUpdate : {}", lastUpdate);
     }
 
     private void sum(List<ReworkTableView> list){

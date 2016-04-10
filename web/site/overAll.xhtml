@@ -28,12 +28,18 @@
                 <h:outputText value="Date : " /><p:clock autoSync="true" pattern="dd/MM/yyyy HH:mm:ss" />
             </div>
             <div class="btn-refresh" style="margin-top: -5px; right: 15px; position: absolute;">
-                <p:commandButton id="btn-refresh" value="Refresh" action="#{overAllBean.filterValue}" update=":frmOverAll"/>
+                <p:commandButton id="btn-refresh" value="Refresh" action="#{overAllBean.filterValue}" update=":frmOverAll, :lastUpdate"/>
             </div>
         </div>
         <div class="Container100 white">
             <div style="font-size: 1.2em; float: left; color: #ffffff;">
                 <h:outputText value="#{msg.get('menu.overall')}" />
+            </div>
+        </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Last Updated : " />
+                <h:outputText id="lastUpdate" value="#{overAllBean.lastUpdate}"/>
             </div>
         </div>
         <h:form id="frmOverAll">
@@ -247,8 +253,7 @@
                                     </div>
                                 </td>
                                 <td  colspan="2" class="#{overAllBean.outstadingView.styleTrend}">
-                                    <p:outputLabel value="#{overAllBean.outstadingView.trendActual == null ? 0 : overAllBean.outstadingView.trendActual}"/>
-                                    <p:outputLabel value=" %"/>
+                                    <p:outputLabel value="#{overAllBean.outstadingView.trendActual == 0 ? 0 : overAllBean.outstadingView.trendActual}"/>
                                 </td>
                             </tr>
                             <tr class="#{overAllBean.outstadingView.styleBest}" style="display: #{overAllBean.outstadingView.worstLineCode == overAllBean.outstadingView.bestLineCode ? 'none' : ''}">

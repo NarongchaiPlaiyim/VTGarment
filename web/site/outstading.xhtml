@@ -37,6 +37,12 @@
                 <h:outputText value="#{msg.get('menu.outstading')}" />
             </div>
         </div>
+        <div class="Container100 white">
+            <div style="font-size: 1.2em; color: #ffffff; float: left">
+                <h:outputText value="Last Updated : " />
+                <h:outputText id="lastUpdate" value="#{outStadingBean.lastUpdate}"/>
+            </div>
+        </div>
         <h:form id="frmOutStading">
             <div>
                 <div class="Container100" style="margin-top: -7px;">
@@ -119,9 +125,9 @@
                         <p:columnGroup type="footer">
                             <p:row style="display: #{outStadingBean.outStadingTableViewList.size() == 1 || outStadingBean.outStadingTableViewList.size() == 0 ? 'none' : ''};">
                                 <p:column colspan="2" style="text-align: right" footerText="Grand Total"/>
-                                <p:column footerText="#{outStadingBean.summaryTableView.totalYesterDay}" styleClass="#{outStadingBean.summaryTableView.styleTotalYesterDay}"/>
-                                <p:column footerText="#{outStadingBean.summaryTableView.totalToDay}" styleClass="#{outStadingBean.summaryTableView.styleTotalToDay}"/>
-                                <p:column footerText="#{outStadingBean.summaryTableView.imageTrend} #{outStadingBean.summaryTableView.totalTrend}" styleClass="imageTotalOtp"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalYesterDayOutStading}" styleClass="#{outStadingBean.summaryTableView.styleTotalYesterDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.totalToDayOutStading}" styleClass="#{outStadingBean.summaryTableView.styleTotalToDay}"/>
+                                <p:column footerText="#{outStadingBean.summaryTableView.imageTrend} #{outStadingBean.summaryTableView.totalTrendOutStading}" styleClass="imageTotalOtp"/>
                             </p:row>
                         </p:columnGroup>
                     </p:dataTable>

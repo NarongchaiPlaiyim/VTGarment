@@ -414,13 +414,30 @@ public enum Utils {
         }
     }
 
-    public static boolean compareBigDecimal(BigDecimal value1, BigDecimal value2){
+    public static boolean compareMoreBigDecimal(BigDecimal value1, BigDecimal value2){
         if (value1.compareTo(value2) >= 0){
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;
         }
 
+    }
+
+    public static boolean compareLessBigDecimal(BigDecimal value1, BigDecimal value2){
+        if (value1.compareTo(value2) <= 0){
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+
+    }
+
+    public static boolean compareInt(int value1, int value2){
+        if (value2 <= value1){
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        }
     }
 
     public static void main(String[] args) {
@@ -436,8 +453,8 @@ public enum Utils {
         calendar.set(Calendar.MILLISECOND,0);
         System.out.println(calendar.getTime());
 
-        BigDecimal a = new BigDecimal(10.3);
-        BigDecimal b = new BigDecimal(10.2);
+        BigDecimal a = new BigDecimal(0.00);
+        BigDecimal b = new BigDecimal(16);
         System.out.println(a.compareTo(b));
 
         MathContext mc = new MathContext(2);

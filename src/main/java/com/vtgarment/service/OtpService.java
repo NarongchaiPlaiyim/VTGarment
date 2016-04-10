@@ -50,8 +50,8 @@ public class OtpService extends Service {
         return lineDAO.findByBuildingFloorId(buildingFloorId);
     }
 
-    public List<OtpTableView> getOtp(int factoryId, int buildingFloorId, int lineId, int leaderId){
-        return otpDAO.getOtp(factoryId, buildingFloorId, lineId, leaderId);
+    public List<OtpTableView> getOtp(int factoryId, int buildingFloorId, String lineId){
+        return otpDAO.getOtp(factoryId, buildingFloorId, lineId);
     }
 
     public SummaryTableView sum(List<OtpTableView> otpTableViewList){
@@ -70,7 +70,7 @@ public class OtpService extends Service {
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
 
-            if (Utils.compareBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
+            if (Utils.compareMoreBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
                 summaryTableView.setStyleTotalToDay(green);
                 summaryTableView.setStyleTotalYesterDay(red);
                 summaryTableView.setImageTrend(up);
@@ -84,5 +84,9 @@ public class OtpService extends Service {
         }
 
         return summaryTableView;
+    }
+
+    public String getLastUpdate(int factory, int buildingFloor, String lineId){
+        return lineDAO.findLastUpdate(factory, buildingFloor, lineId);
     }
 }

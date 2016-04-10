@@ -22,7 +22,7 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
     @Value("#{config['arrow.up']}") private String up;
     @Value("#{config['arrow.down']}") private String down;
 
-    public List<ReworkTableView> getRework(int factoryId, int bildingFloorId, int lineId, int leaderId){
+    public List<ReworkTableView> getRework(int factoryId, int bildingFloorId, String lineId){
         List<ReworkTableView> reworkTableViewList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
@@ -43,14 +43,14 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
 
         sql.append(" SELECT rework_today.code||rework_today.name AS CODE_NAME, rework_yesterday.rework_qty_actual AS YESTERDAY, rework_today.rework_qty_actual AS TODAY")
                 .append(" FROM line")
-                .append(" LEFT JOIN (")
+                .append(" INNER JOIN (")
                 .append(" SELECT line.id, code, name, rework_qty_actual")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
                 .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
                 .append(" ) AS rework_today ON line.id = rework_today.id")
-                .append(" LEFT JOIN(")
+                .append(" INNER JOIN(")
                 .append(" SELECT production.line_id, rework_qty_actual")
                 .append(" FROM production")
                 .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
@@ -59,6 +59,7 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
                 .append(" ) AS rework_yesterday ON line.id = rework_yesterday.line_id")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" LEFT JOIN building_floor ON line.building_floor_id = building_floor.id")
+                .append(" LEFT JOIN user_line ON line.id = user_line.line_id")
                 .append(" WHERE 1=1");
 
         if (!Utils.isZero(factoryId)){
@@ -69,15 +70,13 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
             sql.append(" AND building_floor.id =").append(bildingFloorId);
         }
 
-        if (!Utils.isZero(lineId)){
-            sql.append(" AND line.id =").append(lineId);
+        if (!Utils.isNull(lineId) && !Utils.isEmpty(lineId) && !"0".equals(lineId)){
+            sql.append(" AND production.line_id in (").append(lineId).append(")");
         }
 
-        if (!Utils.isZero(leaderId)){
-            sql.append(" AND line.leader_id =").append(leaderId);
-        }
 
         sql.append(" GROUP BY rework_today.code, rework_today.name, rework_yesterday.rework_qty_actual, rework_today.rework_qty_actual");
+        sql.append(" ORDER BY rework_today.code");
 
         log.debug("getRework : {}", sql.toString());
 
@@ -95,7 +94,7 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
                 reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]));
                 reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]));
 
-                if (Utils.compareBigDecimal(reworkTableView.getToDay(), reworkTableView.getYesterDay())){
+                if (Utils.compareLessBigDecimal(reworkTableView.getToDay(), reworkTableView.getYesterDay())){
                     reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()));
                     reworkTableView.setStyleToDay(red);
                     reworkTableView.setStyleYesterDay(green);
