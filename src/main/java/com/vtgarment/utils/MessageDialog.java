@@ -15,7 +15,7 @@ public enum MessageDialog {
     private String messageHeader;
     private String message;
 
-    private MessageDialog(String messageHeader, String message) {
+    MessageDialog(String messageHeader, String message) {
         this.messageHeader = messageHeader;
         this.message = message;
     }
