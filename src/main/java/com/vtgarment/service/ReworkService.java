@@ -35,6 +35,8 @@ public class ReworkService extends Service{
     @Value("#{config['arrow.up.text']}") private String up;
     @Value("#{config['arrow.down.text']}") private String down;
 
+    private final int twoDecimal = 2;
+
     public List<FactoryModel> findAll(){
         try {
             log.debug("findAll()");
@@ -63,6 +65,8 @@ public class ReworkService extends Service{
             summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().add(reworkTableView.getYesterDay()));
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().add(reworkTableView.getToDay()));
             summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().add(reworkTableView.getTrend()));
+
+            summaryTableView.setSummaryTarget(summaryTableView.getSummaryTarget().add(reworkTableView.getTrend()));
         }
 
         log.debug("---- Size : {}", reworkTableViewList.size());
@@ -71,19 +75,31 @@ public class ReworkService extends Service{
             BigDecimal divideValue = new BigDecimal(reworkTableViewList.size());
             summaryTableView.setTotalYesterDay(summaryTableView.getTotalYesterDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
             summaryTableView.setTotalToDay(summaryTableView.getTotalToDay().divide(divideValue, BigDecimal.ROUND_HALF_UP));
-            summaryTableView.setTotalTrend(summaryTableView.getTotalTrend().divide(divideValue, BigDecimal.ROUND_HALF_UP));
+
+            summaryTableView.setSummaryTarget(summaryTableView.getSummaryTarget().divide(divideValue, BigDecimal.ROUND_HALF_UP));
+
+            if (Utils.compareLessBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getSummaryTarget())){
+                summaryTableView.setStyleTotalToDay(green);
+            } else {
+                summaryTableView.setStyleTotalToDay(red);
+            }
+
+            if (Utils.compareLessBigDecimal(summaryTableView.getTotalYesterDay(), summaryTableView.getSummaryTarget())){
+                summaryTableView.setStyleTotalYesterDay(green);
+            } else {
+                summaryTableView.setStyleTotalYesterDay(red);
+            }
 
             if (Utils.compareLessBigDecimal(summaryTableView.getTotalToDay(), summaryTableView.getTotalYesterDay())){
-                summaryTableView.setStyleTotalToDay(red);
-                summaryTableView.setStyleTotalYesterDay(green);
-                summaryTableView.setImageTrend(down);
-            } else {
-                summaryTableView.setStyleTotalToDay(green);
-                summaryTableView.setStyleTotalYesterDay(red);
+                summaryTableView.setTotalTrend(summaryTableView.getTotalYesterDay().subtract(summaryTableView.getTotalToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
                 summaryTableView.setImageTrend(up);
+            } else {
+                summaryTableView.setTotalTrend(summaryTableView.getTotalToDay().subtract(summaryTableView.getTotalYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                summaryTableView.setImageTrend(down);
             }
         }
 
+        log.debug("sum : {}", summaryTableView.toString());
         return summaryTableView;
     }
 

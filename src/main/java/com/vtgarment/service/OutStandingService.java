@@ -59,6 +59,8 @@ public class OutStandingService extends Service  {
             summaryTableView.setTotalYesterDayOutStading(summaryTableView.getTotalYesterDayOutStading() + outStadingTableView.getYesterDay());
             summaryTableView.setTotalToDayOutStading(summaryTableView.getTotalToDayOutStading() + outStadingTableView.getToDay());
             summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalTrendOutStading() + outStadingTableView.getTrend());
+
+            summaryTableView.setTotalTarget(summaryTableView.getTotalTarget() + outStadingTableView.getTarget());
         }
 
         log.debug("---------- {}", summaryTableView.getTotalTrendOutStading());
@@ -67,19 +69,31 @@ public class OutStandingService extends Service  {
             int divideValue = outStadingTableViewList.size();
             summaryTableView.setTotalYesterDayOutStading(summaryTableView.getTotalYesterDayOutStading()/divideValue);
             summaryTableView.setTotalToDayOutStading(summaryTableView.getTotalToDayOutStading()/divideValue);
-            summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalTrendOutStading()/divideValue);
+
+            summaryTableView.setTotalTarget(summaryTableView.getTotalTarget()/divideValue);
+
+            if (Utils.compareInt(summaryTableView.getTotalToDayOutStading(), summaryTableView.getTotalTarget())){
+                summaryTableView.setStyleTotalToDay(green);
+            } else {
+                summaryTableView.setStyleTotalToDay(red);
+            }
+
+            if (Utils.compareInt(summaryTableView.getTotalYesterDayOutStading(), summaryTableView.getTotalTarget())){
+                summaryTableView.setStyleTotalYesterDay(green);
+            } else {
+                summaryTableView.setStyleTotalYesterDay(red);
+            }
 
             if (Utils.compareInt(summaryTableView.getTotalToDayOutStading(), summaryTableView.getTotalYesterDayOutStading())){
-                summaryTableView.setStyleTotalToDay(red);
-                summaryTableView.setStyleTotalYesterDay(green);
-                summaryTableView.setImageTrend(down);
-            } else {
-                summaryTableView.setStyleTotalToDay(green);
-                summaryTableView.setStyleTotalYesterDay(red);
+                summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalYesterDayOutStading() - summaryTableView.getTotalToDayOutStading());
                 summaryTableView.setImageTrend(up);
+            } else {
+                summaryTableView.setTotalTrendOutStading(summaryTableView.getTotalToDayOutStading() - summaryTableView.getTotalYesterDayOutStading());
+                summaryTableView.setImageTrend(down);
             }
         }
 
+        log.debug("sum : {}", summaryTableView.toString());
         return summaryTableView;
     }
 

@@ -29,7 +29,7 @@ public class OverAllService extends Service{
     @Resource private FactoryDAO factoryDAO;
     @Resource private BuildingFloorDAO buildingFloorDAO;
     @Resource private LineDAO lineDAO;
-    @Resource private DashboardDAO overAllDAO;
+    @Resource private OverAllDAO overAllDAO;
     @Resource private ProductionDAO productionDAO;
 
     @Value("#{config['arrow.up']}") private String up;
@@ -65,13 +65,7 @@ public class OverAllService extends Service{
 
     public OtpView findOTPView(int factory, int buildingFloor, String lineId){
         log.debug("-- findOTPView {} : {} : {}", factory, buildingFloor, lineId);
-        OtpView otpView = null;
-
-//        if (Utils.isZero(factory) && !Utils.isZero(lineId)){
-//            otpView = overAllDAO.findOTPView(lineId);
-//        } else {
-            otpView = overAllDAO.findOTPViewBySection(factory, buildingFloor, lineId);
-//        }
+        OtpView otpView = overAllDAO.findOTPViewBySection(factory, buildingFloor, lineId);
 
         if (!Utils.isNull(otpView.getTrendActual()) && !Utils.isNull(otpView.getTrendTarget())){
             if (Utils.compareMoreBigDecimal(otpView.getTrendActual(), otpView.getTrendTarget())){
@@ -104,13 +98,7 @@ public class OverAllService extends Service{
 
     public ReworkView findReworkView(int factory, int buildingFloor, String lineId){
         log.debug("-- findReworkView {} : {} : {}", factory, buildingFloor, lineId);
-        ReworkView reworkView = null;
-
-//        if (Utils.isZero(factory) && !Utils.isZero(lineId)){
-//            reworkView = overAllDAO.findReworkView(lineId);
-//        } else {
-            reworkView = overAllDAO.findReworkViewBySection(factory, buildingFloor, lineId);
-//        }
+        ReworkView reworkView = overAllDAO.findReworkViewBySection(factory, buildingFloor, lineId);
 
         if (!Utils.isNull(reworkView.getTrendActual()) && !Utils.isNull(reworkView.getTrendTarget())){
             if (Utils.compareLessBigDecimal(reworkView.getTrendActual(), reworkView.getTrendTarget())){
@@ -143,9 +131,8 @@ public class OverAllService extends Service{
 
     public BreakDownView findBreakDownView(int factory, int buildingFloor, String lineId){
         log.debug("-- findBreakDownView {} : {} : {}", factory, buildingFloor, lineId);
-        BreakDownView breakDownView = null;
 
-        breakDownView = overAllDAO.findBreakDownViewBySection(factory, buildingFloor, lineId);
+        BreakDownView breakDownView = overAllDAO.findBreakDownViewBySection(factory, buildingFloor, lineId);
         BreakDownCompareView breakDownCompareView = productionDAO.getCompateBreakdown();
 
         int sum = breakDownCompareView.getMan() + breakDownCompareView.getMach() + breakDownCompareView.getMethod() + breakDownCompareView.getMaterial();
@@ -182,15 +169,9 @@ public class OverAllService extends Service{
 
     public OutstadingView findOutstadingView(int factory, int buildingFloor, String lineId){
         log.debug("-- findOutstadingView {} : {} : {}", factory, buildingFloor, lineId);
-        OutstadingView outstadingView = null;
+        OutstadingView outstadingView = overAllDAO.findOutstadingViewBySection(factory, buildingFloor, lineId);
 
-//        if (Utils.isZero(factory) && !Utils.isZero(lineId)){
-//            outstadingView = overAllDAO.findOutstadingView(lineId);
-//        } else {
-            outstadingView = overAllDAO.findOutstadingViewBySection(factory, buildingFloor, lineId);
-//        }
-
-        if (!Utils.isNull(outstadingView.getTrendActual()) && !Utils.isNull(outstadingView.getTrendTarget())){
+        if (!Utils.isZero(outstadingView.getTrendActual()) || !Utils.isZero(outstadingView.getTrendTarget())){
             if (Utils.compareInt(outstadingView.getTrendActual(), outstadingView.getTrendTarget())){
                 outstadingView.setImage(up);
                 outstadingView.setStyleTrend(trendGreen);
@@ -200,7 +181,7 @@ public class OverAllService extends Service{
             }
         }
 
-        if (!Utils.isNull(outstadingView.getBestActual()) && !Utils.isNull(outstadingView.getBestTarget())){
+        if (!Utils.isZero(outstadingView.getBestActual()) || !Utils.isZero(outstadingView.getBestTarget())){
             if (Utils.compareInt(outstadingView.getBestActual(), outstadingView.getBestTarget())){
                 outstadingView.setStyleBest(bestGreen);
             } else {
@@ -208,7 +189,7 @@ public class OverAllService extends Service{
             }
         }
 
-        if (!Utils.isNull(outstadingView.getWorstActual()) && !Utils.isNull(outstadingView.getWorstTarget())){
+        if (!Utils.isZero(outstadingView.getWorstActual()) || !Utils.isZero(outstadingView.getWorstTarget())){
             if (Utils.compareInt(outstadingView.getWorstActual(), outstadingView.getWorstTarget())){
                 outstadingView.setStyleWorst(worstGreen);
             } else {

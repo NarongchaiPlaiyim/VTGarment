@@ -453,8 +453,8 @@ public enum Utils {
         calendar.set(Calendar.MILLISECOND,0);
         System.out.println(calendar.getTime());
 
-        BigDecimal a = new BigDecimal(0.00);
-        BigDecimal b = new BigDecimal(16);
+        BigDecimal a = new BigDecimal(0.00); //today
+        BigDecimal b = new BigDecimal(16); //testerday
         System.out.println(a.compareTo(b));
 
         MathContext mc = new MathContext(2);

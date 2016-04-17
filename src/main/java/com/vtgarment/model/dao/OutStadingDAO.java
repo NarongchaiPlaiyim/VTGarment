@@ -41,10 +41,10 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
 //                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
 //                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
 
-        sql.append(" SELECT outstading_today.code||outstading_today.name AS CODE_NAME, outstading_yesterday.sew_otp_actual AS YESTERDAY, outstading_today.sew_otp_actual AS TODAY")
+        sql.append(" SELECT outstading_today.code||outstading_today.name AS CODE_NAME, outstading_yesterday.sew_otp_actual AS YESTERDAY, outstading_today.sew_otp_actual AS TODAY, outstading_today.sew_otp_target AS TARGET")
                 .append(" FROM line")
                 .append(" INNER JOIN (")
-                .append(" SELECT line.id, code, name, sew_otp_actual")
+                .append(" SELECT line.id, code, name, sew_otp_actual, sew_otp_target")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
@@ -74,7 +74,7 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
         }
 
 
-        sql.append(" GROUP BY outstading_today.code, outstading_today.name, outstading_yesterday.sew_otp_actual, outstading_today.sew_otp_actual");
+        sql.append(" GROUP BY outstading_today.code, outstading_today.name, outstading_yesterday.sew_otp_actual, outstading_today.sew_otp_actual, outstading_today.sew_otp_target");
         sql.append(" ORDER BY outstading_today.code");
 
         log.debug("getOutStading : {}", sql.toString());
@@ -83,7 +83,8 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
             SQLQuery query = getSession().createSQLQuery(sql.toString())
                     .addScalar("CODE_NAME", StringType.INSTANCE)
                     .addScalar("YESTERDAY", IntegerType.INSTANCE)
-                    .addScalar("TODAY", IntegerType.INSTANCE);
+                    .addScalar("TODAY", IntegerType.INSTANCE)
+                    .addScalar("TARGET", IntegerType.INSTANCE);
             List<Object[]> objects = query.list();
 
             for (Object[] entity : objects) {
@@ -93,16 +94,26 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
                 outStadingTableView.setYesterDay(Utils.parseInt(entity[1]));
                 outStadingTableView.setToDay(Utils.parseInt(entity[2]));
 
-                if (Utils.compareInt(outStadingTableView.getToDay(), outStadingTableView.getYesterDay())){
-                    outStadingTableView.setTrend(outStadingTableView.getToDay());
-                    outStadingTableView.setStyleToDay(red);
-                    outStadingTableView.setStyleYesterDay(green);
-                    outStadingTableView.setImage(down);
-                } else {
-                    outStadingTableView.setTrend(outStadingTableView.getYesterDay());
+                outStadingTableView.setTarget(Utils.parseInt(entity[3]));
+
+                if (Utils.compareInt(outStadingTableView.getToDay(), outStadingTableView.getTarget())){
                     outStadingTableView.setStyleToDay(green);
+                } else {
+                    outStadingTableView.setStyleToDay(red);
+                }
+
+                if (Utils.compareInt(outStadingTableView.getYesterDay(), outStadingTableView.getTarget())){
+                    outStadingTableView.setStyleYesterDay(green);
+                } else {
                     outStadingTableView.setStyleYesterDay(red);
+                }
+
+                if (Utils.compareInt(outStadingTableView.getToDay(), outStadingTableView.getYesterDay())){
+                    outStadingTableView.setTrend(outStadingTableView.getYesterDay() - outStadingTableView.getToDay());
                     outStadingTableView.setImage(up);
+                } else {
+                    outStadingTableView.setTrend(outStadingTableView.getToDay() - outStadingTableView.getYesterDay());
+                    outStadingTableView.setImage(down);
                 }
 
                 outStadingTableViewList.add(outStadingTableView);

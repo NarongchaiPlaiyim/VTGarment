@@ -15,4 +15,6 @@ public class OutStadingTableView {
     private String styleYesterDay;
     private int trend;
     private String image;
+
+    private int target;
 }

@@ -43,17 +43,17 @@ public class OtpDAO extends GenericDAO<String, Integer> {
 //                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
 //                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
 
-        sql.append(" SELECT otp_today.code||otp_today.name AS CODE_NAME, otp_yesterday.rework_actual AS YESTERDAY, otp_today.rework_actual AS TODAY")
+        sql.append(" SELECT otp_today.code||otp_today.name AS CODE_NAME, otp_yesterday.sew_otp_actual AS YESTERDAY, otp_today.sew_otp_actual AS TODAY, otp_today.sew_otp_target AS TARGET")
                 .append(" FROM line")
                 .append(" INNER JOIN (")
-                .append(" SELECT line.id, code, name, rework_actual")
+                .append(" SELECT line.id, code, name, sew_otp_actual, sew_otp_target")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start)")
                 .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
                 .append(" ) AS otp_today ON line.id = otp_today.id")
                 .append(" INNER JOIN (")
-                .append(" SELECT production.line_id, rework_actual")
+                .append(" SELECT production.line_id, sew_otp_actual")
                 .append(" FROM production")
                 .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
                 .append(" WHERE date_part('year', actual_start) || '-' || date_part('month', actual_start) || '-' || date_part('day', actual_start)")
@@ -76,7 +76,7 @@ public class OtpDAO extends GenericDAO<String, Integer> {
             sql.append(" AND production.line_id in (").append(lineId).append(")");
         }
 
-        sql.append(" GROUP BY otp_today.code, otp_today.name, otp_yesterday.rework_actual, otp_today.rework_actual");
+        sql.append(" GROUP BY otp_today.code, otp_today.name, otp_yesterday.sew_otp_actual, otp_today.sew_otp_actual, otp_today.sew_otp_target");
         sql.append(" ORDER BY otp_today.code");
 
         log.debug("getOtp : {}", sql.toString());
@@ -85,7 +85,8 @@ public class OtpDAO extends GenericDAO<String, Integer> {
             SQLQuery query = getSession().createSQLQuery(sql.toString())
                     .addScalar("CODE_NAME", StringType.INSTANCE)
                     .addScalar("YESTERDAY", BigDecimalType.INSTANCE)
-                    .addScalar("TODAY", BigDecimalType.INSTANCE);
+                    .addScalar("TODAY", BigDecimalType.INSTANCE)
+                    .addScalar("TARGET", BigDecimalType.INSTANCE);
             List<Object[]> objects = query.list();
 
             for (Object[] entity : objects) {
@@ -95,16 +96,25 @@ public class OtpDAO extends GenericDAO<String, Integer> {
                 otpTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
                 otpTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
+                otpTableView.setTarget(Utils.parseBigDecimal(entity[3]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+
+                if (Utils.compareLessBigDecimal(otpTableView.getToDay(), otpTableView.getTarget())){
+                    otpTableView.setStyleToDay(green);
+                } else {
+                    otpTableView.setStyleToDay(red);
+                }
+
+                if (Utils.compareLessBigDecimal(otpTableView.getYesterDay(), otpTableView.getTarget())){
+                    otpTableView.setStyleYesterDay(green);
+                } else {
+                    otpTableView.setStyleYesterDay(red);
+                }
 
                 if (Utils.compareMoreBigDecimal(otpTableView.getToDay(), otpTableView.getYesterDay())){
                     otpTableView.setTrend(otpTableView.getToDay().subtract(otpTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                    otpTableView.setStyleToDay(green);
-                    otpTableView.setStyleYesterDay(red);
                     otpTableView.setImage(up);
                 } else {
                     otpTableView.setTrend(otpTableView.getYesterDay().subtract(otpTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
-                    otpTableView.setStyleToDay(red);
-                    otpTableView.setStyleYesterDay(green);
                     otpTableView.setImage(down);
                 }
 

@@ -8,6 +8,7 @@ import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,17 +42,17 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
 //                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
 //                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
 
-        sql.append(" SELECT rework_today.code||rework_today.name AS CODE_NAME, rework_yesterday.rework_qty_actual AS YESTERDAY, rework_today.rework_qty_actual AS TODAY")
+        sql.append(" SELECT rework_today.code||rework_today.name AS CODE_NAME, rework_yesterday.rework_actual AS YESTERDAY, rework_today.rework_actual AS TODAY, rework_today.rework_target AS TARGET")
                 .append(" FROM line")
                 .append(" INNER JOIN (")
-                .append(" SELECT line.id, code, name, rework_qty_actual")
+                .append(" SELECT line.id, code, name, rework_actual, rework_target")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
                 .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
                 .append(" ) AS rework_today ON line.id = rework_today.id")
                 .append(" INNER JOIN(")
-                .append(" SELECT production.line_id, rework_qty_actual")
+                .append(" SELECT production.line_id, rework_actual")
                 .append(" FROM production")
                 .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
@@ -75,7 +76,7 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
         }
 
 
-        sql.append(" GROUP BY rework_today.code, rework_today.name, rework_yesterday.rework_qty_actual, rework_today.rework_qty_actual");
+        sql.append(" GROUP BY rework_today.code, rework_today.name, rework_yesterday.rework_actual, rework_today.rework_actual, rework_today.rework_target");
         sql.append(" ORDER BY rework_today.code");
 
         log.debug("getRework : {}", sql.toString());
@@ -84,26 +85,37 @@ public class ReworkDAO extends GenericDAO<String, Integer> {
             SQLQuery query = getSession().createSQLQuery(sql.toString())
                     .addScalar("CODE_NAME", StringType.INSTANCE)
                     .addScalar("YESTERDAY", BigDecimalType.INSTANCE)
-                    .addScalar("TODAY", BigDecimalType.INSTANCE);
+                    .addScalar("TODAY", BigDecimalType.INSTANCE)
+                    .addScalar("TARGET", BigDecimalType.INSTANCE);
             List<Object[]> objects = query.list();
 
             for (Object[] entity : objects) {
                 ReworkTableView reworkTableView = new ReworkTableView();
 
                 reworkTableView.setLineCode(Utils.parseString(entity[0]));
-                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]));
-                reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]));
+                reworkTableView.setYesterDay(Utils.parseBigDecimal(entity[1]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                reworkTableView.setToDay(Utils.parseBigDecimal(entity[2]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+
+                reworkTableView.setTarget(Utils.parseBigDecimal(entity[3]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+
+                if (Utils.compareLessBigDecimal(reworkTableView.getToDay(), reworkTableView.getTarget())){
+                    reworkTableView.setStyleToDay(green);
+                } else {
+                    reworkTableView.setStyleToDay(red);
+                }
+
+                if (Utils.compareLessBigDecimal(reworkTableView.getYesterDay(), reworkTableView.getTarget())){
+                    reworkTableView.setStyleYesterDay(green);
+                } else {
+                    reworkTableView.setStyleYesterDay(red);
+                }
 
                 if (Utils.compareLessBigDecimal(reworkTableView.getToDay(), reworkTableView.getYesterDay())){
-                    reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()));
-                    reworkTableView.setStyleToDay(red);
-                    reworkTableView.setStyleYesterDay(green);
-                    reworkTableView.setImage(down);
-                } else {
-                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()));
-                    reworkTableView.setStyleToDay(green);
-                    reworkTableView.setStyleYesterDay(red);
+                    reworkTableView.setTrend(reworkTableView.getYesterDay().subtract(reworkTableView.getToDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
                     reworkTableView.setImage(up);
+                } else {
+                    reworkTableView.setTrend(reworkTableView.getToDay().subtract(reworkTableView.getYesterDay()).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
+                    reworkTableView.setImage(down);
                 }
 
                 reworkTableViewList.add(reworkTableView);

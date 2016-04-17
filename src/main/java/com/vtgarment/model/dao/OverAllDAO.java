@@ -17,7 +17,7 @@ import java.util.List;
  * Created by pakorn on 31/03/2016.
  */
 @Repository
-public class DashboardDAO extends GenericDAO<String, Integer>{
+public class OverAllDAO extends GenericDAO<String, Integer>{
 
     private final String ALL = "All";
     private final int twoDecimal = 2;

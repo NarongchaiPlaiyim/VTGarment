@@ -21,4 +21,7 @@ public class SummaryTableView {
     private int totalYesterDayOutStading;
     private int totalToDayOutStading;
     private int totalTrendOutStading;
+
+    private BigDecimal summaryTarget = BigDecimal.ZERO;
+    private int totalTarget;
 }

@@ -17,4 +17,6 @@ public class OtpTableView {
     private String styleYesterDay;
     private BigDecimal trend;
     private String image;
+
+    private BigDecimal target;
 }
