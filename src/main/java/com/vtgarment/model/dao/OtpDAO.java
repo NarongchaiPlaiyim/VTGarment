@@ -98,13 +98,13 @@ public class OtpDAO extends GenericDAO<String, Integer> {
 
                 otpTableView.setTarget(Utils.parseBigDecimal(entity[3]).setScale(twoDecimal, BigDecimal.ROUND_HALF_EVEN));
 
-                if (Utils.compareLessBigDecimal(otpTableView.getToDay(), otpTableView.getTarget())){
+                if (Utils.compareMoreBigDecimal(otpTableView.getToDay(), otpTableView.getTarget())){
                     otpTableView.setStyleToDay(green);
                 } else {
                     otpTableView.setStyleToDay(red);
                 }
 
-                if (Utils.compareLessBigDecimal(otpTableView.getYesterDay(), otpTableView.getTarget())){
+                if (Utils.compareMoreBigDecimal(otpTableView.getYesterDay(), otpTableView.getTarget())){
                     otpTableView.setStyleYesterDay(green);
                 } else {
                     otpTableView.setStyleYesterDay(red);

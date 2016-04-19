@@ -82,7 +82,7 @@ public class OtpService extends Service {
                 summaryTableView.setStyleTotalToDay(red);
             }
 
-            if (Utils.compareLessBigDecimal(summaryTableView.getTotalYesterDay(), summaryTableView.getSummaryTarget())){
+            if (Utils.compareMoreBigDecimal(summaryTableView.getTotalYesterDay(), summaryTableView.getSummaryTarget())){
                 summaryTableView.setStyleTotalYesterDay(green);
             } else {
                 summaryTableView.setStyleTotalYesterDay(red);
