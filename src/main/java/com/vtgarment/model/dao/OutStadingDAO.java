@@ -41,17 +41,17 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
 //                .append(" FROM production WHERE id = (SELECT max(id) FROM production)) < date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) ||")
 //                .append(" '-' ||date_part('day', current_timestamp))) AS Yesterday ON today.LINE_ID = yesterday.line_id WHERE 1 = 1");
 
-        sql.append(" SELECT outstading_today.code||outstading_today.name AS CODE_NAME, outstading_yesterday.sew_otp_actual AS YESTERDAY, outstading_today.sew_otp_actual AS TODAY, outstading_today.sew_otp_target AS TARGET")
+        sql.append(" SELECT outstading_today.code||outstading_today.name AS CODE_NAME, outstading_yesterday.rework_qty_actual AS YESTERDAY, outstading_today.rework_qty_actual AS TODAY, outstading_today.rework_qty_target AS TARGET")
                 .append(" FROM line")
                 .append(" INNER JOIN (")
-                .append(" SELECT line.id, code, name, sew_otp_actual, sew_otp_target")
+                .append(" SELECT line.id, code, name, rework_qty_actual, rework_qty_target")
                 .append(" FROM line")
                 .append(" LEFT JOIN production ON line.id = production.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
                 .append(" = date_part('year', current_timestamp) || '-' || date_part('month', current_timestamp) || '-' || date_part('day', current_timestamp)")
                 .append(" ) AS outstading_today ON line.id = outstading_today.id")
                 .append(" INNER JOIN (")
-                .append(" SELECT production.line_id, sew_otp_actual")
+                .append(" SELECT production.line_id, rework_qty_actual")
                 .append(" FROM production")
                 .append(" LEFT JOIN workday ON production.line_id = workday.line_id")
                 .append(" WHERE date_part('year', plan_start) || '-' || date_part('month', plan_start) || '-' || date_part('day', plan_start)")
@@ -74,7 +74,7 @@ public class OutStadingDAO extends GenericDAO<String, Integer>{
         }
 
 
-        sql.append(" GROUP BY outstading_today.code, outstading_today.name, outstading_yesterday.sew_otp_actual, outstading_today.sew_otp_actual, outstading_today.sew_otp_target");
+        sql.append(" GROUP BY outstading_today.code, outstading_today.name, outstading_yesterday.rework_qty_actual, outstading_today.rework_qty_actual, outstading_today.rework_qty_target");
         sql.append(" ORDER BY outstading_today.code");
 
         log.debug("getOutStading : {}", sql.toString());
