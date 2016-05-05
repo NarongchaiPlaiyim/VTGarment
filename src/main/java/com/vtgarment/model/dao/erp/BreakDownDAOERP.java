@@ -17,7 +17,7 @@ import java.util.List;
  * Created by pakorn on 03/04/2016.
  */
 @Repository
-public class BreakDownDAO extends GenericERPDAO<String, Integer> {
+public class BreakDownDAOERP extends GenericERPDAO<String, Integer> {
     private final int twoDecimal = 2;
     @Value("#{config['style.red']}") private String red;
     @Value("#{config['style.green']}") private String green;
