@@ -65,6 +65,7 @@
                                                          onstart="PF('bui').block()"
                                                          action="#{importProductionPlanBean.onDeplayProductionPlan}"
                                                          oncomplete="PF('bui').unblock()"
+                                                         disabled="#{importProductionPlanBean.flagDeploy}"
                                                          update=":msgBoxSystemMessagePanel, :frmImportProduct"/>
                                     </td>
                                 </tr>

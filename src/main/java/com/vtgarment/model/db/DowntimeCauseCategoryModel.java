@@ -14,10 +14,9 @@ import javax.persistence.*;
 public class DowntimeCauseCategoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     private int id;
 
     @Basic
-    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "description", nullable = true, insertable = true, updatable = true)
     private String description;
 }

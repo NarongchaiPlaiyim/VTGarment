@@ -14,9 +14,8 @@ import javax.persistence.*;
 public class SystemStatusModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     private int id;
 
-    @Column(name = "status", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "status", nullable = true, insertable = true, updatable = true)
     private String status;
 }

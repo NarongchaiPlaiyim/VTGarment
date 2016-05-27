@@ -1,6 +1,7 @@
 package com.vtgarment.transform;
 
 import com.vtgarment.model.db.ProductionPlanModel;
+import com.vtgarment.model.erp.ProductionPlanModelERP;
 import com.vtgarment.model.view.ImportProductionPlanCSVView;
 import com.vtgarment.model.view.System.ImportProductionPlanView;
 import com.vtgarment.utils.Utils;
@@ -65,20 +66,18 @@ public class ImportProductionPlanTransform extends Transform{
         return importProductionPlanView;
     }
 
-    public ArrayList<ProductionPlanModel> transformViewListToModelList(ArrayList<ImportProductionPlanView> viewList, int id){
+    public ArrayList<ProductionPlanModel> transformViewListToModelList(ArrayList<ImportProductionPlanView> viewList){
         log.debug("--transformViewListToModelList()");
         ArrayList<ProductionPlanModel> modelList = new ArrayList<>();
-        int maxId = id;
 
         for (ImportProductionPlanView view : viewList){
-            modelList.add(transformViewToModel(view, maxId++));
+            modelList.add(transformViewToModel(view));
         }
 
         return modelList;
     }
 
-    public ProductionPlanModel transformViewToModel(ImportProductionPlanView view, int id){
-        log.debug("id : {}", id);
+    public ProductionPlanModel transformViewToModel(ImportProductionPlanView view){
         ProductionPlanModel model = new ProductionPlanModel();
 
 //        model.setId(id);
@@ -96,5 +95,36 @@ public class ImportProductionPlanTransform extends Transform{
         log.debug(" model : {}", model.toString());
 
         return model;
+    }
+
+    public ArrayList<ProductionPlanModelERP> transformViewListToModelListERP(ArrayList<ImportProductionPlanView> viewList){
+        log.debug("--transformViewListToModelList()");
+        ArrayList<ProductionPlanModelERP> modelListERP = new ArrayList<>();
+
+        for (ImportProductionPlanView view : viewList){
+            modelListERP.add(transformViewToModelERP(view));
+        }
+
+        return modelListERP;
+    }
+
+    public ProductionPlanModelERP transformViewToModelERP(ImportProductionPlanView view){
+        ProductionPlanModelERP modelERP = new ProductionPlanModelERP();
+
+//        model.setId(id);
+        modelERP.setLine(view.getLine());
+        modelERP.setStyle(view.getStyle());
+        modelERP.setCo(view.getCo());
+        modelERP.setQty(Integer.parseInt(view.getQty()));
+
+        try {
+            modelERP.setShipment(Utils.convertStringToDate(view.getShipment()));
+        } catch (Exception e) {
+            log.debug("Exception shipment is null : {}", e);
+        }
+
+        log.debug(" model : {}", modelERP.toString());
+
+        return modelERP;
     }
 }

@@ -14,10 +14,9 @@ import javax.persistence.*;
 public class FactoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     private int id;
 
     @Basic
-    @Column(name = "name", nullable = false, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = false, insertable = true, updatable = true)
     private String name;
 }

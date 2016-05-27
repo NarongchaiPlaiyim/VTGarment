@@ -1,8 +1,9 @@
-package com.vtgarment.model.db;
+package com.vtgarment.model.erp;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,8 +15,9 @@ import java.util.Date;
 @Setter
 @ToString
 @Entity
-@Table(name = "production_plan", schema = "public")
-public class ProductionPlanModel {
+@Table(name = "production_plan")
+@Proxy(lazy=false)
+public class ProductionPlanModelERP {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

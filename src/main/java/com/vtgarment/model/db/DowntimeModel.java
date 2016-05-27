@@ -15,7 +15,7 @@ import java.util.Date;
 public class DowntimeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+
     private int id;
 
     @Temporal(TemporalType.TIMESTAMP)

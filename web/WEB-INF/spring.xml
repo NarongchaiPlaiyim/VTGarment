@@ -33,18 +33,28 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <tx:annotation-driven transaction-manager="transactionManagerERP"/>
 
+    <!--<bean id="sessionFactoryERP" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="packagesToScan" value="com.vtgarment.model.erp"/>-->
+        <!--<property name="hibernateProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <!--<prop key="hibernate.default_schema">${schema}</prop>-->
+                <!--<prop key="hibernate.default_catalog">${catalog}</prop>-->
+                <!--<prop key="current_session_context_class">thread</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--1-->
+
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="#{config['hibernate.driverClassName']}"/>
         <property name="url" value="#{config['url']}"/>
         <property name="username" value="#{config['username']}"/>
         <property name="password" value="#{config['password']}"/>
-    </bean>
-
-    <bean id="dataSourceERP" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="#{config['hibernate.driverClassName.erp']}"/>
-        <property name="url" value="#{config['url.erp']}"/>
-        <property name="username" value="#{config['username.erp']}"/>
-        <property name="password" value="#{config['password.erp']}"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -60,28 +70,41 @@
         </property>
     </bean>
 
-    <bean id="sessionFactoryERP" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.vtgarment.model.erp"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.default_schema">${schema}</prop>
-                <prop key="hibernate.default_catalog">${catalog}</prop>
-                <prop key="current_session_context_class">thread</prop>
-            </props>
-        </property>
-    </bean>
-
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="transactionManagerERP" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactoryERP"/>
-    </bean>
+    <!-- ... -->
+
+    <!--2-->
+
+    <!--<bean id="dataSourceERP" class="org.apache.commons.dbcp.BasicDataSource">-->
+        <!--<property name="driverClassName" value="#{config['hibernate.driverClassName.erp']}"/>-->
+        <!--<property name="url" value="#{config['url.erp']}"/>-->
+        <!--<property name="username" value="#{config['username.erp']}"/>-->
+        <!--<property name="password" value="#{config['password.erp']}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="sessionFactoryERP" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSourceERP" />-->
+        <!--<property name="packagesToScan" value="com.vtgarment.model.erp"/>-->
+        <!--<property name="hibernateProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <!--&lt;!&ndash;<prop key="hibernate.default_schema">${schema}</prop>&ndash;&gt;-->
+                <!--&lt;!&ndash;<prop key="hibernate.default_catalog">${catalog}</prop>&ndash;&gt;-->
+                <!--<prop key="current_session_context_class">thread</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="transactionManagerERP" class="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
+        <!--<property name="sessionFactory" ref="sessionFactoryERP"/>-->
+    <!--</bean>-->
+
+    <!-- ... -->
 
     <!--Logger-->
     <bean id="log" class="org.slf4j.LoggerFactory" factory-method="getLogger">

@@ -15,13 +15,12 @@ import java.util.Date;
 public class ProductionModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     private int id;
 
-    @Column(name = "co", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "co", nullable = true, insertable = true, updatable = true)
     private String co;
 
-    @Column(name = "style", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "style", nullable = true, insertable = true, updatable = true)
     private String style;
 
     @Column(name = "qty", nullable = true, insertable = true, updatable = true)

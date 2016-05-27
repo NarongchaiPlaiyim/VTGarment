@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class UserLineModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     private int id;
 
     @Column(name="user_id")

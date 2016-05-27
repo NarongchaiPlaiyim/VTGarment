@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -13,13 +16,12 @@ import javax.persistence.*;
 @Table(name = "button", schema = "public")
 public class ButtonModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+
     private int id;
 
-    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "name", nullable = true, insertable = true, updatable = true)
     private String name;
 
-    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 2147483647)
+    @Column(name = "description", nullable = true, insertable = true, updatable = true)
     private String description;
 }

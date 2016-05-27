@@ -29,6 +29,8 @@ public class ImportProductionPlanBean extends Bean{
     private ArrayList<ImportProductionPlanView> filterlist;
     private boolean complete;
 
+    private boolean flagDeploy = Boolean.TRUE;
+
     @PostConstruct
     public void onCreation(){
         init();
@@ -57,6 +59,7 @@ public class ImportProductionPlanBean extends Bean{
                 list = importProductionPlanService.importProcess(file.getInputstream());
             }
             log.debug("ImportProductionPlan size : {}", list.size());
+            flagDeploy = Boolean.FALSE;
         } catch (Exception e){
             log.error("Exception onSubmitImportCSV : {}", e);
         }
@@ -65,11 +68,22 @@ public class ImportProductionPlanBean extends Bean{
     public void onDeplayProductionPlan(){
 
         try {
-            importProductionPlanService.deploy(list);
-            showDialog(MessageDialog.UPDATE.getMessageHeader(), "Success.", "msgBoxSystemMessageDlg");
+
+            if (Utils.isSafetyList(list)){
+                importProductionPlanService.deploy(list);
+                showDialog(MessageDialog.UPDATE.getMessageHeader(), "Success.", "msgBoxSystemMessageDlg");
+            } else {
+                showDialog(MessageDialog.UPDATE.getMessageHeader(), "ไม่มีข้อมูล", "msgBoxSystemMessageDlg");
+            }
+
+            flagDeploy = Boolean.TRUE;
         } catch (Exception e) {
             log.error("Exception onDeplayProductionPlan error : {}", e);
             showDialog(MessageDialog.WARNING.getMessageHeader(), e.getMessage(), "msgBoxSystemMessageDlg");
         }
+    }
+
+    public static void main(String[] args) {
+//        System.out.println("----" + new java.sql.Date(new java.util.Date().getTime()));
     }
 }
