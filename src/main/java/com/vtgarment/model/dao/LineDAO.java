@@ -61,7 +61,7 @@ public class LineDAO extends GenericDAO<LineModel, Integer> {
 
             Date date = (Date) query.uniqueResult();
 
-            return Utils.convertToStringDDMMYYYY(date);
+            return Utils.convertToStringDDMMYYYYHHmmss(date);
 
         } catch (Exception e) {
             log.debug("Exception SQL : {}", e);
@@ -103,7 +103,7 @@ public class LineDAO extends GenericDAO<LineModel, Integer> {
 
             Date date = (Date) query.uniqueResult();
 
-            return Utils.convertToStringDDMMYYYY(date);
+            return Utils.convertToStringDDMMYYYYHHmmss(date);
 
         } catch (Exception e) {
             log.debug("Exception SQL : {}", e);

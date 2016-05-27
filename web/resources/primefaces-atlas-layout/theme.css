@@ -3404,7 +3404,7 @@ hr.ui-widget-header {
   background-color: #657e85;
 }
 .ui-fieldset-legend .ui-icon-plusthick {
-  background-image: url("../primefaces-atlas-layout/images/plus-sign.svg");
+  background-image: url("../resources/primefaces-atlas-layout/images/plus-sign.svg");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 90%;
@@ -4811,7 +4811,7 @@ hr.ui-widget-header {
   padding: 3px 20px 4px 20px !important;
 }
 .ui-spinner .ui-spinner-up .ui-button-text .ui-icon {
-  background-image: url("../primefaces-atlas-layout/images/plus-sign.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/plus-sign.svg") !important;
   background-position: center !important;
   background-size: 80% !important;
   margin-left: 12px;
@@ -5271,22 +5271,22 @@ table tbody tr td {
 }
 .ui-fileupload-choose .ui-icon-plusthick,
 .ui-fileupload-simple .ui-icon-plusthick {
-  background-image: url("../primefaces-atlas-layout/images/plus-sign.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/plus-sign.svg") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-upload .ui-icon-arrowreturnthick-1-n {
-  background-image: url("../primefaces-atlas-layout/images/upload.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/upload.svg") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-cancel .ui-icon-cancel {
-  background-image: url("../primefaces-atlas-layout/images/delete.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/delete.svg") !important;
   background-position: center !important;
   background-size: 100% !important;
 }
 .ui-fileupload-content .ui-fileupload-cancel .ui-icon-close {
-  background-image: url("../primefaces-atlas-layout/images/delete.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/delete.svg") !important;
   background-position: center !important;
   background-size: 100% !important;
 }

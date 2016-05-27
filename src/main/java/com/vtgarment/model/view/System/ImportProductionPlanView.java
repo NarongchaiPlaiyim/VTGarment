@@ -17,6 +17,9 @@ public class ImportProductionPlanView {
     private String qty;
     private String shipment;
 
+    public ImportProductionPlanView() {
+    }
+
     public ImportProductionPlanView(String line, String style, String co, String qty, String shipment) {
         this.line = line;
         this.style = style;

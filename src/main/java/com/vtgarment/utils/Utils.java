@@ -282,11 +282,25 @@ public enum Utils {
         }
     }
 
-    public static String convertCurrentDateToStringDDMMYYYY(){
-        return convertToStringDDMMYYYY(currentDate());
+    public static String convertCurrentDateToStringDDMMYYYY(Date date){
+        return convertToStringDDMMYYYY(date);
     }
 
     public static String convertToStringDDMMYYYY(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        if (Utils.isNull(date)){
+            return "";
+        } else {
+            String dateString = simpleDateFormat.format(date);
+            return dateString;
+        }
+    }
+
+    public static String convertCurrentDateToStringDDMMYYYYHHmmss(){
+        return convertToStringDDMMYYYYHHmmss(currentDate());
+    }
+
+    public static String convertToStringDDMMYYYYHHmmss(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
         if (Utils.isNull(date)){
             return "";

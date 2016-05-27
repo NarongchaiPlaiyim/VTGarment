@@ -7,7 +7,18 @@
         xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Import Production Plan</title>
-        <h:outputScript library="js" name="custom.js"/>
+        <meta name="viewport" content="width=device-width"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <script type="text/javascript">if(window.PrimeFaces){}</script>
+
+        <h:outputScript library="js" name="custom.js" />
+
+        <style>
+            .ui-fileupload{
+                height: 39px;
+            }
+        </style>
     </h:head>
     <h:body>
         <p:layout fullPage="true" id="layoutPanel">
@@ -32,7 +43,15 @@
                                         <p:inputText />
                                     </td>
                                     <td>
-                                        <p:button value="Browse"/>
+                                        <p:fileUpload fileUploadListener="#{importProductionPlanBean.onSubmitImportCSV}"
+                                                      allowTypes="/(\.|\/)(csv)$/"
+                                                      sizeLimit="5000000"
+                                                      required="true"
+                                                      multiple="flase"
+                                                      fileLimit="1"
+                                                      auto="false"
+                                                      update=":frmImportProduct"
+                                                />
                                     </td>
                                 </tr>
                             </table>
@@ -41,10 +60,12 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <p:button value="Import"/>
-                                    </td>
-                                    <td>
-                                        <p:button value="Deploy Data"/>
+                                        <p:commandButton id="btn_deploy"
+                                                         value="Deploy Data"
+                                                         onstart="PF('bui').block()"
+                                                         action="#{importProductionPlanBean.onDeplayProductionPlan}"
+                                                         oncomplete="PF('bui').unblock()"
+                                                         update=":msgBoxSystemMessagePanel, :frmImportProduct"/>
                                     </td>
                                 </tr>
                             </table>
@@ -86,6 +107,21 @@
                 </h:form>
             </p:layoutUnit>
         </p:layout>
+
+        <p:panel id="msgBoxSystemMessagePanel" style="border: 0">
+            <p:confirmDialog id="msgBoxSystemMessageDialog" widgetVar="msgBoxSystemMessageDlg" width="#{msg.get('dialog.message.size')}"
+                             closable="false"
+                             header="#{importProductionPlanBean.messageHeader}" message="#{importProductionPlanBean.message}" >
+                <div style="text-align: right">
+                    <p:commandButton value="#{msg.get('btn.name.ok')}"
+                                     styleClass="medium"
+                                     icon="ui-icon-check"
+                                     process="@this"
+                                     update="frmImportProduct"
+                                     oncomplete="PF('msgBoxSystemMessageDlg').hide()"/>
+                </div>
+            </p:confirmDialog>
+        </p:panel>
     </h:body>
 </f:view>
 </html>
