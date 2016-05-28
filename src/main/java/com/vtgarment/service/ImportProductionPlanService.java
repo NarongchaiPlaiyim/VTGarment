@@ -83,7 +83,7 @@ public class ImportProductionPlanService extends Service{
 
         if (!Utils.isNull(lineModel.getIpAddress()) && !Utils.isEmpty(lineModel.getIpAddress())){
 
-            String user = "user=" + lineModel.getUser();
+            String user = "user=" + lineModel.getUserName();
             String password = "password=" + lineModel.getPassword();
 
             connection.append(JDBC).append(lineModel.getIpAddress()).append(SCHEMA).append(user).append(AND).append(password);

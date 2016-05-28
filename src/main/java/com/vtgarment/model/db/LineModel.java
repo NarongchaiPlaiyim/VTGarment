@@ -32,8 +32,8 @@ public class LineModel {
     @Column(name="ipaddress")
     private String ipAddress;
 
-    @Column(name="user")
-    private String user;
+    @Column(name="user_name")
+    private String userName;
 
     @Column(name="password")
     private String password;
