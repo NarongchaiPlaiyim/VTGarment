@@ -200,14 +200,14 @@ label.ui-state-error {
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-  background-image: url("../primefaces-atlas-layout/images/ui-icons_72b42d_256x240.png");
+  background-image: url("../resources/primefaces-atlas-layout/images/ui-icons_72b42d_256x240.png");
 }
 .ui-widget-header .ui-icon {
   /*background-image: url("images/ui-icons_ffffff_256x240.png");*/
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-  background-image: url("../primefaces-atlas-layout/images/ui-icons_ffffff_256x240.png");
+  background-image: url("../resources/primefaces-atlas-layout/images/ui-icons_ffffff_256x240.png");
 }
 .ui-state-active .ui-icon {
   background-image: url("../primefaces-atlas-layout/images/ui-icons_ffffff_256x240.png");
@@ -2416,7 +2416,7 @@ hr.ui-widget-header {
   background-size: 130%;
 }
 .ui-tree .ui-icon-triangle-1-w {
-  background-image: url("../primefaces-atlas-layout/images/leftarrow-navy.svg");
+  background-image: url("../resources/primefaces-atlas-layout/images/leftarrow-navy.svg");
   background-position: center !important;
   background-repeat: no-repeat;
   background-size: 120%;
@@ -3733,7 +3733,7 @@ hr.ui-widget-header {
   color: #ef3f61;
 }
 .ui-menu .ui-slidemenu-wrapper .ui-slidemenu-backward .ui-icon-triangle-1-w {
-  background-image: url("../primefaces-atlas-layout/images/leftarrow-gray.svg");
+  background-image: url("../resources/primefaces-atlas-layout/images/leftarrow-gray.svg");
   margin: 2px 5px 0px 0px;
   background-position: center !important;
   background-repeat: no-repeat;
@@ -5391,7 +5391,7 @@ table tbody tr td {
   padding: 8px 6px 10px 10px !important;
   font-size: 14px;
   font-family: 'dosismedium';
-  background-color: #003d50;
+  background-color: #0292c7;
   border-radius: 2px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-title {
@@ -5404,13 +5404,13 @@ table tbody tr td {
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-n {
-  background-image: url("../primefaces-atlas-layout/images/uparrow.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/uparrow.svg") !important;
   background-position: center !important;
   background-size: 120% !important;
   margin-top: 3px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-triangle-1-w {
-  background-image: url("../primefaces-atlas-layout/images/left-arrow.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/left-arrow.svg") !important;
   background-position: center !important;
   background-size: 100% !important;
   margin-top: 3px;
@@ -5428,7 +5428,7 @@ table tbody tr td {
   margin-top: 3px;
 }
 .ui-layout-resizer .ui-layout-toggler .ui-icon-arrow-4-diag {
-  background-image: url("../primefaces-atlas-layout/images/expand-gray.svg") !important;
+  background-image: url("../resources/primefaces-atlas-layout/images/expand-gray.svg") !important;
   background-position: center !important;
   background-size: 110% !important;
 }

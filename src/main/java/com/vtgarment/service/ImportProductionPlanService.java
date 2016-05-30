@@ -70,8 +70,8 @@ public class ImportProductionPlanService extends Service{
             }
         }
 
-        statement.close();
-        connect.close();
+//        statement.close();
+//        connect.close();
     }
 
     public void insertToMySQL(LineModel lineModel, ArrayList<ProductionPlanModel> modelList) throws Exception {

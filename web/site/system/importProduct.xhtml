@@ -22,12 +22,12 @@
     </h:head>
     <h:body>
         <p:layout fullPage="true" id="layoutPanel">
-            <p:layoutUnit id="layoutTop" position="north" size="180"  collapsible="true" style="border: 0">
-                <ui:insert name="header">
+            <p:layoutUnit id="layoutTop" position="north" size="180" header="Profile" collapsible="true" style="border: 0">
+                <!--<ui:insert name="header">-->
                     <ui:include src="../include/header.xhtml"/>
-                </ui:insert>
+                <!--</ui:insert>-->
             </p:layoutUnit>
-            <p:layoutUnit id="layoutLeft" position="west"  collapsible="true" style="border: 0">
+            <p:layoutUnit id="layoutLeft" position="west" size="200" header="Menu"  collapsible="true" style="border: 0">
                 <ui:include src="../include/menu.xhtml"/>
             </p:layoutUnit>
             <p:layoutUnit id="layoutCenter" position="center" header="Import Production Plan">
